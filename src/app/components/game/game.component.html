@@ -2,11 +2,17 @@
     <h2>Current Move: {{ currentMove }}</h2>
     <p>{{ points }}</p>
     <p>Bonus: +{{ scoreBonus }}</p>
-    <p>Streak: {{ streak }}</p>
+    <p>Mult: x{{ mult }}</p>
+    <p>Streak: {{ streak }} (extra: +{{ streakBonus }})</p>
     <div class="controls">
       <button (click)="makeChoice('Rock')">Rock</button>
       <button (click)="makeChoice('Paper')">Paper</button>
       <button (click)="makeChoice('Scissors')">Scissors</button>
+    </div>
+    <div class="controls">
+        <p *ngIf="rockSniperActive">Rock Fuel: {{ rockSniperFuel }}</p>
+        <p *ngIf="paperSniperActive">Paper Fuel: {{ paperSniperFuel }}</p>
+        <p *ngIf="scissorSniperActive">Scissor Fuel: {{ scissorSniperFuel }}</p>
     </div>
 
     <button routerLink="/shop" class="shop-button ">Shop</button>
