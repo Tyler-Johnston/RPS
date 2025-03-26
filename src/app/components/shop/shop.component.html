@@ -1,0 +1,17 @@
+<div class="shop-container">
+    <h2>Shop</h2>
+    <p class="score">Score: {{ score }}</p>
+  
+    <!-- Power-Up Item -->
+    <div class="shop-item">
+      <p>Increase mult (x{{ mult + 1 }})</p>
+      <p>Cost: {{ multUpgradeCost }} points</p>
+      <button (click)="purchasemultUpgrade()" [disabled]="score < multUpgradeCost">
+        Buy
+      </button>
+    </div>
+  
+    <!-- Back Button -->
+    <button routerLink="/" class="back-button">Back to Game</button>
+  </div>
+  

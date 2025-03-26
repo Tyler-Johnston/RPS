@@ -1,0 +1,51 @@
+.game-container {
+    text-align: center;
+    margin: 20px;
+    font-family: 'Arial', sans-serif;
+  }
+  
+  h2 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+  }
+  
+  p {
+    font-size: 1.5rem;
+    margin: 10px 0;
+  }
+  
+  .controls {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+  }
+  
+  button {
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    border-radius: 8px;
+    border: 2px solid #444;
+    background-color: #eee;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  button:hover {
+    background-color: #ddd;
+  }
+  
+.shop-button {
+    margin-top: 20px;
+    padding: 12px 20px;
+    font-size: 1.2rem;
+    background-color: #ffcc00;
+    border-radius: 8px;
+    border: 2px solid #444;
+    color: #333;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.shop-button:hover {
+    background-color: #e6b800;
+}

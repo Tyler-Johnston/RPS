@@ -1,0 +1,14 @@
+<div class="game-container">
+    <h2>Current Move: {{ currentMove }}</h2>
+    <p>{{ result }}</p>
+    <p>{{ score }}</p>
+    <p>Combo: {{ combo }} (mult: {{ mult }})</p>
+    <div class="controls">
+      <button (click)="makeChoice('Rock')">Rock</button>
+      <button (click)="makeChoice('Paper')">Paper</button>
+      <button (click)="makeChoice('Scissors')">Scissors</button>
+    </div>
+
+    <button routerLink="/shop" class="shop-button ">Shop</button>
+</div>
+  
