@@ -14,10 +14,14 @@ export class GameComponent {
   public currentMove: Move = 'Rock';
   public result: string = '';
   private moves: Move[] = ['Rock', 'Paper', 'Scissors'];
-  public score: number = 0;
-  public combo: number = 0;
-  public mult: number = 1;
-  public multUpgradeCost: number = 10;
+  public points: number = 0;
+  public streak: number = 0;
+  public scoreBonus: number = 1;
+  public baseScoreBonusAdditive: number = 0;
+  public scoreBonusUpgradeCost: number = 10;
+  public rockSniperActive: boolean = false;
+  public scissorSniperActive: boolean = false;
+  public paperSniperActive: boolean = false;
 
   constructor() {
     this.loadGameData();
@@ -27,17 +31,35 @@ export class GameComponent {
   generateRandomMove(): void {
     const randomIndex = Math.floor(Math.random() * this.moves.length);
     this.currentMove = this.moves[randomIndex];
+
+    if (this.scissorSniperActive && this.currentMove === 'Scissors') {
+      setTimeout(() => {
+        this.makeChoice('Rock');
+      }, 500); // pause for 0.5 seconds
+    }
+
+    if (this.rockSniperActive && this.currentMove === 'Rock') {
+      setTimeout(() => {
+        this.makeChoice('Paper');
+      }, 500); // pause for 0.5 seconds
+    }
+
+    if (this.paperSniperActive && this.currentMove === 'Paper') {
+      setTimeout(() => {
+        this.makeChoice('Scissors');
+      }, 500); // pause for 0.5 seconds
+    }
   }
 
   makeChoice(playerMove: Move): void {
     this.result = this.calculateResult(playerMove, this.currentMove);
     if (this.result === 'You Win!') {
-      this.combo++;
-      this.mult = Math.floor(1 + this.combo / 5);
-      this.score += this.mult;
+      this.streak++;
+      this.scoreBonus = Math.floor(1 + this.streak / 5) + this.baseScoreBonusAdditive;
+      this.points += this.scoreBonus;
     } else {
-      this.combo = 0;
-      this.mult = 1;
+      this.streak = 0;
+      this.scoreBonus = this.baseScoreBonusAdditive;
     }
     this.saveGameData();
     this.generateRandomMove();
@@ -58,16 +80,24 @@ export class GameComponent {
   }
 
   private saveGameData(): void {
-    localStorage.setItem('score', String(this.score));
-    localStorage.setItem('mult', String(this.mult));
-    localStorage.setItem('combo', String(this.combo));
-    localStorage.setItem('multUpgradeCost', String(this.multUpgradeCost));
+    localStorage.setItem('points', String(this.points));
+    localStorage.setItem('scoreBonus', String(this.scoreBonus));
+    localStorage.setItem('streak', String(this.streak));
+    localStorage.setItem('scoreBonusUpgradeCost', String(this.scoreBonusUpgradeCost));
+    localStorage.setItem('baseScoreBonusAdditive', String(this.baseScoreBonusAdditive));
+    localStorage.setItem('rockSniperActive', String(this.rockSniperActive));
+    localStorage.setItem('scissorSniperActive', String(this.scissorSniperActive));
+    localStorage.setItem('paperSniperActive', String(this.paperSniperActive));
   }
 
   private loadGameData(): void {
-    this.score = Number(localStorage.getItem('score') || 0);
-    this.mult = Number(localStorage.getItem('mult') || 1);
-    this.combo = Number(localStorage.getItem('combo') || 0);
-    this.multUpgradeCost = Number(localStorage.getItem('multUpgradeCost') || 10);
+    this.points = Number(localStorage.getItem('points') || 0);
+    this.scoreBonus = Number(localStorage.getItem('scoreBonus') || 1);
+    this.streak = Number(localStorage.getItem('streak') || 0);
+    this.scoreBonusUpgradeCost = Number(localStorage.getItem('scoreBonusUpgradeCost') || 10);
+    this.baseScoreBonusAdditive = Number(localStorage.getItem('baseScoreBonusAdditive') || 0);
+    this.rockSniperActive = localStorage.getItem('rockSniperActive') === 'true';
+    this.scissorSniperActive = localStorage.getItem('scissorSniperActive') === 'true';
+    this.paperSniperActive = localStorage.getItem('paperSniperActive') === 'true';
   }
 }

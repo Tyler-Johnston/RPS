@@ -1,7 +1,8 @@
 <div class="game-container">
     <h2>Current Move: {{ currentMove }}</h2>
-    <p>{{ score }}</p>
-    <p>Combo: {{ combo }} (mult: {{ mult }})</p>
+    <p>{{ points }}</p>
+    <p>Bonus: +{{ scoreBonus }}</p>
+    <p>Streak: {{ streak }}</p>
     <div class="controls">
       <button (click)="makeChoice('Rock')">Rock</button>
       <button (click)="makeChoice('Paper')">Paper</button>
