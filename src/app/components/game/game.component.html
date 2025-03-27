@@ -18,7 +18,7 @@
       <button (click)="makeChoice('Scissors')">Scissors</button>
     </div>
 
-    <div *ngIf="gameData.rockSniperActive || gameData.paperSniperActive || gameData.scissorSniperActive"class="sniper-info">
+    <div *ngIf="gameData.rockSniperActive || gameData.paperSniperActive || gameData.scissorSniperActive" class="sniper-info">
         <p *ngIf="gameData.rockSniperActive">Rocks: {{ gameData.rocks }}</p>
         <p *ngIf="gameData.paperSniperActive">Papers: {{ gameData.papers }}</p>
         <p *ngIf="gameData.scissorSniperActive">Scissors: {{ gameData.scissors }}</p>

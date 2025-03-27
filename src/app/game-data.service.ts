@@ -14,7 +14,7 @@ export class GameDataService {
   public scoreBonusUpgradeCost: number = 10;
   public scoreMultUpgradeCost: number = 10000;
   public sniperCost: number = 500;
-  public fuelCost: number = 100;
+  public fuelCost: number = 1000;
 
   public rockSniperActive: boolean = false;
   public paperSniperActive: boolean = false;

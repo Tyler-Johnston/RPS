@@ -6,7 +6,7 @@
     padding: 20px;
     border: 4px solid #eee;
     background-color: #333;
-    width: 515px;
+    width: 550px; /* Slightly wider for a more spacious feel */
     border-radius: 12px;
     box-shadow: 6px 6px #444;
 }
@@ -37,13 +37,13 @@ h2, p {
 .controls {
     margin: 20px 0;
     display: flex;
-    gap: 15px;
+    gap: 20px;
     justify-content: center;
 }
 
 button {
     margin: 5px;
-    padding: 8px 12px;
+    padding: 12px 20px;
     font-size: 1.2rem;
     background: linear-gradient(145deg, #466ef1, #ff5722);
     color: #fff;
@@ -74,6 +74,7 @@ button:disabled {
 .shop-button {
     margin-top: 20px;
     background: linear-gradient(145deg, #26a69a, #00897b);
+    padding: 10px 20px;
 }
 
 .shop-button:hover {
