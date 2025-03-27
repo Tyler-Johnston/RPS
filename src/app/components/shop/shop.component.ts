@@ -16,7 +16,7 @@ export class ShopComponent {
   public pointsPerWin: number = 1;
   public streakBonus: number = 1;
 
-  public scoreMultUpgradeCost: number = 30000
+  public scoreMultUpgradeCost: number = 10000
   public scoreBonusUpgradeCost: number = 10;
   
   public baseScoreMultAdditive: number = 0;
@@ -29,9 +29,9 @@ export class ShopComponent {
   public sniperCost: number = 500;
   public fuelCost: number = 1000;
 
-  public rockSniperFuel : number = 100;
-  public paperSniperFuel : number = 100;
-  public scissorSniperFuel : number = 100;
+  public rocks : number = 100;
+  public papers : number = 100;
+  public scissors : number = 100;
 
   constructor() {
     this.loadGameData();
@@ -45,7 +45,7 @@ export class ShopComponent {
     this.pointsPerWin = Number(localStorage.getItem('pointsPerWin') || 1);
 
     this.scoreBonusUpgradeCost = Number(localStorage.getItem('scoreBonusUpgradeCost') || 10);
-    this.scoreMultUpgradeCost = Number(localStorage.getItem('scoreMultUpgradeCost') || 30000);
+    this.scoreMultUpgradeCost = Number(localStorage.getItem('scoreMultUpgradeCost') || 10000);
     this.baseScoreBonusAdditive = Number(localStorage.getItem('baseScoreBonusAdditive') || 0);
     this.sniperCost = Number(localStorage.getItem('sniperCost') || 500);
 
@@ -53,9 +53,9 @@ export class ShopComponent {
     this.paperSniperActive = localStorage.getItem('paperSniperActive') === 'true';
     this.scissorSniperActive = localStorage.getItem('scissorSniperActive') === 'true';
 
-    this.rockSniperFuel = Number(localStorage.getItem('rockSniperFuel') || 100);
-    this.paperSniperFuel = Number(localStorage.getItem('paperSniperFuel') || 100);
-    this.scissorSniperFuel = Number(localStorage.getItem('scissorSniperFuel') || 100);
+    this.rocks = Number(localStorage.getItem('rocks') || 100);
+    this.papers = Number(localStorage.getItem('papers') || 100);
+    this.scissors = Number(localStorage.getItem('scissors') || 100);
   }
 
   saveGameData(): void {
@@ -74,9 +74,9 @@ export class ShopComponent {
     localStorage.setItem('paperSniperActive', String(this.paperSniperActive));
     localStorage.setItem('scissorSniperActive', String(this.scissorSniperActive));
 
-    localStorage.setItem('rockSniperFuel', String(this.rockSniperFuel));
-    localStorage.setItem('paperSniperFuel', String(this.paperSniperFuel));
-    localStorage.setItem('scissorSniperFuel', String(this.scissorSniperFuel));
+    localStorage.setItem('rocks', String(this.rocks));
+    localStorage.setItem('papers', String(this.papers));
+    localStorage.setItem('scissors', String(this.scissors));
   }
 
   purchaseScoreMultUpgrade(): void {
@@ -139,13 +139,13 @@ purchaseFuel(sniperType: 'rock' | 'paper' | 'scissor', amount: number, fuelCost:
 
     switch (sniperType) {
       case 'rock':
-        this.rockSniperFuel += amount;
+        this.rocks += amount;
         break;
       case 'paper':
-        this.paperSniperFuel += amount;
+        this.papers += amount;
         break;
       case 'scissor':
-        this.scissorSniperFuel += amount;
+        this.scissors += amount;
         break;
     }
 

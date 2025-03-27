@@ -19,9 +19,9 @@
     </div>
 
     <div *ngIf="rockSniperActive || paperSniperActive || scissorSniperActive"class="sniper-info">
-        <p *ngIf="rockSniperActive">Rocks: {{ rockSniperFuel }}</p>
-        <p *ngIf="paperSniperActive">Papers: {{ paperSniperFuel }}</p>
-        <p *ngIf="scissorSniperActive">Scissors: {{ scissorSniperFuel }}</p>
+        <p *ngIf="rockSniperActive">Rocks: {{ rocks }}</p>
+        <p *ngIf="paperSniperActive">Papers: {{ papers }}</p>
+        <p *ngIf="scissorSniperActive">Scissors: {{ scissors }}</p>
     </div>
 
     <button routerLink="/shop" class="shop-button ">Shop</button>
