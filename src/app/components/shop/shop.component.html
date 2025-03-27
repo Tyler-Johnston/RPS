@@ -14,7 +14,7 @@
         </div>
         <div class="shop-item">
             <p>Increase permanent score multiplier</p>
-            <p> (x{{ mult }} -> x{{ mult + 1 }})</p>
+            <p> (x{{ gameData.mult }} -> x{{ gameData.mult + 1 }})</p>
             <p>Cost: {{ gameData.scoreMultUpgradeCost }} points</p>
             <button (click)="purchaseScoreMultUpgrade()" [disabled]="gameData.points < gameData.scoreMultUpgradeCost">
                 Buy
@@ -53,15 +53,16 @@
     <!-- Fuel Purchase -->
     <div class="fuel-container">
         <div class="fuel">
-            <p>Cost: {{ fuelCost }} points</p>
+            <p>Cost: {{ gameData.fuelCost }} points</p>
             <div class="fuel-buttons">
-                <button (click)="purchaseFuel('rock', 50, gameData.fuelCost)" [disabled]="gameData.points < gameData.fuelCost">+50 Rocks</button>
-                <button (click)="purchaseFuel('paper', 50, gameData.fuelCost)" [disabled]="gameData.points < gameData.fuelCost">+50 Papers</button>
-                <button (click)="purchaseFuel('scissor', 50, gameData.fuelCost)" [disabled]="gameData.points < gameData.fuelCost">+50 Scissors</button>
+                <button (click)="purchaseFuel('rock', 50)" [disabled]="gameData.points < gameData.fuelCost">+50 Rocks</button>
+                <button (click)="purchaseFuel('paper', 50)" [disabled]="gameData.points < gameData.fuelCost">+50 Papers</button>
+                <button (click)="purchaseFuel('scissor', 50)" [disabled]="gameData.points < gameData.fuelCost">+50 Scissors</button>
             </div>
         </div>
     </div>
 
     <!-- Back Button -->
     <button routerLink="/" class="back-button">Back to Game</button>
+    <button routerLink="/shop2">></button>
 </div>

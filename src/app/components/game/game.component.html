@@ -9,7 +9,7 @@
 
     <div class="streak-info">
       <p>Streak: {{ gameData.streak }}</p>
-      <p>PPW: {{ pointsPerWin }}</p>
+      <p>PPW: {{ gameData.pointsPerWin }}</p>
     </div>
 
     <div class="controls">
@@ -19,9 +19,9 @@
     </div>
 
     <div *ngIf="gameData.rockSniperActive || gameData.paperSniperActive || gameData.scissorSniperActive"class="sniper-info">
-        <p *ngIf="gameData.rockSniperActive">Rocks: {{ rocks }}</p>
-        <p *ngIf="gameData.paperSniperActive">Papers: {{ papers }}</p>
-        <p *ngIf="gameData.scissorSniperActive">Scissors: {{ scissors }}</p>
+        <p *ngIf="gameData.rockSniperActive">Rocks: {{ gameData.rocks }}</p>
+        <p *ngIf="gameData.paperSniperActive">Papers: {{ gameData.papers }}</p>
+        <p *ngIf="gameData.scissorSniperActive">Scissors: {{ gameData.scissors }}</p>
     </div>
 
     <button routerLink="/shop" class="shop-button ">Shop</button>

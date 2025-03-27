@@ -69,9 +69,9 @@ export class ShopComponent {
     }
 }
 
-purchaseFuel(sniperType: 'rock' | 'paper' | 'scissor', amount: number, fuelCost: number): void {
-  if (this.gameData.points >= fuelCost) {
-    this.gameData.points -= fuelCost;
+purchaseFuel(sniperType: 'rock' | 'paper' | 'scissor', amount: number): void {
+  if (this.gameData.points >= this.gameData.fuelCost) {
+    this.gameData.points -= this.gameData.fuelCost;
 
     switch (sniperType) {
       case 'rock':
