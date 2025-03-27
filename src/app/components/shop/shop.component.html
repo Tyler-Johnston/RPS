@@ -5,14 +5,16 @@
     <!-- Power-Up Item -->
      <div class="container">
         <div class="shop-item">
-            <p>Increase permanent score bonus (+{{ scoreBonus + 1 }})</p>
+            <p>Increase permanent score bonus</p>
+            <p>(+{{baseScoreBonusAdditive}} -> +{{ baseScoreBonusAdditive + 1 }})</p>
             <p>Cost: {{ scoreBonusUpgradeCost }} points</p>
             <button (click)="purchaseScoreBonusUpgrade()" [disabled]="points < scoreBonusUpgradeCost">
                 Buy
             </button>
         </div>
         <div class="shop-item">
-            <p>Increase permanent score multiplier (x{{ mult + 1 }})</p>
+            <p>Increase permanent score multiplier</p>
+            <p> (x{{ mult }} -> x{{ mult + 1 }})</p>
             <p>Cost: {{ scoreMultUpgradeCost }} points</p>
             <button (click)="purchaseScoreMultUpgrade()" [disabled]="points < scoreMultUpgradeCost">
                 Buy

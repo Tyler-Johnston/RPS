@@ -1,5 +1,13 @@
 <main class="main">
-  <!-- <h1> {{title}}</h1> -->
-</main>
+  <audio id="backgroundMusic" autoplay loop>
+    <source src="/synth-music.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
 
-<router-outlet />
+  <router-outlet />
+
+  <div class="music-controls">
+    <button [ngClass]="isMusicPlaying ? 'music-button music-on' : 'music-button music-off'" (click)="toggleMusic()">Toggle Music</button>
+  </div>
+
+</main>

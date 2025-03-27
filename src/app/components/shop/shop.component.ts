@@ -12,6 +12,7 @@ export class ShopComponent {
   public scoreBonus: number = 1;
   public points: number = 0;
   public mult: number = 1;
+  public pointsPerWin: number = 1;
 
   public scoreMultUpgradeCost: number = 30000
   public scoreBonusUpgradeCost: number = 10;
@@ -38,6 +39,7 @@ export class ShopComponent {
     this.scoreBonus = Number(localStorage.getItem('scoreBonus') || 1);
     this.points = Number(localStorage.getItem('points') || 0);
     this.mult = Number(localStorage.getItem('mult') || 1);
+    this.pointsPerWin = Number(localStorage.getItem('pointsPerWin') || 1);
 
     this.scoreBonusUpgradeCost = Number(localStorage.getItem('scoreBonusUpgradeCost') || 10);
     this.scoreMultUpgradeCost = Number(localStorage.getItem('scoreMultUpgradeCost') || 30000);
@@ -56,6 +58,7 @@ export class ShopComponent {
     localStorage.setItem('scoreBonus', String(this.scoreBonus));
     localStorage.setItem('points', String(this.points));
     localStorage.setItem('mult', String(this.mult));
+    localStorage.setItem('pointsPerWin', String(this.pointsPerWin));
 
     localStorage.setItem('scoreBonusUpgradeCost', String(this.scoreBonusUpgradeCost));
     localStorage.setItem('scoreMultUpgradeCost', String(this.scoreMultUpgradeCost));

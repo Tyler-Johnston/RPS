@@ -1,0 +1,36 @@
+.main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    text-align: center;
+}
+
+.music-controls {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.music-button {
+    margin: 10px;
+    padding: 8px 16px;
+    font-size: 1rem;
+    color: #fff;
+    border: 3px solid #333;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: transform 0.1s;
+}
+
+.music-on {
+    background-color: #0abaff;
+}
+
+.music-off {
+    background-color: #d035df;
+}
+
+.music-button:hover {
+    transform: scale(1.05);
+}
