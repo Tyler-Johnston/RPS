@@ -1,22 +1,22 @@
 <div class="shop-container">
     <h2>Shop</h2>
-    <p class="points">Points: {{ points }}</p>
+    <p class="points">Points: {{ gameData.points }}</p>
   
     <!-- Power-Up Item -->
      <div class="container">
         <div class="shop-item">
             <p>Increase permanent score bonus</p>
-            <p>(+{{baseScoreBonusAdditive}} -> +{{ baseScoreBonusAdditive + 1 }})</p>
-            <p>Cost: {{ scoreBonusUpgradeCost }} points</p>
-            <button (click)="purchaseScoreBonusUpgrade()" [disabled]="points < scoreBonusUpgradeCost">
+            <p>(+{{gameData.baseScoreBonusAdditive}} -> +{{ gameData.baseScoreBonusAdditive + 1 }})</p>
+            <p>Cost: {{ gameData.scoreBonusUpgradeCost }} points</p>
+            <button (click)="purchaseScoreBonusUpgrade()" [disabled]="gameData.points < gameData.scoreBonusUpgradeCost">
                 Buy
             </button>
         </div>
         <div class="shop-item">
             <p>Increase permanent score multiplier</p>
             <p> (x{{ mult }} -> x{{ mult + 1 }})</p>
-            <p>Cost: {{ scoreMultUpgradeCost }} points</p>
-            <button (click)="purchaseScoreMultUpgrade()" [disabled]="points < scoreMultUpgradeCost">
+            <p>Cost: {{ gameData.scoreMultUpgradeCost }} points</p>
+            <button (click)="purchaseScoreMultUpgrade()" [disabled]="gameData.points < gameData.scoreMultUpgradeCost">
                 Buy
             </button>
         </div>
@@ -27,24 +27,24 @@
         <div class="sniper">
             <p>Rock Sniper</p>
             <p>Automatically counters Scissors with Rock.</p>
-            <p>{{ rockSniperActive ? 'Sold Out' : 'Cost: ' + sniperCost + ' points' }}</p>
-            <button (click)="purchaseSniper('rock')" [disabled]="rockSniperActive || points < sniperCost">
+            <p>{{ gameData.rockSniperActive ? 'Sold Out' : 'Cost: ' + gameData.sniperCost + ' points' }}</p>
+            <button (click)="purchaseSniper('rock')" [disabled]="gameData.rockSniperActive || gameData.points < gameData.sniperCost">
                 Buy
             </button>
         </div>
         <div class="sniper">
             <p>Paper Sniper</p>
             <p>Automatically counters Rock with Paper.</p>
-            <p>{{ paperSniperActive ? 'Sold Out' : 'Cost: ' + sniperCost + ' points' }}</p>
-            <button (click)="purchaseSniper('paper')" [disabled]="paperSniperActive || points < sniperCost">
+            <p>{{ gameData.paperSniperActive ? 'Sold Out' : 'Cost: ' + gameData.sniperCost + ' points' }}</p>
+            <button (click)="purchaseSniper('paper')" [disabled]="gameData.paperSniperActive || gameData.points < gameData.sniperCost">
                 Buy
             </button>
         </div>
         <div class="sniper">
             <p>Scissor Sniper</p>
             <p>Automatically counters Paper with Scissors.</p>
-            <p>{{ scissorSniperActive ? 'Sold Out' : 'Cost: ' + sniperCost + ' points' }}</p>
-            <button (click)="purchaseSniper('scissor')" [disabled]="scissorSniperActive || points < sniperCost">
+            <p>{{ gameData.scissorSniperActive ? 'Sold Out' : 'Cost: ' + gameData.sniperCost + ' points' }}</p>
+            <button (click)="purchaseSniper('scissor')" [disabled]="gameData.scissorSniperActive || gameData.points < gameData.sniperCost">
                 Buy
             </button>
         </div>
@@ -55,9 +55,9 @@
         <div class="fuel">
             <p>Cost: {{ fuelCost }} points</p>
             <div class="fuel-buttons">
-                <button (click)="purchaseFuel('rock', 50, fuelCost)" [disabled]="points < fuelCost">+50 Rocks</button>
-                <button (click)="purchaseFuel('paper', 50, fuelCost)" [disabled]="points < fuelCost">+50 Papers</button>
-                <button (click)="purchaseFuel('scissor', 50, fuelCost)" [disabled]="points < fuelCost">+50 Scissors</button>
+                <button (click)="purchaseFuel('rock', 50, gameData.fuelCost)" [disabled]="gameData.points < gameData.fuelCost">+50 Rocks</button>
+                <button (click)="purchaseFuel('paper', 50, gameData.fuelCost)" [disabled]="gameData.points < gameData.fuelCost">+50 Papers</button>
+                <button (click)="purchaseFuel('scissor', 50, gameData.fuelCost)" [disabled]="gameData.points < gameData.fuelCost">+50 Scissors</button>
             </div>
         </div>
     </div>
