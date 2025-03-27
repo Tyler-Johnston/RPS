@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-shop',
   standalone: true,
-  imports: [RouterModule],
+  imports: [RouterModule, CommonModule],
   templateUrl: './shop.component.html',
   styleUrls: ['./shop.component.css']
 })
@@ -13,6 +14,7 @@ export class ShopComponent {
   public points: number = 0;
   public mult: number = 1;
   public pointsPerWin: number = 1;
+  public streakBonus: number = 1;
 
   public scoreMultUpgradeCost: number = 30000
   public scoreBonusUpgradeCost: number = 10;
@@ -24,7 +26,7 @@ export class ShopComponent {
   public scissorSniperActive : boolean = false;
   public paperSniperActive : boolean = false;
 
-  public sniperCost: number = 100;
+  public sniperCost: number = 500;
   public fuelCost: number = 1000;
 
   public rockSniperFuel : number = 100;
@@ -37,6 +39,7 @@ export class ShopComponent {
 
   loadGameData(): void {
     this.scoreBonus = Number(localStorage.getItem('scoreBonus') || 1);
+    this.streakBonus = Number(localStorage.getItem('streakBonus') || 1);
     this.points = Number(localStorage.getItem('points') || 0);
     this.mult = Number(localStorage.getItem('mult') || 1);
     this.pointsPerWin = Number(localStorage.getItem('pointsPerWin') || 1);
@@ -44,6 +47,7 @@ export class ShopComponent {
     this.scoreBonusUpgradeCost = Number(localStorage.getItem('scoreBonusUpgradeCost') || 10);
     this.scoreMultUpgradeCost = Number(localStorage.getItem('scoreMultUpgradeCost') || 30000);
     this.baseScoreBonusAdditive = Number(localStorage.getItem('baseScoreBonusAdditive') || 0);
+    this.sniperCost = Number(localStorage.getItem('sniperCost') || 500);
 
     this.rockSniperActive = localStorage.getItem('rockSniperActive') === 'true';
     this.paperSniperActive = localStorage.getItem('paperSniperActive') === 'true';
@@ -56,6 +60,7 @@ export class ShopComponent {
 
   saveGameData(): void {
     localStorage.setItem('scoreBonus', String(this.scoreBonus));
+    localStorage.setItem('streakBonus', String(this.streakBonus));
     localStorage.setItem('points', String(this.points));
     localStorage.setItem('mult', String(this.mult));
     localStorage.setItem('pointsPerWin', String(this.pointsPerWin));
@@ -63,10 +68,11 @@ export class ShopComponent {
     localStorage.setItem('scoreBonusUpgradeCost', String(this.scoreBonusUpgradeCost));
     localStorage.setItem('scoreMultUpgradeCost', String(this.scoreMultUpgradeCost));
     localStorage.setItem('baseScoreBonusAdditive', String(this.baseScoreBonusAdditive));
+    localStorage.setItem('sniperCost', String(this.sniperCost));
 
     localStorage.setItem('rockSniperActive', String(this.rockSniperActive));
-    localStorage.setItem('paperSniperActive', String(this.rockSniperActive));
-    localStorage.setItem('scissorSniperActive', String(this.rockSniperActive));
+    localStorage.setItem('paperSniperActive', String(this.paperSniperActive));
+    localStorage.setItem('scissorSniperActive', String(this.scissorSniperActive));
 
     localStorage.setItem('rockSniperFuel', String(this.rockSniperFuel));
     localStorage.setItem('paperSniperFuel', String(this.paperSniperFuel));
@@ -76,7 +82,7 @@ export class ShopComponent {
   purchaseScoreMultUpgrade(): void {
     if (this.points >= this.scoreMultUpgradeCost) {
       this.points -= this.scoreMultUpgradeCost;
-      this.scoreMultUpgradeCost = Math.floor(this.scoreMultUpgradeCost * 2.5);
+      this.scoreMultUpgradeCost = Math.floor(this.scoreMultUpgradeCost * 2);
       this.mult++;
       this.saveGameData();
     }
@@ -85,7 +91,7 @@ export class ShopComponent {
   purchaseScoreBonusUpgrade(): void {
     if (this.points >= this.scoreBonusUpgradeCost) {
       this.points -= this.scoreBonusUpgradeCost;
-      this.scoreBonusUpgradeCost = Math.floor(this.scoreBonusUpgradeCost * 1.5);
+      this.scoreBonusUpgradeCost = Math.floor(this.scoreBonusUpgradeCost * 1.15);
       this.baseScoreBonusAdditive++;
       this.scoreBonus = this.scoreBonus + this.baseScoreBonusAdditive;
       this.saveGameData();
@@ -122,6 +128,7 @@ export class ShopComponent {
                 this.scissorSniperActive = true;
                 break;
         }
+        this.sniperCost = Math.floor(this.sniperCost * 3);
         this.saveGameData();
     }
 }

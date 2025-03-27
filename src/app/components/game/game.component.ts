@@ -26,6 +26,7 @@ export class GameComponent {
   public baseScoreBonusAdditive: number = 0;
   public scoreBonusUpgradeCost: number = 10;
   public scoreMultUpgradeCost: number = 30000;
+  public sniperCost: number = 500;
 
   public rockSniperActive: boolean = false;
   public paperSniperActive: boolean = false;
@@ -44,27 +45,27 @@ export class GameComponent {
     const randomIndex = Math.floor(Math.random() * this.moves.length);
     this.currentMove = this.moves[randomIndex];
 
-    if (this.rockSniperActive && this.currentMove === 'Rock' && this.rockSniperFuel > 0) {
+    if (this.rockSniperActive && this.currentMove === 'Scissors' && this.rockSniperFuel > 0) {
       setTimeout(() => {
         this.rockSniperFuel -= 1;
         if (this.rockSniperFuel < 0) this.rockSniperFuel = 0;
+        this.makeChoice('Rock');
+      }, 500); // pause for 0.5 seconds
+    }
+
+    if (this.paperSniperActive && this.currentMove === 'Rock' && this.paperSniperFuel > 0) {
+      setTimeout(() => {
+        this.paperSniperFuel -= 1;
+        if (this.paperSniperFuel < 0) this.paperSniperFuel = 0;
         this.makeChoice('Paper');
       }, 500); // pause for 0.5 seconds
     }
 
-    if (this.paperSniperActive && this.currentMove === 'Paper' && this.paperSniperFuel > 0) {
-      setTimeout(() => {
-        this.paperSniperFuel -= 1;
-        if (this.paperSniperFuel < 0) this.paperSniperFuel = 0;
-        this.makeChoice('Scissors');
-      }, 500); // pause for 0.5 seconds
-    }
-
-    if (this.scissorSniperActive && this.currentMove === 'Scissors' && this.scissorSniperFuel > 0) {
+    if (this.scissorSniperActive && this.currentMove === 'Paper' && this.scissorSniperFuel > 0) {
       setTimeout(() => {
         this.scissorSniperFuel -= 1;
         if (this.scissorSniperFuel < 0) this.scissorSniperFuel = 0;
-        this.makeChoice('Rock');
+        this.makeChoice('Scissors');
       }, 500); // pause for 0.5 seconds
     }
   }
@@ -75,14 +76,13 @@ export class GameComponent {
       this.streak++;
       this.streakBonus = 1 + Math.floor(this.streak / 8);
       this.scoreBonus = this.streakBonus + this.baseScoreBonusAdditive;
-      this.pointsPerWin = this.scoreBonus * this.mult;
-      this.points += this.pointsPerWin;
+      this.points += this.scoreBonus * this.mult;
     } else {
       this.streak = 0;
       this.streakBonus = 0;
-      this.pointsPerWin = 1;
       this.scoreBonus = this.baseScoreBonusAdditive;
     }
+    this.pointsPerWin = this.scoreBonus * this.mult;
     this.saveGameData();
     this.generateRandomMove();
   }
@@ -104,6 +104,7 @@ export class GameComponent {
   private saveGameData(): void {
     localStorage.setItem('points', String(this.points));
     localStorage.setItem('scoreBonus', String(this.scoreBonus));
+    localStorage.setItem('streakBonus', String(this.streakBonus));
     localStorage.setItem('streak', String(this.streak));
     localStorage.setItem('mult', String(this.mult));
     localStorage.setItem('pointsPerWin', String(this.pointsPerWin));
@@ -111,6 +112,7 @@ export class GameComponent {
     localStorage.setItem('scoreBonusUpgradeCost', String(this.scoreBonusUpgradeCost));
     localStorage.setItem('scoreMultUpgradeCost', String(this.scoreMultUpgradeCost));
     localStorage.setItem('baseScoreBonusAdditive', String(this.baseScoreBonusAdditive));
+    localStorage.setItem('sniperCost', String(this.sniperCost));
 
     localStorage.setItem('rockSniperActive', String(this.rockSniperActive));
     localStorage.setItem('paperSniperActive', String(this.paperSniperActive));
@@ -124,6 +126,7 @@ export class GameComponent {
   private loadGameData(): void {
     this.points = Number(localStorage.getItem('points') || 0);
     this.scoreBonus = Number(localStorage.getItem('scoreBonus') || 1);
+    this.streakBonus = Number(localStorage.getItem('streakBonus') || 1);
     this.streak = Number(localStorage.getItem('streak') || 0);
     this.mult = Number(localStorage.getItem('mult') || 1);
     this.pointsPerWin = Number(localStorage.getItem('pointsPerWin') || 1);
@@ -131,6 +134,7 @@ export class GameComponent {
     this.scoreBonusUpgradeCost = Number(localStorage.getItem('scoreBonusUpgradeCost') || 10);
     this.scoreMultUpgradeCost = Number(localStorage.getItem('scoreMultUpgradeCost') || 30000);
     this.baseScoreBonusAdditive = Number(localStorage.getItem('baseScoreBonusAdditive') || 0);
+    this.sniperCost = Number(localStorage.getItem('sniperCost') || 500);
 
     this.rockSniperActive = localStorage.getItem('rockSniperActive') === 'true';
     this.paperSniperActive = localStorage.getItem('paperSniperActive') === 'true';

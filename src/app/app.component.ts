@@ -14,7 +14,7 @@ export class AppComponent {
   isMusicPlaying: boolean = true;
 
   ngOnInit(): void {
-    this.setMusicVolume(.1);
+    this.setMusicVolume(.05);
   }
 
   public setMusicVolume(vol: number): void {

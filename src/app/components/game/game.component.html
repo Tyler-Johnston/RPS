@@ -1,22 +1,27 @@
 <div class="game-container">
     <h2>Current Move: {{ currentMove }}</h2>
-    <p>{{ points }}</p>
-    <p>Bonus: +{{ baseScoreBonusAdditive }}</p>
-    <p>Streak Bonus: +{{ streakBonus }}</p>
-    <p>Mult: x{{ mult }}</p>
+    <div class="score-display">
+      <p>{{ points }}</p>
+      <p>Bonus: +{{ baseScoreBonusAdditive }}</p>
+      <p>Streak Bonus: +{{ streakBonus }}</p>
+      <p>Mult: x{{ mult }}</p>
+    </div>
+
+    <div class="streak-info">
+      <p>Streak: {{ streak }}</p>
+      <p>PPW: {{ pointsPerWin }}</p>
+    </div>
+
     <div class="controls">
       <button (click)="makeChoice('Rock')">Rock</button>
       <button (click)="makeChoice('Paper')">Paper</button>
       <button (click)="makeChoice('Scissors')">Scissors</button>
     </div>
-    <div class="controls">
-      <p>Streak: {{ streak }}</p>
-      <p>PPW: {{ pointsPerWin }}</p>
-    </div>
-    <div class="controls">
-        <p *ngIf="rockSniperActive">Rock Fuel: {{ rockSniperFuel }}</p>
-        <p *ngIf="paperSniperActive">Paper Fuel: {{ paperSniperFuel }}</p>
-        <p *ngIf="scissorSniperActive">Scissor Fuel: {{ scissorSniperFuel }}</p>
+
+    <div *ngIf="rockSniperActive || paperSniperActive || scissorSniperActive"class="sniper-info">
+        <p *ngIf="rockSniperActive">Rocks: {{ rockSniperFuel }}</p>
+        <p *ngIf="paperSniperActive">Papers: {{ paperSniperFuel }}</p>
+        <p *ngIf="scissorSniperActive">Scissors: {{ scissorSniperFuel }}</p>
     </div>
 
     <button routerLink="/shop" class="shop-button ">Shop</button>

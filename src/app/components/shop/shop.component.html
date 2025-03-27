@@ -27,7 +27,7 @@
         <div class="sniper">
             <p>Rock Sniper</p>
             <p>Automatically counters Scissors with Rock.</p>
-            <p>Cost: {{ sniperCost }} points</p>
+            <p>{{ rockSniperActive ? 'Sold Out' : 'Cost: ' + sniperCost + ' points' }}</p>
             <button (click)="purchaseSniper('rock')" [disabled]="rockSniperActive || points < sniperCost">
                 Buy
             </button>
@@ -35,7 +35,7 @@
         <div class="sniper">
             <p>Paper Sniper</p>
             <p>Automatically counters Rock with Paper.</p>
-            <p>Cost: {{ sniperCost }} points</p>
+            <p>{{ paperSniperActive ? 'Sold Out' : 'Cost: ' + sniperCost + ' points' }}</p>
             <button (click)="purchaseSniper('paper')" [disabled]="paperSniperActive || points < sniperCost">
                 Buy
             </button>
@@ -43,7 +43,7 @@
         <div class="sniper">
             <p>Scissor Sniper</p>
             <p>Automatically counters Paper with Scissors.</p>
-            <p>Cost: {{ sniperCost }} points</p>
+            <p>{{ scissorSniperActive ? 'Sold Out' : 'Cost: ' + sniperCost + ' points' }}</p>
             <button (click)="purchaseSniper('scissor')" [disabled]="scissorSniperActive || points < sniperCost">
                 Buy
             </button>
@@ -55,9 +55,9 @@
         <div class="fuel">
             <p>Cost: {{ fuelCost }} points</p>
             <div class="fuel-buttons">
-                <button (click)="purchaseFuel('rock', 50, fuelCost)" [disabled]="points < fuelCost">+50 Rock Fuel</button>
-                <button (click)="purchaseFuel('paper', 50, fuelCost)" [disabled]="points < fuelCost">+50 Paper Fuel</button>
-                <button (click)="purchaseFuel('scissor', 50, fuelCost)" [disabled]="points < fuelCost">+50 Scissor Fuel</button>
+                <button (click)="purchaseFuel('rock', 50, fuelCost)" [disabled]="points < fuelCost">+50 Rocks</button>
+                <button (click)="purchaseFuel('paper', 50, fuelCost)" [disabled]="points < fuelCost">+50 Papers</button>
+                <button (click)="purchaseFuel('scissor', 50, fuelCost)" [disabled]="points < fuelCost">+50 Scissors</button>
             </div>
         </div>
     </div>
