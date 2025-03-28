@@ -36,13 +36,18 @@ export class GameComponent {
 }
 
   handleSniperFire(): void {
+
+    const rockSniperSpeed = 1000 - (this.gameData.baseRockEfficiencyPercentage * 10);
+    const paperSniperSpeed = 1000 - (this.gameData.basePaperEfficiencyPercentage * 10);
+    const scissorSniperSpeed = 1000 - (this.gameData.baseScissorEfficiencyPercentage * 10);
+
     if (this.gameData.rockSniperActive && this.currentMove === 'Scissors' && this.gameData.rocks > 0) {
         this.gameData.sniperLock = true;
         this.timeoutId = setTimeout(() => {
             this.gameData.rocks -= 1;
             this.gameData.sniperLock = false;
             this.makeChoice('Rock');
-        }, 1000);
+        }, rockSniperSpeed);
         return;
     }
 
@@ -52,7 +57,7 @@ export class GameComponent {
             this.gameData.papers -= 1;
             this.gameData.sniperLock = false;
             this.makeChoice('Paper');
-        }, 1000);
+        }, paperSniperSpeed);
         return;
     }
 
@@ -62,7 +67,7 @@ export class GameComponent {
             this.gameData.scissors -= 1;
             this.gameData.sniperLock = false;
             this.makeChoice('Scissors');
-        }, 1000);
+        }, scissorSniperSpeed);
         return;
     }
   }

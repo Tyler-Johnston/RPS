@@ -10,9 +10,11 @@ export class GameDataService {
   public mult: number = 1;
   public streakBonus: number = 0;
   public pointsPerWin: number = 1;
+
   public baseScoreBonusAdditive: number = 0;
   public scoreBonusUpgradeCost: number = 10;
   public scoreMultUpgradeCost: number = 10000;
+
   public sniperCost: number = 500;
   public fuelCost: number = 1000;
   public fuelAmount: number = 25;
@@ -27,6 +29,15 @@ export class GameDataService {
   public rocks: number = 100;
   public papers: number = 100;
   public scissors: number = 100;
+
+  public baseRockEfficiencyPercentage = 0;
+  public basePaperEfficiencyPercentage = 0;
+  public baseScissorEfficiencyPercentage = 0;
+  public efficiencyIncrement = 10;
+  public rockEfficiencyUpgradeCost = 2000;
+  public paperEfficiencyUpgradeCost = 2000;
+  public scissorEfficiencyUpgradeCost = 2000;
+  public maxEfficiency = 80;
 
   constructor() {
     this.loadGameData();
@@ -48,11 +59,19 @@ export class GameDataService {
     this.rockSniperActive = localStorage.getItem('rockSniperActive') === 'true';
     this.paperSniperActive = localStorage.getItem('paperSniperActive') === 'true';
     this.scissorSniperActive = localStorage.getItem('scissorSniperActive') === 'true';
-    this.sniperLock = false; // Always reset on load
+    this.sniperLock = false;
 
     this.rocks = Number(localStorage.getItem('rocks') || this.rocks);
     this.papers = Number(localStorage.getItem('papers') || this.papers);
     this.scissors = Number(localStorage.getItem('scissors') || this.scissors);
+
+    this.baseRockEfficiencyPercentage = Number(localStorage.getItem('baseRockEfficiencyPercentage') || this.baseRockEfficiencyPercentage);
+    this.basePaperEfficiencyPercentage = Number(localStorage.getItem('basePaperEfficiencyPercentage') || this.basePaperEfficiencyPercentage);
+    this.baseScissorEfficiencyPercentage = Number(localStorage.getItem('baseScissorEfficiencyPercentage') || this.baseScissorEfficiencyPercentage);
+
+    this.rockEfficiencyUpgradeCost = Number(localStorage.getItem('rockEfficiencyUpgradeCost') || this.rockEfficiencyUpgradeCost);
+    this.paperEfficiencyUpgradeCost = Number(localStorage.getItem('paperEfficiencyUpgradeCost') || this.paperEfficiencyUpgradeCost);
+    this.scissorEfficiencyUpgradeCost = Number(localStorage.getItem('scissorEfficiencyUpgradeCost') || this.scissorEfficiencyUpgradeCost);
   }
 
   saveGameData(): void {
@@ -63,6 +82,7 @@ export class GameDataService {
     localStorage.setItem('streak', String(this.streak));
     localStorage.setItem('mult', String(this.mult));
     localStorage.setItem('pointsPerWin', String(this.pointsPerWin));
+
     localStorage.setItem('scoreBonusUpgradeCost', String(this.scoreBonusUpgradeCost));
     localStorage.setItem('scoreMultUpgradeCost', String(this.scoreMultUpgradeCost));
     localStorage.setItem('baseScoreBonusAdditive', String(this.baseScoreBonusAdditive));
@@ -75,5 +95,13 @@ export class GameDataService {
     localStorage.setItem('rocks', String(this.rocks));
     localStorage.setItem('papers', String(this.papers));
     localStorage.setItem('scissors', String(this.scissors));
+
+    localStorage.setItem('baseRockEfficiencyPercentage', String(this.baseRockEfficiencyPercentage));
+    localStorage.setItem('basePaperEfficiencyPercentage', String(this.basePaperEfficiencyPercentage));
+    localStorage.setItem('baseScissorEfficiencyPercentage', String(this.baseScissorEfficiencyPercentage));
+
+    localStorage.setItem('rockEfficiencyUpgradeCost', String(this.rockEfficiencyUpgradeCost));
+    localStorage.setItem('paperEfficiencyUpgradeCost', String(this.paperEfficiencyUpgradeCost));
+    localStorage.setItem('scissorEfficiencyUpgradeCost', String(this.scissorEfficiencyUpgradeCost));
   }
 }
