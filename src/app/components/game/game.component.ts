@@ -14,56 +14,72 @@ type Move = 'Rock' | 'Paper' | 'Scissors';
 })
 export class GameComponent {
   public currentMove: Move = 'Rock';
-  public result: string = '';
+  private result: string = '';
   private moves: Move[] = ['Rock', 'Paper', 'Scissors'];
+  private timeoutId: any = null;
 
   constructor(public gameData: GameDataService) {
     this.gameData.loadGameData();
     this.generateRandomMove();
   }
 
+  ngOnDestroy(): void {
+    if (this.timeoutId) {
+      clearTimeout(this.timeoutId);
+    }
+  }
+
   generateRandomMove(): void {
     const randomIndex = Math.floor(Math.random() * this.moves.length);
     this.currentMove = this.moves[randomIndex];
+    this.handleSniperFire();
+}
 
+  handleSniperFire(): void {
     if (this.gameData.rockSniperActive && this.currentMove === 'Scissors' && this.gameData.rocks > 0) {
-      setTimeout(() => {
-        this.gameData.rocks -= 1;
-        if (this.gameData.rocks < 0) this.gameData.rocks = 0;
-        this.makeChoice('Rock');
-      }, 500);
+        this.gameData.sniperLock = true;
+        this.timeoutId = setTimeout(() => {
+            this.gameData.rocks -= 1;
+            this.gameData.sniperLock = false;
+            this.makeChoice('Rock');
+        }, 1000);
+        return;
     }
 
     if (this.gameData.paperSniperActive && this.currentMove === 'Rock' && this.gameData.papers > 0) {
-      setTimeout(() => {
-        this.gameData.papers -= 1;
-        if (this.gameData.papers < 0) this.gameData.papers = 0;
-        this.makeChoice('Paper');
-      }, 500);
+        this.gameData.sniperLock = true;
+        this.timeoutId = setTimeout(() => {
+            this.gameData.papers -= 1;
+            this.gameData.sniperLock = false;
+            this.makeChoice('Paper');
+        }, 1000);
+        return;
     }
 
     if (this.gameData.scissorSniperActive && this.currentMove === 'Paper' && this.gameData.scissors > 0) {
-      setTimeout(() => {
-        this.gameData.scissors -= 1;
-        if (this.gameData.scissors < 0) this.gameData.scissors = 0;
-        this.makeChoice('Scissors');
-      }, 500);
+        this.gameData.sniperLock = true;
+        this.timeoutId = setTimeout(() => {
+            this.gameData.scissors -= 1;
+            this.gameData.sniperLock = false;
+            this.makeChoice('Scissors');
+        }, 1000);
+        return;
     }
   }
 
   makeChoice(playerMove: Move): void {
+    if (this.gameData.sniperLock) return;
     this.result = this.calculateResult(playerMove, this.currentMove);
     if (this.result === 'You Win!') {
-      this.gameData.streak++;
-      this.gameData.streakBonus = 1 + Math.floor(this.gameData.streak / 50);
-      this.gameData.scoreBonus = this.gameData.streakBonus + this.gameData.baseScoreBonusAdditive;
-      this.gameData.points += this.gameData.scoreBonus * this.gameData.mult;
+        this.gameData.streak++;
+        this.gameData.streakBonus = 1 + Math.floor(this.gameData.streak / this.gameData.streakPointDivisor);
+        this.gameData.scoreBonus = this.gameData.streakBonus + this.gameData.baseScoreBonusAdditive;
+        this.gameData.points += this.gameData.scoreBonus * this.gameData.mult;
     } else {
-      this.gameData.streak = 0;
-      this.gameData.streakBonus = 0;
-      this.gameData.scoreBonus = this.gameData.baseScoreBonusAdditive;
+        this.gameData.streak = 0;
+        this.gameData.streakBonus = 0;
+        this.gameData.scoreBonus = this.gameData.baseScoreBonusAdditive;
     }
-    this.gameData.pointsPerWin = this.gameData.scoreBonus * this.gameData.mult;
     this.gameData.saveGameData();
     this.generateRandomMove();
   }

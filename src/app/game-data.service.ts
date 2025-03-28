@@ -15,10 +15,14 @@ export class GameDataService {
   public scoreMultUpgradeCost: number = 10000;
   public sniperCost: number = 500;
   public fuelCost: number = 1000;
+  public fuelAmount: number = 25;
+  public bonusPointIncrement: number = 5;
+  public streakPointDivisor: number = 5;
 
   public rockSniperActive: boolean = false;
   public paperSniperActive: boolean = false;
   public scissorSniperActive: boolean = false;
+  public sniperLock: boolean = false;
 
   public rocks: number = 100;
   public papers: number = 100;
@@ -29,28 +33,30 @@ export class GameDataService {
   }
 
   loadGameData(): void {
-    this.points = Number(localStorage.getItem('points') || 0);
-    this.scoreBonus = Number(localStorage.getItem('scoreBonus') || 1);
-    this.streakBonus = Number(localStorage.getItem('streakBonus') || 1);
-    this.streak = Number(localStorage.getItem('streak') || 0);
-    this.mult = Number(localStorage.getItem('mult') || 1);
-    this.pointsPerWin = Number(localStorage.getItem('pointsPerWin') || 1);
+    this.points = Number(localStorage.getItem('points') || this.points);
+    this.scoreBonus = Number(localStorage.getItem('scoreBonus') || this.scoreBonus);
+    this.streakBonus = Number(localStorage.getItem('streakBonus') || this.streakBonus);
+    this.streak = Number(localStorage.getItem('streak') || this.streak);
+    this.mult = Number(localStorage.getItem('mult') || this.mult);
+    this.pointsPerWin = Number(localStorage.getItem('pointsPerWin') || this.pointsPerWin);
 
-    this.scoreBonusUpgradeCost = Number(localStorage.getItem('scoreBonusUpgradeCost') || 10);
-    this.scoreMultUpgradeCost = Number(localStorage.getItem('scoreMultUpgradeCost') || 10000);
-    this.baseScoreBonusAdditive = Number(localStorage.getItem('baseScoreBonusAdditive') || 0);
-    this.sniperCost = Number(localStorage.getItem('sniperCost') || 500);
+    this.scoreBonusUpgradeCost = Number(localStorage.getItem('scoreBonusUpgradeCost') || this.scoreBonusUpgradeCost);
+    this.scoreMultUpgradeCost = Number(localStorage.getItem('scoreMultUpgradeCost') || this.scoreMultUpgradeCost);
+    this.baseScoreBonusAdditive = Number(localStorage.getItem('baseScoreBonusAdditive') || this.baseScoreBonusAdditive);
+    this.sniperCost = Number(localStorage.getItem('sniperCost') || this.sniperCost);
 
     this.rockSniperActive = localStorage.getItem('rockSniperActive') === 'true';
     this.paperSniperActive = localStorage.getItem('paperSniperActive') === 'true';
     this.scissorSniperActive = localStorage.getItem('scissorSniperActive') === 'true';
+    this.sniperLock = false; // Always reset on load
 
-    this.rocks = Number(localStorage.getItem('rocks') || 100);
-    this.papers = Number(localStorage.getItem('papers') || 100);
-    this.scissors = Number(localStorage.getItem('scissors') || 100);
+    this.rocks = Number(localStorage.getItem('rocks') || this.rocks);
+    this.papers = Number(localStorage.getItem('papers') || this.papers);
+    this.scissors = Number(localStorage.getItem('scissors') || this.scissors);
   }
 
   saveGameData(): void {
+    this.pointsPerWin = (this.streakBonus + this.baseScoreBonusAdditive) * this.mult;
     localStorage.setItem('points', String(this.points));
     localStorage.setItem('scoreBonus', String(this.scoreBonus));
     localStorage.setItem('streakBonus', String(this.streakBonus));

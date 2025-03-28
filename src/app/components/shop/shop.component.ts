@@ -27,8 +27,8 @@ export class ShopComponent {
   purchaseScoreBonusUpgrade(): void {
     if (this.gameData.points >= this.gameData.scoreBonusUpgradeCost) {
       this.gameData.points -= this.gameData.scoreBonusUpgradeCost;
-      this.gameData.scoreBonusUpgradeCost = Math.floor(this.gameData.scoreBonusUpgradeCost * 1.15);
-      this.gameData.baseScoreBonusAdditive++;
+      this.gameData.scoreBonusUpgradeCost = Math.floor(this.gameData.scoreBonusUpgradeCost * 1.10);
+      this.gameData.baseScoreBonusAdditive += this.gameData.bonusPointIncrement;
       this.gameData.scoreBonus = this.gameData.scoreBonus + this.gameData.baseScoreBonusAdditive;
       this.gameData.saveGameData();
     }
