@@ -42,6 +42,96 @@
         </div>
     </div>
 
+    <div class="container">
+        <!-- Rock Generator -->
+        <div class="shop-item">
+            <p>Rock Generator</p>
+            <p>Generates {{ gameData.rockGenerationAmount }} rock every {{ gameData.rockGeneratorInterval }} seconds</p>
+            <span *ngIf="!gameData.rockGeneratorActive">
+                <p>{{ gameData.rockGeneratorActive ? 'Sold Out' : 'Cost: ' + gameData.generatorCost + ' points' }}</p>
+                <button (click)="purchaseGenerator('rock')" 
+                        [disabled]="gameData.rockGeneratorActive || gameData.points < gameData.generatorCost">
+                    Buy
+                </button>
+            </span>
+            <span *ngIf="gameData.rockGeneratorActive">
+                <p>{{ gameData.rockGenerationAmount }} -> {{ gameData.rockGenerationAmount + 1 }}</p>
+                <p>{{ gameData.rockGenerationAmount >= gameData.maxGenerationAmount ? 'Maxed Out' : 'Cost: ' + gameData.rockGenerationUpgradeCost + ' points' }}</p>
+                <button (click)="purchaseGenerationUpgrade('rock')"
+                        [disabled]="(gameData.points < gameData.rockGenerationUpgradeCost) || (gameData.rockGenerationAmount >= gameData.maxGenerationAmount)">
+                    Upgrade
+                </button>
+            </span>
+        </div>
+    
+        <!-- Paper Generator -->
+        <div class="shop-item">
+            <p>Paper Generator</p>
+            <p>Generates {{ gameData.paperGenerationAmount }} paper every {{ gameData.paperGeneratorInterval }} seconds</p>
+            <span *ngIf="!gameData.paperGeneratorActive">
+                <p>{{ gameData.paperGeneratorActive ? 'Sold Out' : 'Cost: ' + gameData.generatorCost + ' points' }}</p>
+                <button (click)="purchaseGenerator('paper')" 
+                        [disabled]="gameData.paperGeneratorActive || gameData.points < gameData.generatorCost">
+                    Buy
+                </button>
+            </span>
+            <span *ngIf="gameData.paperGeneratorActive">
+                <p>{{ gameData.paperGenerationAmount }} -> {{ gameData.paperGenerationAmount + 1 }}</p>
+                <p>{{ gameData.paperGenerationAmount >= gameData.maxGenerationAmount ? 'Maxed Out' : 'Cost: ' + gameData.paperGenerationUpgradeCost + ' points' }}</p>
+                <button (click)="purchaseGenerationUpgrade('paper')"
+                        [disabled]="(gameData.points < gameData.paperGenerationUpgradeCost) || (gameData.paperGenerationAmount >= gameData.maxGenerationAmount)">
+                    Upgrade
+                </button>
+            </span>
+        </div>
+    
+        <!-- Scissor Generator -->
+        <div class="shop-item">
+            <p>Scissor Generator</p>
+            <p>Generates {{ gameData.scissorGenerationAmount }} scissor every {{ gameData.scissorGeneratorInterval }} seconds</p>
+            <span *ngIf="!gameData.scissorGeneratorActive">
+                <p>{{ gameData.scissorGeneratorActive ? 'Sold Out' : 'Cost: ' + gameData.generatorCost + ' points' }}</p>
+                <button (click)="purchaseGenerator('scissor')" 
+                        [disabled]="gameData.scissorGeneratorActive || gameData.points < gameData.generatorCost">
+                    Buy
+                </button>
+            </span>
+            <span *ngIf="gameData.scissorGeneratorActive">
+                <p>{{ gameData.scissorGenerationAmount }} -> {{ gameData.scissorGenerationAmount + 1 }}</p>
+                <p>{{ gameData.scissorGenerationAmount >= gameData.maxGenerationAmount ? 'Maxed Out' : 'Cost: ' + gameData.scissorGenerationUpgradeCost + ' points' }}</p>
+                <button (click)="purchaseGenerationUpgrade('scissor')"
+                        [disabled]="(gameData.points < gameData.scissorGenerationUpgradeCost) || (gameData.scissorGenerationAmount >= gameData.maxGenerationAmount)">
+                    Upgrade
+                </button>
+            </span>
+        </div>
+    </div>
+    
+
+    <!-- <div class="container">
+        <div class="shop-item">
+            <p>Rock Generator Upgrade</p>
+            <p>Generates {{ gameData.rockGenerationAmount }} rocks every {{ gameData.rockGeneratorInterval }} seconds</p>
+            <p>{{ gameData.rockGenerationAmount >= gameData.maxGenerationAmount ? 'Maxed Out' : 'Cost: ' + gameData.rockGenerationUpgradeCost + ' points' }}</p>
+            <button (click)="purchaseGenerationUpgrade('rock')" [disabled]="(gameData.points < gameData.rockGenerationUpgradeCost) || (gameData.rockGenerationAmount >= gameData.maxGenerationAmount)">Upgrade</button>
+        </div>
+    
+        <div class="shop-item">
+            <p>Paper Generator Upgrade</p>
+            <p>Generates {{ gameData.paperGenerationAmount }} papers every {{ gameData.paperGeneratorInterval }} seconds</p>
+            <p>{{ gameData.paperGenerationAmount >= gameData.maxGenerationAmount ? 'Maxed Out' : 'Cost: ' + gameData.paperGenerationUpgradeCost + ' points' }}</p>
+            <button (click)="purchaseGenerationUpgrade('paper')" [disabled]="(gameData.points < gameData.paperGenerationUpgradeCost) || (gameData.paperGenerationAmount >= gameData.maxGenerationAmount)">Upgrade</button>
+        </div>
+    
+        <div class="shop-item">
+            <p>Scissor Generator Upgrade</p>
+            <p>Generates {{ gameData.scissorGenerationAmount }} scissors every {{ gameData.scissorGeneratorInterval }} seconds</p>
+            <p>{{ gameData.scissorGenerationAmount >= gameData.maxGenerationAmount ? 'Maxed Out' : 'Cost: ' + gameData.scissorGenerationUpgradeCost + ' points' }}</p>
+            <button (click)="purchaseGenerationUpgrade('scissor')" [disabled]="(gameData.points < gameData.scissorGenerationUpgradeCost) || (gameData.scissorGenerationAmount >= gameData.maxGenerationAmount)">Upgrade</button>
+        </div>
+    </div>
+     -->
+
     <!-- Navigation Buttons -->
     <div class="button-group">
         <button routerLink="/shop" class="next-button"><</button>
