@@ -7,49 +7,11 @@ import { GameDataService } from '../../game-data.service';
   selector: 'app-shop2',
   imports: [RouterModule, CommonModule],
   templateUrl: './shop2.component.html',
-  styleUrl: './shop2.component.css'
+  styleUrl: '../shop/shop.component.css'
 })
 export class Shop2Component {
-
   constructor(public gameData: GameDataService) {
     this.gameData.loadGameData();
-  }
-
-  purchaseSniperEfficiency(sniperType: 'rock' | 'paper' | 'scissor'): void {
-    let efficiencyCost: number;
-
-    switch (sniperType) {
-        case 'rock':
-            efficiencyCost = this.gameData.rockEfficiencyUpgradeCost;
-            break;
-        case 'paper':
-            efficiencyCost = this.gameData.paperEfficiencyUpgradeCost;
-            break;
-        case 'scissor':
-            efficiencyCost = this.gameData.scissorEfficiencyUpgradeCost;
-            break;
-        default:
-            return;
-    }
-
-    if (this.gameData.points < efficiencyCost) return;
-    this.gameData.points -= efficiencyCost;
-
-    switch (sniperType) {
-        case 'rock':
-            this.gameData.baseRockEfficiencyPercentage += this.gameData.efficiencyIncrement;
-            this.gameData.rockEfficiencyUpgradeCost = Math.floor(this.gameData.rockEfficiencyUpgradeCost * 3);
-            break;
-        case 'paper':
-            this.gameData.basePaperEfficiencyPercentage += this.gameData.efficiencyIncrement;
-            this.gameData.paperEfficiencyUpgradeCost = Math.floor(this.gameData.paperEfficiencyUpgradeCost * 3);
-            break;
-        case 'scissor':
-            this.gameData.baseScissorEfficiencyPercentage += this.gameData.efficiencyIncrement;
-            this.gameData.scissorEfficiencyUpgradeCost = Math.floor(this.gameData.scissorEfficiencyUpgradeCost * 3);
-            break;
-    }
-    this.gameData.saveGameData();
   }
 
   purchaseGenerator(type: 'rock' | 'paper' | 'scissor'): void {
@@ -81,25 +43,50 @@ export class Shop2Component {
     switch (type) {
       case 'rock':
           if (this.gameData.points >= this.gameData.rockGenerationUpgradeCost && this.gameData.rockGenerationAmount < this.gameData.maxGenerationAmount) {
+            
               this.gameData.points -= this.gameData.rockGenerationUpgradeCost;
-              this.gameData.rockGenerationAmount += this.gameData.generationIncrement;
-              this.gameData.rockGenerationUpgradeCost = Math.floor(this.gameData.rockGenerationUpgradeCost * 2);
+              if (this.gameData.firstRockGenUpgrade)
+              {
+                this.gameData.rockGenerationAmount += this.gameData.generationIncrement - 1;
+              }
+              else
+              {
+                this.gameData.rockGenerationAmount += this.gameData.generationIncrement;
+              }
+              this.gameData.rockGenerationUpgradeCost = this.gameData.rockGenerationAmount * 1250;
+              if (this.gameData.firstRockGenUpgrade) this.gameData.firstRockGenUpgrade = false;
               this.gameData.saveGameData();
           }
           break;
       case 'paper':
           if (this.gameData.points >= this.gameData.paperGenerationUpgradeCost && this.gameData.paperGenerationAmount < this.gameData.maxGenerationAmount) {
               this.gameData.points -= this.gameData.paperGenerationUpgradeCost;
-              this.gameData.paperGenerationAmount += this.gameData.generationIncrement;
-              this.gameData.paperGenerationUpgradeCost = Math.floor(this.gameData.paperGenerationUpgradeCost * 2);
+              if (this.gameData.firstPaperGenUpgrade)
+                {
+                  this.gameData.paperGenerationAmount += this.gameData.generationIncrement - 1;
+                }
+                else
+                {
+                  this.gameData.paperGenerationAmount += this.gameData.generationIncrement;
+                }
+              this.gameData.paperGenerationUpgradeCost = this.gameData.paperGenerationAmount * 1250;
+              if (this.gameData.firstPaperGenUpgrade) this.gameData.firstPaperGenUpgrade = false;
               this.gameData.saveGameData();
           }
           break;
       case 'scissor':
           if (this.gameData.points >= this.gameData.scissorGenerationUpgradeCost && this.gameData.scissorGenerationAmount < this.gameData.maxGenerationAmount) {
               this.gameData.points -= this.gameData.scissorGenerationUpgradeCost;
-              this.gameData.scissorGenerationAmount += this.gameData.generationIncrement;
-              this.gameData.scissorGenerationUpgradeCost = Math.floor(this.gameData.scissorGenerationUpgradeCost * 2);
+              if (this.gameData.firstScissorGenUpgrade)
+                {
+                  this.gameData.scissorGenerationAmount += this.gameData.generationIncrement - 1;
+                }
+                else
+                {
+                  this.gameData.scissorGenerationAmount += this.gameData.generationIncrement;
+                }
+              this.gameData.scissorGenerationUpgradeCost = this.gameData.scissorGenerationAmount * 1250;
+              if (this.gameData.firstScissorGenUpgrade) this.gameData.firstScissorGenUpgrade = false;
               this.gameData.saveGameData();
           }
           break;

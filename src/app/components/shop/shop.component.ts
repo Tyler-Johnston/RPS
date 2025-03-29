@@ -68,10 +68,49 @@ purchaseFuel(sniperType: 'rock' | 'paper' | 'scissor'): void {
         this.gameData.scissors += this.gameData.fuelAmount;
         break;
     }
+    
 
     this.gameData.saveGameData();
   }
 }
+
+purchaseSniperEfficiency(sniperType: 'rock' | 'paper' | 'scissor'): void {
+  let efficiencyCost: number;
+
+  switch (sniperType) {
+      case 'rock':
+          efficiencyCost = this.gameData.rockEfficiencyUpgradeCost;
+          break;
+      case 'paper':
+          efficiencyCost = this.gameData.paperEfficiencyUpgradeCost;
+          break;
+      case 'scissor':
+          efficiencyCost = this.gameData.scissorEfficiencyUpgradeCost;
+          break;
+      default:
+          return;
+  }
+
+  if (this.gameData.points < efficiencyCost) return;
+  this.gameData.points -= efficiencyCost;
+
+  switch (sniperType) {
+      case 'rock':
+          this.gameData.baseRockEfficiencyPercentage += this.gameData.efficiencyIncrement;
+          this.gameData.rockEfficiencyUpgradeCost = Math.floor(this.gameData.baseRockEfficiencyPercentage * 1250);
+          break;
+      case 'paper':
+          this.gameData.basePaperEfficiencyPercentage += this.gameData.efficiencyIncrement;
+          this.gameData.paperEfficiencyUpgradeCost = Math.floor(this.gameData.basePaperEfficiencyPercentage * 1250);
+          break;
+      case 'scissor':
+          this.gameData.baseScissorEfficiencyPercentage += this.gameData.efficiencyIncrement;
+          this.gameData.scissorEfficiencyUpgradeCost = Math.floor(this.gameData.baseScissorEfficiencyPercentage * 1250);
+          break;
+  }
+  this.gameData.saveGameData();
+}
+
 
 
 

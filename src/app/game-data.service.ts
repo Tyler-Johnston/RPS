@@ -18,7 +18,7 @@ export class GameDataService {
   public isMoveInit = false;
 
   public baseScoreBonusAdditive: number = 0;
-  public scoreBonusUpgradeCost: number = 10;
+  public scoreBonusUpgradeCost: number = 250;
   public scoreMultUpgradeCost: number = 10000;
 
   public sniperCost: number = 500;
@@ -49,7 +49,7 @@ export class GameDataService {
   public paperGeneratorActive: boolean = false;
   public scissorGeneratorActive: boolean = false;
 
-  public generatorCost: number = 3000;
+  public generatorCost: number = 1000;
   public rockGeneratorInterval: number = 5;
   public paperGeneratorInterval: number = 5;
   public scissorGeneratorInterval: number = 5;
@@ -62,12 +62,16 @@ export class GameDataService {
   public paperGenerationAmount: number = 1;
   public scissorGenerationAmount: number = 1;
 
-  public rockGenerationUpgradeCost: number = 2000;
-  public paperGenerationUpgradeCost: number = 2000;
-  public scissorGenerationUpgradeCost: number = 2000;
+  public rockGenerationUpgradeCost: number = 500;
+  public paperGenerationUpgradeCost: number = 500;
+  public scissorGenerationUpgradeCost: number = 500;
 
-  public generationIncrement: number = 1;
-  public maxGenerationAmount: number = 10;
+  public generationIncrement: number = 5;
+  public maxGenerationAmount: number = 50;
+
+  public firstRockGenUpgrade: boolean = true;
+  public firstPaperGenUpgrade: boolean = true;
+  public firstScissorGenUpgrade: boolean = true;
 
   constructor() {
     this.loadGameData();
@@ -95,6 +99,10 @@ export class GameDataService {
     this.paperGeneratorActive = localStorage.getItem('paperGeneratorActive') === 'true';
     this.scissorGeneratorActive = localStorage.getItem('scissorGeneratorActive') === 'true';
 
+    this.firstRockGenUpgrade = JSON.parse(localStorage.getItem('firstRockGenUpgrade') || 'true');
+    this.firstPaperGenUpgrade = JSON.parse(localStorage.getItem('firstPaperGenUpgrade') || 'true');
+    this.firstScissorGenUpgrade = JSON.parse(localStorage.getItem('firstScissorGenUpgrade') || 'true');
+
     this.sniperLock = false;
 
     this.rocks = Number(localStorage.getItem('rocks') || this.rocks);
@@ -108,6 +116,15 @@ export class GameDataService {
     this.rockEfficiencyUpgradeCost = Number(localStorage.getItem('rockEfficiencyUpgradeCost') || this.rockEfficiencyUpgradeCost);
     this.paperEfficiencyUpgradeCost = Number(localStorage.getItem('paperEfficiencyUpgradeCost') || this.paperEfficiencyUpgradeCost);
     this.scissorEfficiencyUpgradeCost = Number(localStorage.getItem('scissorEfficiencyUpgradeCost') || this.scissorEfficiencyUpgradeCost);
+
+    this.rockGenerationAmount = Number(localStorage.getItem('rockGenerationAmount') || this.rockGenerationAmount);
+    this.paperGenerationAmount = Number(localStorage.getItem('paperGenerationAmount') || this.paperGenerationAmount);
+    this.scissorGenerationAmount = Number(localStorage.getItem('scissorGenerationAmount') || this.scissorGenerationAmount);
+
+    this.rockGenerationUpgradeCost = Number(localStorage.getItem('rockGenerationUpgradeCost') || this.rockGenerationUpgradeCost);
+    this.paperGenerationUpgradeCost = Number(localStorage.getItem('paperGenerationUpgradeCost') || this.paperGenerationUpgradeCost);
+    this.scissorGenerationUpgradeCost = Number(localStorage.getItem('scissorGenerationUpgradeCost') || this.scissorGenerationUpgradeCost);
+
   }
 
   saveGameData(): void {
@@ -133,6 +150,10 @@ export class GameDataService {
     localStorage.setItem('paperSniperActive', String(this.paperSniperActive));
     localStorage.setItem('scissorSniperActive', String(this.scissorSniperActive));
 
+    localStorage.setItem('firstRockGenUpgrade', String(this.firstRockGenUpgrade));
+    localStorage.setItem('firstPaperGenUpgrade', String(this.firstPaperGenUpgrade));
+    localStorage.setItem('firstScissorGenUpgrade', String(this.firstScissorGenUpgrade));
+
     localStorage.setItem('rocks', String(this.rocks));
     localStorage.setItem('papers', String(this.papers));
     localStorage.setItem('scissors', String(this.scissors));
@@ -144,5 +165,15 @@ export class GameDataService {
     localStorage.setItem('rockEfficiencyUpgradeCost', String(this.rockEfficiencyUpgradeCost));
     localStorage.setItem('paperEfficiencyUpgradeCost', String(this.paperEfficiencyUpgradeCost));
     localStorage.setItem('scissorEfficiencyUpgradeCost', String(this.scissorEfficiencyUpgradeCost));
+
+    localStorage.setItem('rockGenerationAmount', String(this.rockGenerationAmount));
+    localStorage.setItem('paperGenerationAmount', String(this.paperGenerationAmount));
+    localStorage.setItem('scissorGenerationAmount', String(this.scissorGenerationAmount));
+
+    localStorage.setItem('rockGenerationUpgradeCost', String(this.rockGenerationUpgradeCost));
+    localStorage.setItem('paperGenerationUpgradeCost', String(this.paperGenerationUpgradeCost));
+    localStorage.setItem('scissorGenerationUpgradeCost', String(this.scissorGenerationUpgradeCost));
+
   }
+  
 }

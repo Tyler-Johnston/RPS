@@ -24,41 +24,85 @@
 
     <!-- Sniper Upgrades -->
     <div class="container">
+        <!-- Rock Sniper -->
         <div class="shop-item">
             <p>Rock Sniper</p>
-            <p>Automatically counters Scissors with Rock</p>
-            <p>{{ gameData.rockSniperActive ? 'Sold Out' : 'Cost: ' + gameData.sniperCost + ' points' }}</p>
-            <button (click)="purchaseSniper('rock')" [disabled]="gameData.rockSniperActive || gameData.points < gameData.sniperCost">
-                Buy
-            </button>
+            <ng-container *ngIf="!gameData.rockSniperActive">
+                <p>Automatically counters Scissors with Rock</p>
+                <p>Cost: {{ gameData.sniperCost }} points</p>
+                <button (click)="purchaseSniper('rock')" 
+                        [disabled]="gameData.rockSniperActive || gameData.points < gameData.sniperCost">
+                    Buy
+                </button>
+            </ng-container>
+            <ng-container *ngIf="gameData.rockSniperActive">
+                <p>Increases Rock Sniper Speed by</p>
+                <p>
+                    {{ gameData.baseRockEfficiencyPercentage }}%
+                    <span *ngIf="gameData.baseRockEfficiencyPercentage < gameData.maxEfficiency">
+                        -> {{ gameData.baseRockEfficiencyPercentage + gameData.efficiencyIncrement }}%
+                    </span>
+                </p>
+                <p>{{ gameData.baseRockEfficiencyPercentage >= gameData.maxEfficiency ? 'Limit Reached' : 'Cost: ' + gameData.rockEfficiencyUpgradeCost + ' points' }}</p>
+                <button (click)="purchaseSniperEfficiency('rock')" 
+                        [disabled]="(gameData.points < gameData.rockEfficiencyUpgradeCost) || (gameData.baseRockEfficiencyPercentage >= gameData.maxEfficiency)">
+                    Upgrade
+                </button>
+            </ng-container>
         </div>
+    
+        <!-- Paper Sniper -->
         <div class="shop-item">
             <p>Paper Sniper</p>
-            <p>Automatically counters Rock with Paper</p>
-            <p>{{ gameData.paperSniperActive ? 'Sold Out' : 'Cost: ' + gameData.sniperCost + ' points' }}</p>
-            <button (click)="purchaseSniper('paper')" [disabled]="gameData.paperSniperActive || gameData.points < gameData.sniperCost">
-                Buy
-            </button>
+            <ng-container *ngIf="!gameData.paperSniperActive">
+                <p>Automatically counters Rock with Paper</p>
+                <p>Cost: {{ gameData.sniperCost }} points</p>
+                <button (click)="purchaseSniper('paper')" 
+                        [disabled]="gameData.paperSniperActive || gameData.points < gameData.sniperCost">
+                    Buy
+                </button>
+            </ng-container>
+            <ng-container *ngIf="gameData.paperSniperActive">
+                <p>Increases Paper Sniper Speed by</p>
+                <p>
+                    {{ gameData.basePaperEfficiencyPercentage }}%
+                    <span *ngIf="gameData.basePaperEfficiencyPercentage < gameData.maxEfficiency">
+                        -> {{ gameData.basePaperEfficiencyPercentage + gameData.efficiencyIncrement }}%
+                    </span>
+                </p>
+                <p>{{ gameData.basePaperEfficiencyPercentage >= gameData.maxEfficiency ? 'Limit Reached' : 'Cost: ' + gameData.paperEfficiencyUpgradeCost + ' points' }}</p>
+                <button (click)="purchaseSniperEfficiency('paper')" 
+                        [disabled]="(gameData.points < gameData.paperEfficiencyUpgradeCost) || (gameData.basePaperEfficiencyPercentage >= gameData.maxEfficiency)">
+                    Upgrade
+                </button>
+            </ng-container>
         </div>
+    
+        <!-- Scissor Sniper -->
         <div class="shop-item">
             <p>Scissor Sniper</p>
-            <p>Automatically counters Paper with Scissors</p>
-            <p>{{ gameData.scissorSniperActive ? 'Sold Out' : 'Cost: ' + gameData.sniperCost + ' points' }}</p>
-            <button (click)="purchaseSniper('scissor')" [disabled]="gameData.scissorSniperActive || gameData.points < gameData.sniperCost">
-                Buy
-            </button>
-        </div>
-    </div>
-
-    <!-- Fuel Purchase -->
-    <div class="fuel-container">
-        <div class="fuel">
-            <p>Cost: {{ gameData.fuelCost }} points</p>
-            <div>
-                <button (click)="purchaseFuel('rock')" [disabled]="(gameData.points < gameData.fuelCost) || (!gameData.rockSniperActive)">+{{gameData.fuelAmount}} Rocks</button>
-                <button (click)="purchaseFuel('paper')" [disabled]="(gameData.points < gameData.fuelCost) || (!gameData.paperSniperActive)">+{{gameData.fuelAmount}} Papers</button>
-                <button (click)="purchaseFuel('scissor')" [disabled]="(gameData.points < gameData.fuelCost) || (!gameData.scissorSniperActive)">+{{gameData.fuelAmount}} Scissors</button>
-            </div>
+            <ng-container *ngIf="!gameData.scissorSniperActive">
+                <p>Automatically counters Paper with Scissors</p>
+                <p>Cost: {{ gameData.sniperCost }} points</p>
+                <button (click)="purchaseSniper('scissor')" 
+                        [disabled]="gameData.scissorSniperActive || gameData.points < gameData.sniperCost">
+                    Buy
+                </button>
+            </ng-container>
+            <ng-container *ngIf="gameData.scissorSniperActive">
+                <p>Increases Scissor Sniper Speed by</p>
+                <p>
+                    {{ gameData.baseScissorEfficiencyPercentage }}%
+                    <span *ngIf="gameData.baseScissorEfficiencyPercentage < gameData.maxEfficiency">
+                        -> {{ gameData.baseScissorEfficiencyPercentage + gameData.efficiencyIncrement }}%
+                    </span>
+                </p>
+                <p>{{ gameData.baseScissorEfficiencyPercentage >= gameData.maxEfficiency ? 'Limit Reached' : 'Cost: ' + gameData.scissorEfficiencyUpgradeCost + ' points' }}</p>
+                <button (click)="purchaseSniperEfficiency('scissor')" 
+                        [disabled]="(gameData.points < gameData.scissorEfficiencyUpgradeCost) || (gameData.baseScissorEfficiencyPercentage >= gameData.maxEfficiency)">
+                    Upgrade
+                </button>
+            </ng-container>
         </div>
     </div>
 

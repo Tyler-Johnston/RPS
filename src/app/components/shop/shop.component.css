@@ -1,9 +1,3 @@
-/* .shop-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-} */
 
 .shop-container {
     display: flex;
@@ -13,8 +7,9 @@
     padding: 20px;
     border: 4px solid #eee;
     background-color: #333;
-    width: 1200;
+    width: 90%;
     border-radius: 12px;
+    transform: scale(0.90);
     box-shadow: 6px 6px #444;
 }
 
@@ -60,6 +55,7 @@
 .fuel-container {
     display: flex;
     justify-content: center;
+    width: 50%;
     gap: 20px;
     margin: 15px 0;
 }
