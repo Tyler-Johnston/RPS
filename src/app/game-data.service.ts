@@ -24,7 +24,7 @@ export class GameDataService {
   public sniperCost: number = 500;
   public fuelCost: number = 1000;
   public fuelAmount: number = 25;
-  public bonusPointIncrement: number = 25;
+  public bonusPointIncrement: number = 100;
   public streakPointDivisor: number = 5;
 
   public rockSniperActive: boolean = false;
@@ -50,9 +50,9 @@ export class GameDataService {
   public scissorGeneratorActive: boolean = false;
 
   public generatorCost: number = 1000;
-  public rockGeneratorInterval: number = 5;
-  public paperGeneratorInterval: number = 5;
-  public scissorGeneratorInterval: number = 5;
+  public rockGeneratorInterval: number = 30;
+  public paperGeneratorInterval: number = 30;
+  public scissorGeneratorInterval: number = 30;
 
   public rockGeneratorIntervalId: any = null;
   public paperGeneratorIntervalId: any = null;
@@ -76,6 +76,12 @@ export class GameDataService {
   constructor() {
     this.loadGameData();
   }
+
+  calculateUpgradeCost({ baseCost, level, exponent, linearFactor }: { baseCost: number, level: number, exponent: number, linearFactor: number }): number {
+    return Math.floor(baseCost * Math.pow(level, exponent) + (level * linearFactor));
+  }
+  
+  
 
   loadGameData(): void {
     this.currentMove = localStorage.getItem('currentMove') as 'Rock' | 'Paper' | 'Scissors' || this.currentMove;

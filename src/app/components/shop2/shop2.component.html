@@ -3,6 +3,7 @@
     <p class="points">Points: {{ gameData.points }}</p>
 
     <div class="container">
+
         <!-- Rock Generator -->
         <div class="shop-item">
             <p>Rock Generator</p>
@@ -76,6 +77,18 @@
                     Upgrade
                 </button>
             </span>
+        </div>
+    </div>
+
+    <!-- Fuel Purchase -->
+    <div class="fuel-container">
+        <div class="fuel">
+            <p>Cost: {{ gameData.fuelCost }} points</p>
+            <div>
+                <button (click)="purchaseFuel('rock')" [disabled]="(gameData.points < gameData.fuelCost) || (!gameData.rockSniperActive)">+{{gameData.fuelAmount}} Rocks</button>
+                <button (click)="purchaseFuel('paper')" [disabled]="(gameData.points < gameData.fuelCost) || (!gameData.paperSniperActive)">+{{gameData.fuelAmount}} Papers</button>
+                <button (click)="purchaseFuel('scissor')" [disabled]="(gameData.points < gameData.fuelCost) || (!gameData.scissorSniperActive)">+{{gameData.fuelAmount}} Scissors</button>
+            </div>
         </div>
     </div>
 

@@ -53,7 +53,7 @@ export class Shop2Component {
               {
                 this.gameData.rockGenerationAmount += this.gameData.generationIncrement;
               }
-              this.gameData.rockGenerationUpgradeCost = this.gameData.rockGenerationAmount * 1250;
+              this.gameData.rockGenerationUpgradeCost = Math.floor(985 * Math.pow(this.gameData.rockGenerationAmount, 1.2));
               if (this.gameData.firstRockGenUpgrade) this.gameData.firstRockGenUpgrade = false;
               this.gameData.saveGameData();
           }
@@ -69,7 +69,7 @@ export class Shop2Component {
                 {
                   this.gameData.paperGenerationAmount += this.gameData.generationIncrement;
                 }
-              this.gameData.paperGenerationUpgradeCost = this.gameData.paperGenerationAmount * 1250;
+                this.gameData.paperGenerationUpgradeCost = Math.floor(985 * Math.pow(this.gameData.paperGenerationAmount, 1.2));
               if (this.gameData.firstPaperGenUpgrade) this.gameData.firstPaperGenUpgrade = false;
               this.gameData.saveGameData();
           }
@@ -85,7 +85,7 @@ export class Shop2Component {
                 {
                   this.gameData.scissorGenerationAmount += this.gameData.generationIncrement;
                 }
-              this.gameData.scissorGenerationUpgradeCost = this.gameData.scissorGenerationAmount * 1250;
+                this.gameData.scissorGenerationUpgradeCost = Math.floor(985 * Math.pow(this.gameData.scissorGenerationAmount, 1.2));
               if (this.gameData.firstScissorGenUpgrade) this.gameData.firstScissorGenUpgrade = false;
               this.gameData.saveGameData();
           }
@@ -93,5 +93,24 @@ export class Shop2Component {
     }
 }
 
+    purchaseFuel(sniperType: 'rock' | 'paper' | 'scissor'): void {
+        if (this.gameData.points >= this.gameData.fuelCost) {
+        this.gameData.points -= this.gameData.fuelCost;
+    
+        switch (sniperType) {
+            case 'rock':
+            this.gameData.rocks += this.gameData.fuelAmount;
+            break;
+            case 'paper':
+            this.gameData.papers += this.gameData.fuelAmount;
+            break;
+            case 'scissor':
+            this.gameData.scissors += this.gameData.fuelAmount;
+            break;
+        }
+    
+        this.gameData.saveGameData();
+        }
+    }  
 
 }
