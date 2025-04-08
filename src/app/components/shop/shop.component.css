@@ -51,6 +51,17 @@
     background: linear-gradient(145deg, #26a69a, #00897b);
 }
 
+.sniper-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 30px;
+    margin: 10px 0;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    max-width: 100%;
+  }
+  
 .next-button {
     margin-top: 20px;
 }
