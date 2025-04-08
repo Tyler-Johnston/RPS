@@ -93,6 +93,116 @@ export class Shop2Component {
     }
 }
 
+    chooseBranch(type: 'rock' | 'paper' | 'scissor', choice: 'interval' | 'active'): void {
+      switch (type) {
+        case 'rock':
+          this.gameData.rockBranchChosen = choice;
+          break;
+        case 'paper':
+          this.gameData.paperBranchChosen = choice;
+          break;
+        case 'scissor':
+          this.gameData.scissorBranchChosen = choice;
+          break;
+      }
+      this.gameData.saveGameData();
+    }
+
+    upgradeInterval(type: 'rock' | 'paper' | 'scissor'): void {
+      switch (type) {
+        case 'rock':
+          if (
+            this.gameData.papers >= this.gameData.rockIntervalUpgradeCost &&
+            this.gameData.rockGeneratorInterval > this.gameData.minIntervalLimit
+          ) {
+            this.gameData.papers -= this.gameData.rockIntervalUpgradeCost;
+            this.gameData.rockGeneratorInterval -= this.gameData.intervalIncrement;
+    
+            if (this.gameData.rockGeneratorInterval < this.gameData.minIntervalLimit) {
+              this.gameData.rockGeneratorInterval = this.gameData.minIntervalLimit;
+            }
+    
+            this.gameData.rockIntervalUpgradeLevel++;
+            this.gameData.rockIntervalUpgradeCost = Math.floor(
+              2000 * Math.pow(this.gameData.rockIntervalUpgradeLevel, 2.2)
+            );
+            this.gameData.saveGameData();
+          }
+          break;
+    
+        case 'paper':
+          if (
+            this.gameData.scissors >= this.gameData.paperIntervalUpgradeCost &&
+            this.gameData.paperGeneratorInterval > this.gameData.minIntervalLimit
+          ) {
+            this.gameData.scissors -= this.gameData.paperIntervalUpgradeCost;
+            this.gameData.paperGeneratorInterval -= this.gameData.intervalIncrement;
+    
+            if (this.gameData.paperGeneratorInterval < this.gameData.minIntervalLimit) {
+              this.gameData.paperGeneratorInterval = this.gameData.minIntervalLimit;
+            }
+    
+            this.gameData.paperIntervalUpgradeLevel++;
+            this.gameData.paperIntervalUpgradeCost = Math.floor(
+              2000 * Math.pow(this.gameData.paperIntervalUpgradeLevel, 2.2)
+            );
+            this.gameData.saveGameData();
+          }
+          break;
+    
+        case 'scissor':
+          if (
+            this.gameData.rocks >= this.gameData.scissorIntervalUpgradeCost &&
+            this.gameData.scissorGeneratorInterval > this.gameData.minIntervalLimit
+          ) {
+            this.gameData.rocks -= this.gameData.scissorIntervalUpgradeCost;
+            this.gameData.scissorGeneratorInterval -= this.gameData.intervalIncrement;
+    
+            if (this.gameData.scissorGeneratorInterval < this.gameData.minIntervalLimit) {
+              this.gameData.scissorGeneratorInterval = this.gameData.minIntervalLimit;
+            }
+    
+            this.gameData.scissorIntervalUpgradeLevel++;
+            this.gameData.scissorIntervalUpgradeCost = Math.floor(
+              2000 * Math.pow(this.gameData.scissorIntervalUpgradeLevel, 2.2)
+            );
+            this.gameData.saveGameData();
+          }
+          break;
+      }
+    }
+    
+
+    upgradeActiveGeneration(type: 'rock' | 'paper' | 'scissor'): void {
+      switch (type) {
+        case 'rock':
+          if (this.gameData.points >= this.gameData.rockActiveUpgradeCost) {
+            this.gameData.points -= this.gameData.rockActiveUpgradeCost;
+            this.gameData.rockActiveLevel++;
+            this.gameData.rockActiveUpgradeCost = Math.floor(5000 * Math.pow(this.gameData.rockActiveLevel + 1, 2.3));
+          }
+          break;
+    
+        case 'paper':
+          if (this.gameData.points >= this.gameData.paperActiveUpgradeCost) {
+            this.gameData.points -= this.gameData.paperActiveUpgradeCost;
+            this.gameData.paperActiveLevel++;
+            this.gameData.paperActiveUpgradeCost = Math.floor(5000 * Math.pow(this.gameData.paperActiveLevel + 1, 2.3));
+          }
+          break;
+    
+        case 'scissor':
+          if (this.gameData.points >= this.gameData.scissorActiveUpgradeCost) {
+            this.gameData.points -= this.gameData.scissorActiveUpgradeCost;
+            this.gameData.scissorActiveLevel++;
+            this.gameData.scissorActiveUpgradeCost = Math.floor(5000 * Math.pow(this.gameData.scissorActiveLevel + 1, 2.3));
+          }
+          break;
+      }
+    
+      this.gameData.saveGameData();
+    }
+    
     purchaseFuel(sniperType: 'rock' | 'paper' | 'scissor'): void {
         if (this.gameData.points >= this.gameData.fuelCost) {
         this.gameData.points -= this.gameData.fuelCost;

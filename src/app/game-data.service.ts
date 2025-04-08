@@ -73,6 +73,24 @@ export class GameDataService {
   public firstPaperGenUpgrade: boolean = true;
   public firstScissorGenUpgrade: boolean = true;
 
+  public rockBranchChosen: 'interval' | 'active' | null = null;
+  public paperBranchChosen: 'interval' | 'active' | null = null;
+  public scissorBranchChosen: 'interval' | 'active' | null = null;
+  public rockIntervalUpgradeCost: number = 1000;
+  public paperIntervalUpgradeCost: number = 1000
+  public scissorIntervalUpgradeCost: number = 1000
+  public rockActiveUpgradeCost: number = 10000;
+  public paperActiveUpgradeCost: number = 10000;
+  public scissorActiveUpgradeCost: number = 10000;
+  public rockActiveLevel: number = 0;
+  public paperActiveLevel: number = 0;
+  public scissorActiveLevel: number = 0;
+  public minIntervalLimit: number = 1;
+  public intervalIncrement: number = 2;
+  public rockIntervalUpgradeLevel: number = 0;
+  public paperIntervalUpgradeLevel: number = 0;
+  public scissorIntervalUpgradeLevel: number = 0;
+
   constructor() {
     this.loadGameData();
   }
