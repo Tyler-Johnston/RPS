@@ -7,78 +7,225 @@
         <!-- Rock Generator -->
         <div class="shop-item">
             <p>Rock Generator</p>
-            <p>Generates {{ gameData.rockGenerationAmount }} rock{{gameData.rockGenerationAmount == 1 ? '' : 's'}} every {{ gameData.rockGeneratorInterval }} seconds</p>
-            <span *ngIf="!gameData.rockGeneratorActive">
-                <p>Cost: {{ gameData.generatorCost }} points</p>
-                <button (click)="purchaseGenerator('rock')" 
-                        [disabled]="(gameData.points < gameData.generatorCost)  || (!gameData.rockSniperActive)">
-                    Buy
-                </button>
-            </span>
-            <span *ngIf="gameData.rockGeneratorActive">
-                <p>{{ gameData.rockGenerationAmount }}
-                    <span *ngIf="gameData.rockGenerationAmount < gameData.maxGenerationAmount">
-                        -> {{ gameData.rockGenerationAmount + ( gameData.firstRockGenUpgrade ? gameData.generationIncrement - 1 : gameData.generationIncrement) }}
-                    </span>
+            <p>Generates {{ gameData.rockGenerationAmount }} rock{{ gameData.rockGenerationAmount == 1 ? '' : 's' }} every {{ gameData.rockGeneratorInterval }} seconds</p>
+          
+            <!-- Not Purchased -->
+            <ng-container *ngIf="!gameData.rockGeneratorActive">
+              <p>Cost: {{ gameData.generatorCost }} points</p>
+              <button (click)="purchaseGenerator('rock')" 
+                      [disabled]="(gameData.points < gameData.generatorCost) || (!gameData.rockSniperActive)">
+                Buy
+              </button>
+            </ng-container>
+          
+            <!-- Active and Not Maxed -->
+            <ng-container *ngIf="gameData.rockGeneratorActive && gameData.rockGenerationAmount < gameData.maxGenerationAmount">
+              <p>{{ gameData.rockGenerationAmount }} → 
+                {{ gameData.rockGenerationAmount + (gameData.firstRockGenUpgrade ? gameData.generationIncrement - 1 : gameData.generationIncrement) }}
+              </p>
+              <p>Cost: {{ gameData.rockGenerationUpgradeCost }} points</p>
+              <button (click)="purchaseGenerationUpgrade('rock')"
+                      [disabled]="(gameData.points < gameData.rockGenerationUpgradeCost)">
+                Upgrade
+              </button>
+            </ng-container>
+          
+            <!-- Maxed and No Branch Picked -->
+            <ng-container *ngIf="gameData.rockGeneratorActive && gameData.rockGenerationAmount >= gameData.maxGenerationAmount && !gameData.rockBranchChosen">
+              <p>Generator Maxed. Choose your upgrade path:</p>
+              <button (click)="chooseBranch('rock', 'interval')">Improve Generation Speed</button>
+              <button (click)="chooseBranch('rock', 'active')">Collect Active Falling Rocks</button>
+            </ng-container>
+          
+            <!-- Branch: Interval -->
+            <ng-container *ngIf="gameData.rockBranchChosen === 'interval'">
+                <p>Path: Faster Generation</p>
+            
+                <!-- Upgrade Available -->
+                <ng-container *ngIf="gameData.rockGeneratorInterval > gameData.minIntervalLimit">
+                <p>
+                    {{ gameData.rockGeneratorInterval }}s →
+                    {{
+                    (gameData.rockGeneratorInterval - gameData.intervalIncrement) < gameData.minIntervalLimit
+                        ? gameData.minIntervalLimit
+                        : gameData.rockGeneratorInterval - gameData.intervalIncrement
+                    }}s
                 </p>
-                <p>{{ gameData.rockGenerationAmount >= gameData.maxGenerationAmount ? 'Maxed Out' : 'Cost: ' + gameData.rockGenerationUpgradeCost + ' points' }}</p>
-                <button (click)="purchaseGenerationUpgrade('rock')"
-                        [disabled]="(gameData.points < gameData.rockGenerationUpgradeCost) || (gameData.rockGenerationAmount >= gameData.maxGenerationAmount)">
+                <p>Cost: {{ gameData.rockIntervalUpgradeCost }} papers</p>
+                <button 
+                    (click)="upgradeInterval('rock')" 
+                    [disabled]="gameData.papers < gameData.rockIntervalUpgradeCost">
                     Upgrade
                 </button>
-            </span>
-        </div>
-
+                </ng-container>
+            
+                <!-- Limit Reached -->
+                <ng-container *ngIf="gameData.rockGeneratorInterval <= gameData.minIntervalLimit">
+                <p>Limit Reached</p>
+                <button disabled>Upgrade</button>
+                </ng-container>
+            </ng-container>
+  
+            
+          
+            <!-- Branch: Active -->
+            <ng-container *ngIf="gameData.rockBranchChosen === 'active'">
+              <p>Path: Active Rocks</p>
+              <p>Collectible rocks fall on the game screen</p>
+              <p>Cost: {{ gameData.rockActiveUpgradeCost }} points</p>
+              <button (click)="upgradeActiveGeneration('rock')" [disabled]="gameData.points < gameData.rockActiveUpgradeCost">
+                Upgrade
+              </button>
+            </ng-container>
+          </div>
+          
         <!-- Paper Generator -->
         <div class="shop-item">
             <p>Paper Generator</p>
-            <p>Generates {{ gameData.paperGenerationAmount }} paper{{gameData.paperGenerationAmount == 1 ? '' : 's'}} every {{ gameData.paperGeneratorInterval }} seconds</p>
-            <span *ngIf="!gameData.paperGeneratorActive">
-                <p>Cost: {{ gameData.generatorCost }} points</p>
-                <button (click)="purchaseGenerator('paper')" 
-                        [disabled]="(gameData.points < gameData.generatorCost) || (!gameData.paperSniperActive)">
-                    Buy
-                </button>
-            </span>
-            <span *ngIf="gameData.paperGeneratorActive">
-                <p>{{ gameData.paperGenerationAmount }}
-                    <span *ngIf="gameData.paperGenerationAmount < gameData.maxGenerationAmount">
-                        -> {{ gameData.paperGenerationAmount + ( gameData.firstPaperGenUpgrade ? gameData.generationIncrement - 1 : gameData.generationIncrement) }}
-                    </span>
+            <p>Generates {{ gameData.paperGenerationAmount }} paper{{ gameData.paperGenerationAmount == 1 ? '' : 's' }} every {{ gameData.paperGeneratorInterval }} seconds</p>
+        
+            <!-- Not Purchased -->
+            <ng-container *ngIf="!gameData.paperGeneratorActive">
+            <p>Cost: {{ gameData.generatorCost }} points</p>
+            <button (click)="purchaseGenerator('paper')" 
+                    [disabled]="(gameData.points < gameData.generatorCost) || (!gameData.paperSniperActive)">
+                Buy
+            </button>
+            </ng-container>
+        
+            <!-- Active and Not Maxed -->
+            <ng-container *ngIf="gameData.paperGeneratorActive && gameData.paperGenerationAmount < gameData.maxGenerationAmount">
+            <p>{{ gameData.paperGenerationAmount }} →
+                {{ gameData.paperGenerationAmount + (gameData.firstPaperGenUpgrade ? gameData.generationIncrement - 1 : gameData.generationIncrement) }}
+            </p>
+            <p>Cost: {{ gameData.paperGenerationUpgradeCost }} points</p>
+            <button (click)="purchaseGenerationUpgrade('paper')"
+                    [disabled]="(gameData.points < gameData.paperGenerationUpgradeCost)">
+                Upgrade
+            </button>
+            </ng-container>
+        
+            <!-- Maxed and No Branch Picked -->
+            <ng-container *ngIf="gameData.paperGeneratorActive && gameData.paperGenerationAmount >= gameData.maxGenerationAmount && !gameData.paperBranchChosen">
+            <p>Generator Maxed. Choose your upgrade path:</p>
+            <button (click)="chooseBranch('paper', 'interval')">Improve Generation Speed</button>
+            <button (click)="chooseBranch('paper', 'active')">Collect Active Falling Papers</button>
+            </ng-container>
+        
+            <!-- Branch: Interval -->
+            <ng-container *ngIf="gameData.paperBranchChosen === 'interval'">
+            <p>Path: Faster Generation</p>
+        
+            <!-- Upgrade Available -->
+            <ng-container *ngIf="gameData.paperGeneratorInterval > gameData.minIntervalLimit">
+                <p>
+                {{ gameData.paperGeneratorInterval }}s →
+                {{
+                    (gameData.paperGeneratorInterval - gameData.intervalIncrement) < gameData.minIntervalLimit
+                    ? gameData.minIntervalLimit
+                    : gameData.paperGeneratorInterval - gameData.intervalIncrement
+                }}s
                 </p>
-                <p>{{ gameData.paperGenerationAmount >= gameData.maxGenerationAmount ? 'Maxed Out' : 'Cost: ' + gameData.paperGenerationUpgradeCost + ' points' }}</p>
-                <button (click)="purchaseGenerationUpgrade('paper')"
-                        [disabled]="(gameData.points < gameData.paperGenerationUpgradeCost) || (gameData.paperGenerationAmount >= gameData.maxGenerationAmount)">
-                    Upgrade
+                <p>Cost: {{ gameData.paperIntervalUpgradeCost }} scissors</p>
+                <button 
+                (click)="upgradeInterval('paper')" 
+                [disabled]="gameData.scissors < gameData.paperIntervalUpgradeCost">
+                Upgrade
                 </button>
-            </span>
+            </ng-container>
+        
+            <!-- Limit Reached -->
+            <ng-container *ngIf="gameData.paperGeneratorInterval <= gameData.minIntervalLimit">
+                <p>Limit Reached</p>
+                <button disabled>Upgrade</button>
+            </ng-container>
+            </ng-container>
+        
+            <!-- Branch: Active -->
+            <ng-container *ngIf="gameData.paperBranchChosen === 'active'">
+            <p>Path: Active Papers</p>
+            <p>Collectible papers fall on the game screen</p>
+            <p>Cost: {{ gameData.paperActiveUpgradeCost }} points</p>
+            <button (click)="upgradeActiveGeneration('paper')" [disabled]="gameData.points < gameData.paperActiveUpgradeCost">
+                Upgrade
+            </button>
+            </ng-container>
         </div>
+  
 
         <!-- Scissor Generator -->
         <div class="shop-item">
             <p>Scissor Generator</p>
-            <p>Generates {{ gameData.scissorGenerationAmount }} scissor{{gameData.scissorGenerationAmount == 1 ? '' : 's'}} every {{ gameData.scissorGeneratorInterval }} seconds</p>
-            <span *ngIf="!gameData.scissorGeneratorActive">
-                <p>Cost: {{ gameData.generatorCost }} points</p>
-                <button (click)="purchaseGenerator('scissor')" 
-                        [disabled]="(gameData.points < gameData.generatorCost)  || (!gameData.scissorSniperActive)">
-                    Buy
-                </button>
-            </span>
-            <span *ngIf="gameData.scissorGeneratorActive">
-                <p>{{ gameData.scissorGenerationAmount }}
-                    <span *ngIf="gameData.scissorGenerationAmount < gameData.maxGenerationAmount">
-                        -> {{ gameData.scissorGenerationAmount + ( gameData.firstScissorGenUpgrade ? gameData.generationIncrement - 1 : gameData.generationIncrement) }}
-                    </span>
+            <p>Generates {{ gameData.scissorGenerationAmount }} scissor{{ gameData.scissorGenerationAmount == 1 ? '' : 's' }} every {{ gameData.scissorGeneratorInterval }} seconds</p>
+        
+            <!-- Not Purchased -->
+            <ng-container *ngIf="!gameData.scissorGeneratorActive">
+            <p>Cost: {{ gameData.generatorCost }} points</p>
+            <button (click)="purchaseGenerator('scissor')" 
+                    [disabled]="(gameData.points < gameData.generatorCost) || (!gameData.scissorSniperActive)">
+                Buy
+            </button>
+            </ng-container>
+        
+            <!-- Active and Not Maxed -->
+            <ng-container *ngIf="gameData.scissorGeneratorActive && gameData.scissorGenerationAmount < gameData.maxGenerationAmount">
+            <p>{{ gameData.scissorGenerationAmount }} →
+                {{ gameData.scissorGenerationAmount + (gameData.firstScissorGenUpgrade ? gameData.generationIncrement - 1 : gameData.generationIncrement) }}
+            </p>
+            <p>Cost: {{ gameData.scissorGenerationUpgradeCost }} points</p>
+            <button (click)="purchaseGenerationUpgrade('scissor')"
+                    [disabled]="(gameData.points < gameData.scissorGenerationUpgradeCost)">
+                Upgrade
+            </button>
+            </ng-container>
+        
+            <!-- Maxed and No Branch Picked -->
+            <ng-container *ngIf="gameData.scissorGeneratorActive && gameData.scissorGenerationAmount >= gameData.maxGenerationAmount && !gameData.scissorBranchChosen">
+            <p>Generator Maxed. Choose your upgrade path:</p>
+            <button (click)="chooseBranch('scissor', 'interval')">Improve Generation Speed</button>
+            <button (click)="chooseBranch('scissor', 'active')">Collect Active Falling Scissors</button>
+            </ng-container>
+        
+            <!-- Branch: Interval -->
+            <ng-container *ngIf="gameData.scissorBranchChosen === 'interval'">
+            <p>Path: Faster Generation</p>
+        
+            <!-- Upgrade Available -->
+            <ng-container *ngIf="gameData.scissorGeneratorInterval > gameData.minIntervalLimit">
+                <p>
+                {{ gameData.scissorGeneratorInterval }}s →
+                {{
+                    (gameData.scissorGeneratorInterval - gameData.intervalIncrement) < gameData.minIntervalLimit
+                    ? gameData.minIntervalLimit
+                    : gameData.scissorGeneratorInterval - gameData.intervalIncrement
+                }}s
                 </p>
-                <p>{{ gameData.scissorGenerationAmount >= gameData.maxGenerationAmount ? 'Maxed Out' : 'Cost: ' + gameData.scissorGenerationUpgradeCost + ' points' }}</p>
-                <button (click)="purchaseGenerationUpgrade('scissor')"
-                        [disabled]="(gameData.points < gameData.scissorGenerationUpgradeCost) || (gameData.scissorGenerationAmount >= gameData.maxGenerationAmount)">
-                    Upgrade
+                <p>Cost: {{ gameData.scissorIntervalUpgradeCost }} rocks</p>
+                <button 
+                (click)="upgradeInterval('scissor')" 
+                [disabled]="gameData.rocks < gameData.scissorIntervalUpgradeCost">
+                Upgrade
                 </button>
-            </span>
+            </ng-container>
+        
+            <!-- Limit Reached -->
+            <ng-container *ngIf="gameData.scissorGeneratorInterval <= gameData.minIntervalLimit">
+                <p>Limit Reached</p>
+                <button disabled>Upgrade</button>
+            </ng-container>
+            </ng-container>
+        
+            <!-- Branch: Active -->
+            <ng-container *ngIf="gameData.scissorBranchChosen === 'active'">
+            <p>Path: Active Scissors</p>
+            <p>Collectible scissors fall on the game screen</p>
+            <p>Cost: {{ gameData.scissorActiveUpgradeCost }} points</p>
+            <button (click)="upgradeActiveGeneration('scissor')" [disabled]="gameData.points < gameData.scissorActiveUpgradeCost">
+                Upgrade
+            </button>
+            </ng-container>
         </div>
-    </div>
+  
 
     <!-- Fuel Purchase -->
     <div class="fuel-container">

@@ -66,7 +66,8 @@
 .container {
     display: flex;
     flex-wrap: wrap;
-    width:max-content;
+    width: 100%;
+    max-width: 1200px;
     justify-content: center;
     gap: 30px;
     margin: 10px 0;
@@ -74,11 +75,13 @@
 
 .fuel-container {
     display: flex;
-    justify-content: center;
-    width: 50%;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
     gap: 20px;
     margin: 15px 0;
-}
+  }
+  
 
 .fuel {
     display: flex;
@@ -120,3 +123,12 @@ button:disabled {
     color: #888;
     cursor: not-allowed;
 }
+
+.button-group {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    gap: 15px;
+    margin-top: 20px;
+  }
+  
