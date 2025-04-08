@@ -3,7 +3,9 @@
     <p class="points">Points: {{ gameData.points }}</p>
 
     <div class="container">
-
+        <!-- <p *ngIf="gameData.rockBranchChosen != null">Rocks: {{ gameData.rocks }}</p>
+        <p *ngIf="gameData.paperBranchChosen != null">Papers: {{ gameData.papers }}</p>
+        <p *ngIf="gameData.scissorBranchChosen != null">Scissors: {{ gameData.scissors }}</p> -->
         <!-- Rock Generator -->
         <div class="shop-item">
             <p>Rock Generator</p>
@@ -65,8 +67,6 @@
                 <button disabled>Upgrade</button>
                 </ng-container>
             </ng-container>
-  
-            
           
             <!-- Branch: Active -->
             <ng-container *ngIf="gameData.rockBranchChosen === 'active'">

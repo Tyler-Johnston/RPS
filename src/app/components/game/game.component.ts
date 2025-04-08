@@ -177,4 +177,58 @@ export class GameComponent {
     }
     return 'You Lose!';
   }
+
+  // fallingObjects: { id: number; type: 'rock' | 'paper' | 'scissor'; x: number; delay: number }[] = [];
+  // private nextId = 0;
+  
+
+  // ngAfterViewInit(): void {
+  //   setInterval(() => {
+  //     this.spawnFallingObjects();
+  //   }, 2000); // every 2 seconds
+  // }
+  
+
+  // spawnFallingObjects(): void {
+  //   const types: ('rock' | 'paper' | 'scissor')[] = ['rock', 'paper', 'scissor'];
+  
+  //   for (const type of types) {
+  //     if (this.shouldSpawn(type)) {
+  //       const id = this.nextId++;
+  //       const delay = Math.random() * 0.5; // vary start time
+  
+  //       this.fallingObjects.push({
+  //         id,
+  //         type,
+  //         x: Math.random() * 90, // horizontal %
+  //         delay
+  //       });
+  
+  //       // Remove this object after the animation
+  //       setTimeout(() => {
+  //         this.fallingObjects = this.fallingObjects.filter(obj => obj.id !== id);
+  //       }, 8000); // match animation duration
+  //     }
+  //   }
+  // }
+  
+  
+
+  // shouldSpawn(type: 'rock' | 'paper' | 'scissor'): boolean {
+  //   switch (type) {
+  //     case 'rock':
+  //       return this.gameData.rockBranchChosen === 'active';
+  //     case 'paper':
+  //       return this.gameData.paperBranchChosen === 'active';
+  //     case 'scissor':
+  //       return this.gameData.scissorBranchChosen === 'active';
+  //     default:
+  //       return false;
+  //   }
+  // }
+
+  // onObjectClick(type: 'rock' | 'paper' | 'scissor'): void {
+  //   console.log(`You clicked a falling ${type}!`);
+  // }
+
 }

@@ -84,3 +84,48 @@ button:disabled {
 .shop-button:active {
     background: linear-gradient(145deg, #00796b, #004d40);
 }
+
+/* .falling-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1000;
+  }
+  
+  .falling-object {
+    position: absolute;
+    top: -60px;
+    width: 64px;
+    height: 64px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    animation: fall 8s linear forwards;
+    z-index: 10;
+  }
+  
+  .falling-object.rock {
+    background-image: url('/rock.png');
+  }
+  
+  .falling-object.paper {
+    background-image: url('/paper.png');
+  }
+  
+  .falling-object.scissor {
+    background-image: url('/scissor.png');
+  }
+  
+  @keyframes fall {
+    0% {
+      top: -60px;
+      opacity: 1;
+    }
+    100% {
+      top: 100vh;
+      opacity: 1;
+    }
+  }
+   */
