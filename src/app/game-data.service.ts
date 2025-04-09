@@ -73,18 +73,22 @@ export class GameDataService {
   public firstPaperGenUpgrade: boolean = true;
   public firstScissorGenUpgrade: boolean = true;
 
-  public rockBranchChosen: 'interval' | 'active' | null = null;
-  public paperBranchChosen: 'interval' | 'active' | null = null;
-  public scissorBranchChosen: 'interval' | 'active' | null = null;
+  public rockBranchChosen: 'interval' | 'active' | 'none' = 'none';
+  public paperBranchChosen: 'interval' | 'active' | 'none' = 'none';
+  public scissorBranchChosen: 'interval' | 'active' | 'none' = 'none';
+
   public rockIntervalUpgradeCost: number = 1000;
   public paperIntervalUpgradeCost: number = 1000
   public scissorIntervalUpgradeCost: number = 1000
+
   public rockActiveUpgradeCost: number = 10000;
   public paperActiveUpgradeCost: number = 10000;
   public scissorActiveUpgradeCost: number = 10000;
+
   public rockActiveLevel: number = 0;
   public paperActiveLevel: number = 0;
   public scissorActiveLevel: number = 0;
+
   public minIntervalLimit: number = 1;
   public intervalIncrement: number = 2;
   public rockIntervalUpgradeLevel: number = 0;
@@ -98,7 +102,6 @@ export class GameDataService {
   calculateUpgradeCost({ baseCost, level, exponent, linearFactor }: { baseCost: number, level: number, exponent: number, linearFactor: number }): number {
     return Math.floor(baseCost * Math.pow(level, exponent) + (level * linearFactor));
   }
-  
   
 
   loadGameData(): void {
@@ -149,6 +152,32 @@ export class GameDataService {
     this.paperGenerationUpgradeCost = Number(localStorage.getItem('paperGenerationUpgradeCost') || this.paperGenerationUpgradeCost);
     this.scissorGenerationUpgradeCost = Number(localStorage.getItem('scissorGenerationUpgradeCost') || this.scissorGenerationUpgradeCost);
 
+    this.rockBranchChosen = localStorage.getItem('rockBranchChosen') as 'interval' | 'active' | 'none' || this.rockBranchChosen;
+    this.paperBranchChosen = localStorage.getItem('paperBranchChosen') as 'interval' | 'active' | 'none' || this.paperBranchChosen;
+    this.scissorBranchChosen = localStorage.getItem('scissorBranchChosen') as 'interval' | 'active' | 'none' || this.scissorBranchChosen;
+
+    this.rockGeneratorInterval = Number(localStorage.getItem('rockGeneratorInterval') || this.rockGeneratorInterval);
+    this.paperGeneratorInterval = Number(localStorage.getItem('paperGeneratorInterval') || this.paperGeneratorInterval);
+    this.scissorGeneratorInterval = Number(localStorage.getItem('scissorGeneratorInterval') || this.scissorGeneratorInterval);
+
+    this.rockActiveLevel = Number(localStorage.getItem('rockActiveLevel') || this.rockActiveLevel);
+    this.paperActiveLevel = Number(localStorage.getItem('paperActiveLevel') || this.paperActiveLevel);
+    this.scissorActiveLevel = Number(localStorage.getItem('scissorActiveLevel') || this.scissorActiveLevel);
+
+    this.rockIntervalUpgradeCost = Number(localStorage.getItem('rockIntervalUpgradeCost') || this.rockIntervalUpgradeCost);
+    this.paperIntervalUpgradeCost = Number(localStorage.getItem('paperIntervalUpgradeCost') || this.paperIntervalUpgradeCost);
+    this.scissorIntervalUpgradeCost = Number(localStorage.getItem('scissorIntervalUpgradeCost') || this.scissorIntervalUpgradeCost);
+    
+    this.rockActiveUpgradeCost = Number(localStorage.getItem('rockActiveUpgradeCost') || this.rockActiveUpgradeCost);
+    this.paperActiveUpgradeCost = Number(localStorage.getItem('paperActiveUpgradeCost') || this.paperActiveUpgradeCost);
+    this.scissorActiveUpgradeCost = Number(localStorage.getItem('scissorActiveUpgradeCost') || this.scissorActiveUpgradeCost);
+
+    // this.minIntervalLimit = Number(localStorage.getItem('minIntervalLimit') || this.minIntervalLimit);
+    // this.intervalIncrement = Number(localStorage.getItem('intervalIncrement') || this.intervalIncrement);
+    this.rockIntervalUpgradeLevel = Number(localStorage.getItem('rockIntervalUpgradeLevel') || this.rockIntervalUpgradeLevel);
+    this.paperIntervalUpgradeLevel = Number(localStorage.getItem('paperIntervalUpgradeLevel') || this.paperIntervalUpgradeLevel);
+    this.scissorIntervalUpgradeLevel = Number(localStorage.getItem('scissorIntervalUpgradeLevel') || this.scissorIntervalUpgradeLevel);
+
   }
 
   saveGameData(): void {
@@ -197,6 +226,32 @@ export class GameDataService {
     localStorage.setItem('rockGenerationUpgradeCost', String(this.rockGenerationUpgradeCost));
     localStorage.setItem('paperGenerationUpgradeCost', String(this.paperGenerationUpgradeCost));
     localStorage.setItem('scissorGenerationUpgradeCost', String(this.scissorGenerationUpgradeCost));
+
+    localStorage.setItem('rockBranchChosen', this.rockBranchChosen);
+    localStorage.setItem('paperBranchChosen', this.paperBranchChosen);
+    localStorage.setItem('scissorBranchChosen', this.scissorBranchChosen);
+
+    localStorage.setItem('rockGeneratorInterval', String(this.rockGeneratorInterval));
+    localStorage.setItem('paperGeneratorInterval', String(this.paperGeneratorInterval));
+    localStorage.setItem('scissorGeneratorInterval', String(this.scissorGeneratorInterval));
+
+    localStorage.setItem('rockActiveLevel', String(this.rockActiveLevel));
+    localStorage.setItem('paperActiveLevel', String(this.paperActiveLevel));
+    localStorage.setItem('scissorActiveLevel', String(this.scissorActiveLevel));
+
+    localStorage.setItem('rockIntervalUpgradeCost', String(this.rockIntervalUpgradeCost));
+    localStorage.setItem('paperIntervalUpgradeCost', String(this.paperIntervalUpgradeCost));
+    localStorage.setItem('scissorIntervalUpgradeCost', String(this.scissorIntervalUpgradeCost));
+
+    localStorage.setItem('rockActiveUpgradeCost', String(this.rockActiveUpgradeCost));
+    localStorage.setItem('paperActiveUpgradeCost', String(this.paperActiveUpgradeCost));
+    localStorage.setItem('scissorActiveUpgradeCost', String(this.scissorActiveUpgradeCost));
+
+    // localStorage.setItem('minIntervalLimit', String(this.minIntervalLimit));
+    // localStorage.setItem('intervalIncrement', String(this.intervalIncrement));
+    localStorage.setItem('rockIntervalUpgradeLevel', String(this.rockIntervalUpgradeLevel));
+    localStorage.setItem('paperIntervalUpgradeLevel', String(this.paperIntervalUpgradeLevel));
+    localStorage.setItem('scissorIntervalUpgradeLevel', String(this.scissorIntervalUpgradeLevel));
 
   }
   
