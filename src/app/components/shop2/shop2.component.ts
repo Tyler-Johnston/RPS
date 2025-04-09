@@ -176,24 +176,24 @@ export class Shop2Component {
     upgradeActiveGeneration(type: 'rock' | 'paper' | 'scissor'): void {
       switch (type) {
         case 'rock':
-          if (this.gameData.points >= this.gameData.rockActiveUpgradeCost) {
-            this.gameData.points -= this.gameData.rockActiveUpgradeCost;
+          if (this.gameData.papers >= this.gameData.rockActiveUpgradeCost) {
+            this.gameData.papers -= this.gameData.rockActiveUpgradeCost;
             this.gameData.rockActiveLevel++;
             this.gameData.rockActiveUpgradeCost = Math.floor(5000 * Math.pow(this.gameData.rockActiveLevel + 1, 2.3));
           }
           break;
     
         case 'paper':
-          if (this.gameData.points >= this.gameData.paperActiveUpgradeCost) {
-            this.gameData.points -= this.gameData.paperActiveUpgradeCost;
+          if (this.gameData.scissors >= this.gameData.paperActiveUpgradeCost) {
+            this.gameData.scissors -= this.gameData.paperActiveUpgradeCost;
             this.gameData.paperActiveLevel++;
             this.gameData.paperActiveUpgradeCost = Math.floor(5000 * Math.pow(this.gameData.paperActiveLevel + 1, 2.3));
           }
           break;
     
         case 'scissor':
-          if (this.gameData.points >= this.gameData.scissorActiveUpgradeCost) {
-            this.gameData.points -= this.gameData.scissorActiveUpgradeCost;
+          if (this.gameData.rocks >= this.gameData.scissorActiveUpgradeCost) {
+            this.gameData.rocks -= this.gameData.scissorActiveUpgradeCost;
             this.gameData.scissorActiveLevel++;
             this.gameData.scissorActiveUpgradeCost = Math.floor(5000 * Math.pow(this.gameData.scissorActiveLevel + 1, 2.3));
           }
