@@ -46,11 +46,6 @@
     width: auto;
 }
 
-.back-button {
-    margin-top: 20px;
-    background: linear-gradient(145deg, #26a69a, #00897b);
-}
-
 .sniper-row {
     display: flex;
     flex-direction: row;
@@ -64,6 +59,11 @@
   
 .next-button {
     margin-top: 20px;
+}
+
+.back-button {
+    margin-top: 20px;
+    background: linear-gradient(145deg, #26a69a, #00897b);
 }
 
 .back-button:hover {

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { GameDataService } from '../../game-data.service';
+import { AchievementService } from '../../achievement.service';
 
 type Move = 'Rock' | 'Paper' | 'Scissors';
 
@@ -17,7 +18,7 @@ export class GameComponent {
   private moves: Move[] = ['Rock', 'Paper', 'Scissors'];
   private timeoutId: any = null;
 
-  constructor(public gameData: GameDataService) {
+  constructor(public gameData: GameDataService, private achievementService: AchievementService) {
     this.gameData.loadGameData();
     this.startGenerators();
     if (!this.gameData.isMoveInit)
@@ -155,6 +156,10 @@ export class GameComponent {
         this.gameData.streakBonus = 1 + Math.floor(this.gameData.streak / this.gameData.streakPointDivisor);
         this.gameData.scoreBonus = this.gameData.streakBonus + this.gameData.baseScoreBonusAdditive;
         this.gameData.points += this.gameData.scoreBonus * this.gameData.mult;
+
+        this.achievementService.unlockAchievement('firstWin');
+        if (this.gameData.streak >= 100) this.achievementService.unlockAchievement('winStreak100');
+
     } else {
         this.gameData.streak = 0;
         this.gameData.streakBonus = 0;

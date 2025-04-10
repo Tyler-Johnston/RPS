@@ -1,9 +1,9 @@
 <div class="achievements-container">
     <h2><img src="/trophy.png" alt="Trophy" class="header-icon"> Achievements</h2>
-  
-    <h3 class="achievement-section-title">Progression</h3>
+
+    <h3 class="achievement-section-title">Upgrades</h3>
     <div class="achievement-list">
-      <div class="achievement-card" *ngFor="let a of progressionAchievements">
+      <div class="achievement-card" *ngFor="let a of upgradeAchievements">
         <div class="achievement-info">
           <h3>{{ a.title }}</h3>
           <p>{{ a.description }}</p>
@@ -15,8 +15,9 @@
     </div>
   
     <div class="button-group">
+      <button routerLink="/achievements" class="next-button"><</button>
       <button routerLink="/" class="back-button">Back to Game</button>
-      <button routerLink="/achievements2" class="next-button">></button>
+      <button routerLink="/achievements3" class="next-button">></button>
     </div>
   </div>
   

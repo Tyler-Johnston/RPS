@@ -3,27 +3,24 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AchievementService, Achievement } from '../../achievement.service';
 
-
-
 @Component({
-  selector: 'app-achievements',
+  selector: 'app-achievements3',
   imports: [RouterModule, CommonModule],
-  templateUrl: './achievements.component.html',
-  styleUrl: './achievements.component.css'
+  templateUrl: './achievements3.component.html',
+  styleUrl: '../achievements/achievements.component.css'
 })
-export class AchievementsComponent {
-
-  progressionAchievements: Achievement[] = [];
+export class Achievements3Component {
+  // progressionAchievements: Achievement[] = [];
   // upgradeAchievements: Achievement[] = [];
-  // mechanicsAchievements: Achievement[] = [];
+  mechanicsAchievements: Achievement[] = [];
   // miscAchievements: Achievement[] = [];
 
 
   constructor(public achievementService: AchievementService) {
     const all = achievementService.getAchievements();
-    this.progressionAchievements = all.filter(a => a.id.startsWith('prog_'));
+    // this.progressionAchievements = all.filter(a => a.id.startsWith('prog_'));
     // this.upgradeAchievements = all.filter(a => a.id.startsWith('upg_'));
-    // this.mechanicsAchievements = all.filter(a => a.id.startsWith('mech_'));
+    this.mechanicsAchievements = all.filter(a => a.id.startsWith('mech_'));
     // this.miscAchievements = all.filter(a => a.id.startsWith('misc_'));
   }
 
@@ -35,3 +32,4 @@ export class AchievementsComponent {
     return this.achievementService.isUnlocked(id);
   }
 }
+

@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { AchievementService } from './achievement.service';
 
 type Move = 'Rock' | 'Paper' | 'Scissors';
 
@@ -16,6 +17,10 @@ export class GameDataService {
   public pointsPerWin: number = 1;
 
   public isMoveInit = false;
+  public efficiencyIncrement = 10;
+  public maxEfficiency = 90;
+  public minIntervalLimit: number = 1;
+  public intervalIncrement: number = 2;
 
   public baseScoreBonusAdditive: number = 0;
   public scoreBonusUpgradeCost: number = 250;
@@ -39,11 +44,10 @@ export class GameDataService {
   public baseRockEfficiencyPercentage = 0;
   public basePaperEfficiencyPercentage = 0;
   public baseScissorEfficiencyPercentage = 0;
-  public efficiencyIncrement = 10;
+
   public rockEfficiencyUpgradeCost = 2000;
   public paperEfficiencyUpgradeCost = 2000;
   public scissorEfficiencyUpgradeCost = 2000;
-  public maxEfficiency = 90;
 
   public rockGeneratorActive: boolean = false;
   public paperGeneratorActive: boolean = false;
@@ -85,13 +89,11 @@ export class GameDataService {
   public paperActiveLevel: number = 0;
   public scissorActiveLevel: number = 0;
 
-  public minIntervalLimit: number = 1;
-  public intervalIncrement: number = 2;
   public rockIntervalUpgradeLevel: number = 0;
   public paperIntervalUpgradeLevel: number = 0;
   public scissorIntervalUpgradeLevel: number = 0;
 
-  constructor() {
+  constructor(private achievementService: AchievementService) {
     this.loadGameData();
   }
 
@@ -172,6 +174,7 @@ export class GameDataService {
 
   saveGameData(): void {
     this.pointsPerWin = (this.streakBonus + this.baseScoreBonusAdditive) * this.mult;
+    this.achievementService.evaluateFromGameData(this);
     localStorage.setItem('currentMove', this.currentMove);
     localStorage.setItem('points', String(this.points));
     localStorage.setItem('scoreBonus', String(this.scoreBonus));
@@ -237,6 +240,5 @@ export class GameDataService {
     localStorage.setItem('paperIntervalUpgradeLevel', String(this.paperIntervalUpgradeLevel));
     localStorage.setItem('scissorIntervalUpgradeLevel', String(this.scissorIntervalUpgradeLevel));
 
-  }
-  
+  } 
 }
