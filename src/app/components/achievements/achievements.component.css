@@ -134,3 +134,7 @@ button:disabled {
     gap: 15px;
     margin-top: 20px;
   }
+
+  .next-button {
+    margin-top: 20px;
+}
