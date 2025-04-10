@@ -93,21 +93,6 @@ export class Shop2Component {
     }
 }
 
-    chooseBranch(type: 'rock' | 'paper' | 'scissor', choice: 'interval' | 'active'): void {
-      switch (type) {
-        case 'rock':
-          this.gameData.rockBranchChosen = choice;
-          break;
-        case 'paper':
-          this.gameData.paperBranchChosen = choice;
-          break;
-        case 'scissor':
-          this.gameData.scissorBranchChosen = choice;
-          break;
-      }
-      this.gameData.saveGameData();
-    }
-
     upgradeInterval(type: 'rock' | 'paper' | 'scissor'): void {
       switch (type) {
         case 'rock':
