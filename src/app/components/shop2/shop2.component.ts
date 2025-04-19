@@ -109,7 +109,7 @@ export class Shop2Component {
     
             this.gameData.rockIntervalUpgradeLevel++;
             this.gameData.rockIntervalUpgradeCost = Math.floor(
-              2000 * Math.pow(this.gameData.rockIntervalUpgradeLevel, 2.2)
+              100 * Math.pow(this.gameData.rockIntervalUpgradeLevel, 1.6)
             );
             this.gameData.saveGameData();
           }
@@ -129,7 +129,7 @@ export class Shop2Component {
     
             this.gameData.paperIntervalUpgradeLevel++;
             this.gameData.paperIntervalUpgradeCost = Math.floor(
-              2000 * Math.pow(this.gameData.paperIntervalUpgradeLevel, 2.2)
+              100 * Math.pow(this.gameData.paperIntervalUpgradeLevel, 1.6)
             );
             this.gameData.saveGameData();
           }
@@ -149,7 +149,7 @@ export class Shop2Component {
     
             this.gameData.scissorIntervalUpgradeLevel++;
             this.gameData.scissorIntervalUpgradeCost = Math.floor(
-              2000 * Math.pow(this.gameData.scissorIntervalUpgradeLevel, 2.2)
+              100 * Math.pow(this.gameData.scissorIntervalUpgradeLevel, 1.6)
             );
             this.gameData.saveGameData();
           }
@@ -164,7 +164,7 @@ export class Shop2Component {
           if (this.gameData.papers >= this.gameData.rockActiveUpgradeCost) {
             this.gameData.papers -= this.gameData.rockActiveUpgradeCost;
             this.gameData.rockActiveLevel++;
-            this.gameData.rockActiveUpgradeCost = Math.floor(5000 * Math.pow(this.gameData.rockActiveLevel + 1, 2.3));
+            this.gameData.rockActiveUpgradeCost = Math.floor(3000 * Math.pow(this.gameData.rockActiveLevel + 1, 1.9));
           }
           break;
     
@@ -172,7 +172,7 @@ export class Shop2Component {
           if (this.gameData.scissors >= this.gameData.paperActiveUpgradeCost) {
             this.gameData.scissors -= this.gameData.paperActiveUpgradeCost;
             this.gameData.paperActiveLevel++;
-            this.gameData.paperActiveUpgradeCost = Math.floor(5000 * Math.pow(this.gameData.paperActiveLevel + 1, 2.3));
+            this.gameData.paperActiveUpgradeCost = Math.floor(3000 * Math.pow(this.gameData.paperActiveLevel + 1, 1.9));
           }
           break;
     
@@ -180,7 +180,7 @@ export class Shop2Component {
           if (this.gameData.rocks >= this.gameData.scissorActiveUpgradeCost) {
             this.gameData.rocks -= this.gameData.scissorActiveUpgradeCost;
             this.gameData.scissorActiveLevel++;
-            this.gameData.scissorActiveUpgradeCost = Math.floor(5000 * Math.pow(this.gameData.scissorActiveLevel + 1, 2.3));
+            this.gameData.scissorActiveUpgradeCost = Math.floor(3000 * Math.pow(this.gameData.scissorActiveLevel + 1, 1.9));
           }
           break;
       }

@@ -156,10 +156,7 @@ export class GameComponent {
         this.gameData.streakBonus = 1 + Math.floor(this.gameData.streak / this.gameData.streakPointDivisor);
         this.gameData.scoreBonus = this.gameData.streakBonus + this.gameData.baseScoreBonusAdditive;
         this.gameData.points += this.gameData.scoreBonus * this.gameData.mult;
-
-        this.achievementService.unlockAchievement('firstWin');
-        if (this.gameData.streak >= 100) this.achievementService.unlockAchievement('winStreak100');
-
+        this.achievementService.unlockAchievement('prog_firstWin');
     } else {
         this.gameData.streak = 0;
         this.gameData.streakBonus = 0;
