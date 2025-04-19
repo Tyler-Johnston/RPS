@@ -73,6 +73,12 @@ export class AchievementService {
     }
   }
 
+  getCompletionPercentage(): number {
+    const total = this.achievements.length;
+    const unlocked = this.achievements.filter(a => a.unlocked).length;
+    return total === 0 ? 0 : Math.floor((unlocked / total) * 100);
+  }  
+
   saveAchievements(): void {
     localStorage.setItem('achievements', JSON.stringify(this.achievements));
   }
