@@ -3,6 +3,7 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { GameDataService } from '../../game-data.service';
 import { AchievementService } from '../../achievement.service';
+import { SupabaseService } from '../../supabase.service';
 
 type Move = 'Rock' | 'Paper' | 'Scissors';
 
@@ -17,9 +18,11 @@ export class GameComponent {
   private result: string = '';
   private moves: Move[] = ['Rock', 'Paper', 'Scissors'];
   private timeoutId: any = null;
+  public isLoggedIn: boolean = false;
 
-  constructor(public gameData: GameDataService, private achievementService: AchievementService) {
+  constructor(public gameData: GameDataService, private achievementService: AchievementService, private supabaseService: SupabaseService) {
     this.gameData.loadGameData();
+    this.checkLogin();
     this.startGenerators();
     if (!this.gameData.isMoveInit)
     {
@@ -30,6 +33,16 @@ export class GameComponent {
     {
       this.handleSniperFire();
     }
+  }
+
+  async checkLogin() {
+    const user = await this.supabaseService.getUser();
+    this.isLoggedIn = !!user;
+  }
+
+  async logout() {
+    await this.supabaseService.signOut();
+    this.isLoggedIn = false;
   }
 
   ngOnDestroy(): void {

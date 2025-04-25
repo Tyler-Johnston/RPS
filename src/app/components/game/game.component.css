@@ -100,3 +100,33 @@ button:disabled {
 }
 
 
+.auth-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+  }
+  
+  .auth-button {
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    background: linear-gradient(145deg, #3371b9, #00967d);
+    color: #fff;
+    border: 3px solid #fff;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.1s, box-shadow 0.1s;
+    text-shadow: 1px 1px #000;
+  }
+  
+  .auth-button:hover {
+    background: linear-gradient(145deg, #bb9ccf, #005e89);
+    transform: scale(1.05);
+    box-shadow: 4px 4px #222;
+  }
+  
+  .auth-button:active {
+    background: linear-gradient(145deg, #00796b, #004d40);
+    transform: scale(0.95);
+  }
+  

@@ -1,0 +1,32 @@
+<div class="auth-container">
+    <h2>Welcome Back</h2>
+  
+    <form (ngSubmit)="onLogin()" #loginForm="ngForm" class="auth-form">
+      <input
+        type="email"
+        placeholder="Email"
+        required
+        [(ngModel)]="email"
+        name="email"
+      />
+      <input
+        type="password"
+        placeholder="Password"
+        required
+        [(ngModel)]="password"
+        name="password"
+      />
+      <div class="auth-buttons">
+        <button type="submit" class="auth-button">Submit</button>
+        <button routerLink="/" class="auth-button" >Go Back</button>
+      </div>
+    </form>
+  
+    <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
+  </div>
+
+<!-- Navigation Buttons -->
+<div class="button-group">
+</div>
+
+  

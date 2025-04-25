@@ -30,5 +30,10 @@
         <img src="/trophy.png" alt="Trophy" class="trophy-icon" />
       </button>
     </div>
-    
+</div>
+<div class="auth-buttons">
+  <button *ngIf="!isLoggedIn" routerLink="/login" class="auth-button">Log In</button>
+  <button *ngIf="!isLoggedIn" routerLink="/signup" class="auth-button">Sign Up</button>
+  
+  <button *ngIf="isLoggedIn" (click)="logout()" class="auth-button">Log Out</button>
 </div>

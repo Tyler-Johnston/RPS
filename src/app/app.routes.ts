@@ -7,6 +7,8 @@ import { Achievements2Component } from './components/achievements2/achievements2
 import { Achievements3Component } from './components/achievements3/achievements3.component';
 import { Achievements4Component } from './components/achievements4/achievements4.component';
 import { EasterEggComponent } from './components/easter-egg/easter-egg.component';
+import { LoginComponent } from './components/login/login.component';
+import { SignupComponent } from './components/signup/signup.component';
 
 export const routes: Routes = [
   { path: '', component: GameComponent },
@@ -16,5 +18,7 @@ export const routes: Routes = [
   { path: 'achievements2', component: Achievements2Component},
   { path: 'achievements3', component: Achievements3Component},
   { path: 'achievements4', component: Achievements4Component},
+  { path: 'login', component: LoginComponent},
+  { path: 'signup', component: SignupComponent},
   { path: '**', component: EasterEggComponent}
 ];
