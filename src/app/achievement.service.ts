@@ -43,7 +43,7 @@ export class AchievementService {
     { id: 'mech_ppw3', title: 'RPS Tycoon', description: 'Achieve a PPW of 10,000', unlocked: false },
   
     // Miscellaneous
-    { id: 'misc_secretFinder', title: '???', description: 'Discover a hidden easter egg', unlocked: false },
+    { id: 'misc_secretFinder', title: '???', description: 'Discover the hidden easter egg', unlocked: false },
     { id: 'misc_completionist', title: 'Completionist', description: 'Unlock all achievements', unlocked: false }
   ];
   

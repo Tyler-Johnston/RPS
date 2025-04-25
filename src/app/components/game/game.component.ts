@@ -72,7 +72,7 @@ export class GameComponent {
         this.timeoutId = setTimeout(() => {
             this.gameData.rocks -= 1;
             this.gameData.sniperLock = false;
-            this.makeChoice('Rock');
+            this.makeChoice('Rock', false);
         }, rockSniperSpeed);
         return;
     }
@@ -82,7 +82,7 @@ export class GameComponent {
         this.timeoutId = setTimeout(() => {
             this.gameData.papers -= 1;
             this.gameData.sniperLock = false;
-            this.makeChoice('Paper');
+            this.makeChoice('Paper', false);
         }, paperSniperSpeed);
         return;
     }
@@ -92,7 +92,7 @@ export class GameComponent {
         this.timeoutId = setTimeout(() => {
             this.gameData.scissors -= 1;
             this.gameData.sniperLock = false;
-            this.makeChoice('Scissors');
+            this.makeChoice('Scissors', false);
         }, scissorSniperSpeed);
         return;
     }
@@ -148,8 +148,8 @@ export class GameComponent {
   }
 
 
-  makeChoice(playerMove: Move): void {
-    if (this.gameData.sniperLock) return;
+  makeChoice(playerMove: Move, isManualClick: boolean): void {
+    if (!isManualClick && this.gameData.sniperLock) return;
     this.result = this.calculateResult(playerMove, this.gameData.currentMove);
     if (this.result === 'You Win!') {
         this.gameData.streak++;

@@ -20,10 +20,10 @@ export class ShopComponent {
       this.gameData.points -= this.gameData.scoreMultUpgradeCost;
     
       this.gameData.scoreMultUpgradeCost = this.gameData.calculateUpgradeCost({
-        baseCost: 10000,
+        baseCost: 5000,
         level: this.gameData.mult,
-        exponent: 4,
-        linearFactor: 1400
+        exponent: 2.1,
+        linearFactor: 600
       });
       
       this.gameData.mult++;
@@ -39,8 +39,8 @@ export class ShopComponent {
       this.gameData.scoreBonusUpgradeCost = this.gameData.calculateUpgradeCost({
         baseCost: 250,
         level: this.gameData.baseScoreBonusAdditive / this.gameData.bonusPointIncrement,
-        exponent: 2.8,
-        linearFactor: 1000
+        exponent: 1.4,
+        linearFactor: 275
       });
 
       this.gameData.scoreBonus = this.gameData.scoreBonus + this.gameData.baseScoreBonusAdditive;

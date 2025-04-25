@@ -13,9 +13,9 @@
     </div>
 
     <div class="controls">
-      <button (click)="makeChoice('Rock')">Rock</button>
-      <button (click)="makeChoice('Paper')">Paper</button>
-      <button (click)="makeChoice('Scissors')">Scissors</button>
+      <button (click)="makeChoice('Rock', true)">Rock</button>
+      <button (click)="makeChoice('Paper', true)">Paper</button>
+      <button (click)="makeChoice('Scissors', true)">Scissors</button>
     </div>
 
     <div *ngIf="gameData.rockSniperActive || gameData.paperSniperActive || gameData.scissorSniperActive" class="sniper-info">
