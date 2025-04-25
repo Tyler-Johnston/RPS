@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { AchievementService } from './achievement.service';
+import { SupabaseService } from './supabase.service';
 
 type Move = 'Rock' | 'Paper' | 'Scissors';
 
 @Injectable({
   providedIn: 'root'
 })
-
 export class GameDataService {
   public currentMove: Move = 'Rock';
   public points: number = 0;
@@ -78,8 +78,8 @@ export class GameDataService {
   public firstScissorGenUpgrade: boolean = true;
 
   public rockIntervalUpgradeCost: number = 1000;
-  public paperIntervalUpgradeCost: number = 1000
-  public scissorIntervalUpgradeCost: number = 1000
+  public paperIntervalUpgradeCost: number = 1000;
+  public scissorIntervalUpgradeCost: number = 1000;
 
   public rockActiveUpgradeCost: number = 10000;
   public paperActiveUpgradeCost: number = 10000;
@@ -93,152 +93,108 @@ export class GameDataService {
   public paperIntervalUpgradeLevel: number = 0;
   public scissorIntervalUpgradeLevel: number = 0;
 
-  constructor(private achievementService: AchievementService) {
-    this.loadGameData();
-  }
+  constructor(
+    private achievementService: AchievementService,
+    private supabaseService: SupabaseService
+  ) {}
 
   calculateUpgradeCost({ baseCost, level, exponent, linearFactor }: { baseCost: number, level: number, exponent: number, linearFactor: number }): number {
     return Math.floor(baseCost * Math.pow(level, exponent) + (level * linearFactor));
   }
-  
 
-  loadGameData(): void {
-    this.currentMove = localStorage.getItem('currentMove') as 'Rock' | 'Paper' | 'Scissors' || this.currentMove;
-    this.points = Number(localStorage.getItem('points') || this.points);
-    this.scoreBonus = Number(localStorage.getItem('scoreBonus') || this.scoreBonus);
-    this.streakBonus = Number(localStorage.getItem('streakBonus') || this.streakBonus);
-    this.streak = Number(localStorage.getItem('streak') || this.streak);
-    this.mult = Number(localStorage.getItem('mult') || this.mult);
-    this.pointsPerWin = Number(localStorage.getItem('pointsPerWin') || this.pointsPerWin);
-
-    this.scoreBonusUpgradeCost = Number(localStorage.getItem('scoreBonusUpgradeCost') || this.scoreBonusUpgradeCost);
-    this.scoreMultUpgradeCost = Number(localStorage.getItem('scoreMultUpgradeCost') || this.scoreMultUpgradeCost);
-    this.baseScoreBonusAdditive = Number(localStorage.getItem('baseScoreBonusAdditive') || this.baseScoreBonusAdditive);
-    this.sniperCost = Number(localStorage.getItem('sniperCost') || this.sniperCost);
-
-    this.rockSniperActive = localStorage.getItem('rockSniperActive') === 'true';
-    this.paperSniperActive = localStorage.getItem('paperSniperActive') === 'true';
-    this.scissorSniperActive = localStorage.getItem('scissorSniperActive') === 'true';
-
-    this.rockGeneratorActive = localStorage.getItem('rockGeneratorActive') === 'true';
-    this.paperGeneratorActive = localStorage.getItem('paperGeneratorActive') === 'true';
-    this.scissorGeneratorActive = localStorage.getItem('scissorGeneratorActive') === 'true';
-
-    this.firstRockGenUpgrade = JSON.parse(localStorage.getItem('firstRockGenUpgrade') || 'true');
-    this.firstPaperGenUpgrade = JSON.parse(localStorage.getItem('firstPaperGenUpgrade') || 'true');
-    this.firstScissorGenUpgrade = JSON.parse(localStorage.getItem('firstScissorGenUpgrade') || 'true');
-
-    this.sniperLock = false;
-
-    this.rocks = Number(localStorage.getItem('rocks') || this.rocks);
-    this.papers = Number(localStorage.getItem('papers') || this.papers);
-    this.scissors = Number(localStorage.getItem('scissors') || this.scissors);
-
-    this.baseRockEfficiencyPercentage = Number(localStorage.getItem('baseRockEfficiencyPercentage') || this.baseRockEfficiencyPercentage);
-    this.basePaperEfficiencyPercentage = Number(localStorage.getItem('basePaperEfficiencyPercentage') || this.basePaperEfficiencyPercentage);
-    this.baseScissorEfficiencyPercentage = Number(localStorage.getItem('baseScissorEfficiencyPercentage') || this.baseScissorEfficiencyPercentage);
-
-    this.rockEfficiencyUpgradeCost = Number(localStorage.getItem('rockEfficiencyUpgradeCost') || this.rockEfficiencyUpgradeCost);
-    this.paperEfficiencyUpgradeCost = Number(localStorage.getItem('paperEfficiencyUpgradeCost') || this.paperEfficiencyUpgradeCost);
-    this.scissorEfficiencyUpgradeCost = Number(localStorage.getItem('scissorEfficiencyUpgradeCost') || this.scissorEfficiencyUpgradeCost);
-
-    this.rockGenerationAmount = Number(localStorage.getItem('rockGenerationAmount') || this.rockGenerationAmount);
-    this.paperGenerationAmount = Number(localStorage.getItem('paperGenerationAmount') || this.paperGenerationAmount);
-    this.scissorGenerationAmount = Number(localStorage.getItem('scissorGenerationAmount') || this.scissorGenerationAmount);
-
-    this.rockGenerationUpgradeCost = Number(localStorage.getItem('rockGenerationUpgradeCost') || this.rockGenerationUpgradeCost);
-    this.paperGenerationUpgradeCost = Number(localStorage.getItem('paperGenerationUpgradeCost') || this.paperGenerationUpgradeCost);
-    this.scissorGenerationUpgradeCost = Number(localStorage.getItem('scissorGenerationUpgradeCost') || this.scissorGenerationUpgradeCost);
-
-    this.rockGeneratorInterval = Number(localStorage.getItem('rockGeneratorInterval') || this.rockGeneratorInterval);
-    this.paperGeneratorInterval = Number(localStorage.getItem('paperGeneratorInterval') || this.paperGeneratorInterval);
-    this.scissorGeneratorInterval = Number(localStorage.getItem('scissorGeneratorInterval') || this.scissorGeneratorInterval);
-
-    this.rockActiveLevel = Number(localStorage.getItem('rockActiveLevel') || this.rockActiveLevel);
-    this.paperActiveLevel = Number(localStorage.getItem('paperActiveLevel') || this.paperActiveLevel);
-    this.scissorActiveLevel = Number(localStorage.getItem('scissorActiveLevel') || this.scissorActiveLevel);
-
-    this.rockIntervalUpgradeCost = Number(localStorage.getItem('rockIntervalUpgradeCost') || this.rockIntervalUpgradeCost);
-    this.paperIntervalUpgradeCost = Number(localStorage.getItem('paperIntervalUpgradeCost') || this.paperIntervalUpgradeCost);
-    this.scissorIntervalUpgradeCost = Number(localStorage.getItem('scissorIntervalUpgradeCost') || this.scissorIntervalUpgradeCost);
-    
-    this.rockActiveUpgradeCost = Number(localStorage.getItem('rockActiveUpgradeCost') || this.rockActiveUpgradeCost);
-    this.paperActiveUpgradeCost = Number(localStorage.getItem('paperActiveUpgradeCost') || this.paperActiveUpgradeCost);
-    this.scissorActiveUpgradeCost = Number(localStorage.getItem('scissorActiveUpgradeCost') || this.scissorActiveUpgradeCost);
-
-    this.rockIntervalUpgradeLevel = Number(localStorage.getItem('rockIntervalUpgradeLevel') || this.rockIntervalUpgradeLevel);
-    this.paperIntervalUpgradeLevel = Number(localStorage.getItem('paperIntervalUpgradeLevel') || this.paperIntervalUpgradeLevel);
-    this.scissorIntervalUpgradeLevel = Number(localStorage.getItem('scissorIntervalUpgradeLevel') || this.scissorIntervalUpgradeLevel);
-
+  serializeGameData(): any {
+    return {
+      currentMove: this.currentMove,
+      points: this.points,
+      streak: this.streak,
+      scoreBonus: this.scoreBonus,
+      mult: this.mult,
+      streakBonus: this.streakBonus,
+      pointsPerWin: this.pointsPerWin,
+      scoreBonusUpgradeCost: this.scoreBonusUpgradeCost,
+      scoreMultUpgradeCost: this.scoreMultUpgradeCost,
+      baseScoreBonusAdditive: this.baseScoreBonusAdditive,
+      sniperCost: this.sniperCost,
+      rockSniperActive: this.rockSniperActive,
+      paperSniperActive: this.paperSniperActive,
+      scissorSniperActive: this.scissorSniperActive,
+      rocks: this.rocks,
+      papers: this.papers,
+      scissors: this.scissors,
+      rockEfficiencyUpgradeCost: this.rockEfficiencyUpgradeCost,
+      paperEfficiencyUpgradeCost: this.paperEfficiencyUpgradeCost,
+      scissorEfficiencyUpgradeCost: this.scissorEfficiencyUpgradeCost,
+      rockGenerationAmount: this.rockGenerationAmount,
+      paperGenerationAmount: this.paperGenerationAmount,
+      scissorGenerationAmount: this.scissorGenerationAmount,
+      rockGenerationUpgradeCost: this.rockGenerationUpgradeCost,
+      paperGenerationUpgradeCost: this.paperGenerationUpgradeCost,
+      scissorGenerationUpgradeCost: this.scissorGenerationUpgradeCost,
+      rockGeneratorInterval: this.rockGeneratorInterval,
+      paperGeneratorInterval: this.paperGeneratorInterval,
+      scissorGeneratorInterval: this.scissorGeneratorInterval,
+      rockGeneratorActive: this.rockGeneratorActive,
+      paperGeneratorActive: this.paperGeneratorActive,
+      scissorGeneratorActive: this.scissorGeneratorActive,
+      rockActiveLevel: this.rockActiveLevel,
+      paperActiveLevel: this.paperActiveLevel,
+      scissorActiveLevel: this.scissorActiveLevel,
+      rockIntervalUpgradeCost: this.rockIntervalUpgradeCost,
+      paperIntervalUpgradeCost: this.paperIntervalUpgradeCost,
+      scissorIntervalUpgradeCost: this.scissorIntervalUpgradeCost,
+      rockActiveUpgradeCost: this.rockActiveUpgradeCost,
+      paperActiveUpgradeCost: this.paperActiveUpgradeCost,
+      scissorActiveUpgradeCost: this.scissorActiveUpgradeCost,
+      rockIntervalUpgradeLevel: this.rockIntervalUpgradeLevel,
+      paperIntervalUpgradeLevel: this.paperIntervalUpgradeLevel,
+      scissorIntervalUpgradeLevel: this.scissorIntervalUpgradeLevel,
+      firstRockGenUpgrade: this.firstRockGenUpgrade,
+      firstPaperGenUpgrade: this.firstPaperGenUpgrade,
+      firstScissorGenUpgrade: this.firstScissorGenUpgrade,
+      baseRockEfficiencyPercentage: this.baseRockEfficiencyPercentage,
+      basePaperEfficiencyPercentage: this.basePaperEfficiencyPercentage,
+      baseScissorEfficiencyPercentage: this.baseScissorEfficiencyPercentage
+    };
   }
 
-  saveGameData(): void {
+  deserializeGameData(data: any): void {
+    if (!data) return;
+    Object.assign(this, data);
+  }
+
+  async saveGameData(): Promise<void> {
     this.pointsPerWin = (this.streakBonus + this.baseScoreBonusAdditive) * this.mult;
     this.achievementService.evaluateFromGameData(this);
-    localStorage.setItem('currentMove', this.currentMove);
-    localStorage.setItem('points', String(this.points));
-    localStorage.setItem('scoreBonus', String(this.scoreBonus));
-    localStorage.setItem('streakBonus', String(this.streakBonus));
-    localStorage.setItem('streak', String(this.streak));
-    localStorage.setItem('mult', String(this.mult));
-    localStorage.setItem('pointsPerWin', String(this.pointsPerWin));
 
-    localStorage.setItem('scoreBonusUpgradeCost', String(this.scoreBonusUpgradeCost));
-    localStorage.setItem('scoreMultUpgradeCost', String(this.scoreMultUpgradeCost));
-    localStorage.setItem('baseScoreBonusAdditive', String(this.baseScoreBonusAdditive));
-    localStorage.setItem('sniperCost', String(this.sniperCost));
+    const saveData = this.serializeGameData();
+    const user = await this.supabaseService.getUser();
 
-    localStorage.setItem('rockGeneratorActive', String(this.rockGeneratorActive));
-    localStorage.setItem('paperGeneratorActive', String(this.paperGeneratorActive));
-    localStorage.setItem('scissorGeneratorActive', String(this.scissorGeneratorActive));
+    if (user) {
+      await this.supabaseService.saveGameData(user.id, saveData);
+    } else {
+      localStorage.setItem('rps_save', JSON.stringify(saveData));
+    }
+  }
 
-    localStorage.setItem('rockSniperActive', String(this.rockSniperActive));
-    localStorage.setItem('paperSniperActive', String(this.paperSniperActive));
-    localStorage.setItem('scissorSniperActive', String(this.scissorSniperActive));
+  async loadGameData(): Promise<void> {
+    const user = await this.supabaseService.getUser();
 
-    localStorage.setItem('firstRockGenUpgrade', String(this.firstRockGenUpgrade));
-    localStorage.setItem('firstPaperGenUpgrade', String(this.firstPaperGenUpgrade));
-    localStorage.setItem('firstScissorGenUpgrade', String(this.firstScissorGenUpgrade));
-
-    localStorage.setItem('rocks', String(this.rocks));
-    localStorage.setItem('papers', String(this.papers));
-    localStorage.setItem('scissors', String(this.scissors));
-
-    localStorage.setItem('baseRockEfficiencyPercentage', String(this.baseRockEfficiencyPercentage));
-    localStorage.setItem('basePaperEfficiencyPercentage', String(this.basePaperEfficiencyPercentage));
-    localStorage.setItem('baseScissorEfficiencyPercentage', String(this.baseScissorEfficiencyPercentage));
-
-    localStorage.setItem('rockEfficiencyUpgradeCost', String(this.rockEfficiencyUpgradeCost));
-    localStorage.setItem('paperEfficiencyUpgradeCost', String(this.paperEfficiencyUpgradeCost));
-    localStorage.setItem('scissorEfficiencyUpgradeCost', String(this.scissorEfficiencyUpgradeCost));
-
-    localStorage.setItem('rockGenerationAmount', String(this.rockGenerationAmount));
-    localStorage.setItem('paperGenerationAmount', String(this.paperGenerationAmount));
-    localStorage.setItem('scissorGenerationAmount', String(this.scissorGenerationAmount));
-
-    localStorage.setItem('rockGenerationUpgradeCost', String(this.rockGenerationUpgradeCost));
-    localStorage.setItem('paperGenerationUpgradeCost', String(this.paperGenerationUpgradeCost));
-    localStorage.setItem('scissorGenerationUpgradeCost', String(this.scissorGenerationUpgradeCost));
-
-    localStorage.setItem('rockGeneratorInterval', String(this.rockGeneratorInterval));
-    localStorage.setItem('paperGeneratorInterval', String(this.paperGeneratorInterval));
-    localStorage.setItem('scissorGeneratorInterval', String(this.scissorGeneratorInterval));
-
-    localStorage.setItem('rockActiveLevel', String(this.rockActiveLevel));
-    localStorage.setItem('paperActiveLevel', String(this.paperActiveLevel));
-    localStorage.setItem('scissorActiveLevel', String(this.scissorActiveLevel));
-
-    localStorage.setItem('rockIntervalUpgradeCost', String(this.rockIntervalUpgradeCost));
-    localStorage.setItem('paperIntervalUpgradeCost', String(this.paperIntervalUpgradeCost));
-    localStorage.setItem('scissorIntervalUpgradeCost', String(this.scissorIntervalUpgradeCost));
-
-    localStorage.setItem('rockActiveUpgradeCost', String(this.rockActiveUpgradeCost));
-    localStorage.setItem('paperActiveUpgradeCost', String(this.paperActiveUpgradeCost));
-    localStorage.setItem('scissorActiveUpgradeCost', String(this.scissorActiveUpgradeCost));
-
-    localStorage.setItem('rockIntervalUpgradeLevel', String(this.rockIntervalUpgradeLevel));
-    localStorage.setItem('paperIntervalUpgradeLevel', String(this.paperIntervalUpgradeLevel));
-    localStorage.setItem('scissorIntervalUpgradeLevel', String(this.scissorIntervalUpgradeLevel));
-
-  } 
+    if (user) {
+      const { data } = await this.supabaseService.loadGameData(user.id);
+      if (data) {
+        this.deserializeGameData(data);
+        console.log('Loaded cloud save from Supabase.');
+      } else {
+        console.log('No cloud save found.');
+      }
+    } else {
+      const localData = localStorage.getItem('rps_save');
+      if (localData) {
+        this.deserializeGameData(JSON.parse(localData));
+        console.log('Loaded local save from browser.');
+      } else {
+        console.log('No local save found.');
+      }
+    }
+  }
 }
