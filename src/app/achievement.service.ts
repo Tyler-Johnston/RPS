@@ -74,7 +74,12 @@ export class AchievementService {
     const total = this.achievements.length;
     const unlocked = this.achievements.filter(a => a.unlocked).length;
     return total === 0 ? 0 : Math.floor((unlocked / total) * 100);
-  }  
+  } 
+
+  checkCompletionist(): boolean {
+    const unlocked = this.achievements.filter(a => a.unlocked).length;
+    return unlocked == this.achievements.length-1;
+  } 
 
   saveAchievements(): void {
     localStorage.setItem('achievements', JSON.stringify(this.achievements));
@@ -114,6 +119,6 @@ export class AchievementService {
     if (gameData.rockGenerationAmount >= gameData.maxGenerationAmount && gameData.paperGenerationAmount >= gameData.maxGenerationAmount && gameData.scissorGenerationAmount >= gameData.maxGenerationAmount) this.unlockAchievement("upg_tripleFuelMax")
     if (gameData.rockGeneratorInterval <= gameData.minIntervalLimit || gameData.paperGeneratorInterval <= gameData.minIntervalLimit || gameData.scissorGeneratorInterval <= gameData.minIntervalLimit) this.unlockAchievement("upg_firstIntervalMax")
     if (gameData.rockGeneratorInterval <= gameData.minIntervalLimit && gameData.paperGeneratorInterval <= gameData.minIntervalLimit && gameData.scissorGeneratorInterval <= gameData.minIntervalLimit) this.unlockAchievement("upg_tripleIntervalMax")
-    if (this.getCompletionPercentage() === 100) this.unlockAchievement("misc_completionist")
+    if (this.checkCompletionist()) this.unlockAchievement("misc_completionist")
   }
 }
