@@ -56,7 +56,7 @@ export class SupabaseService {
   async loadGameData(userId: string) {
     const { data, error } = await this.supabase
       .from('game_saves')
-      .select('data, achievements')
+      .select('data')
       .eq('user_id', userId)
       .maybeSingle();
 
