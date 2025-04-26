@@ -1,59 +1,83 @@
-# Rps
+# Rock Paper Scissors Idle Game 🎮
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.5.
+An upgrade-driven idle game blending fast decision-making, resource management, and automation.  
+Inspired by the simplicity of *Cookie Clicker* and the strategic scaling of *Balatro*, this project showcases full-stack web application development with a focus on gameplay, UI/UX, and cloud integration.
 
-## Development server
+Play this game at https://rps-lac.vercel.app/
 
-To start a local development server, run:
 
-```bash
-ng serve
-```
+## 📸 Screenshots
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+| Main Game Screen | Shop Screen | Achievements Screen |
+|:----------------:|:-----------:|:-------------------:|
+| ![Main Screen](images/main.png) | ![Shop Screen](images/shop1.png) | ![Achievements Screen](images/achievements1.png) |
 
-## Code scaffolding
+---
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## 🚀 Tech Stack
 
-```bash
-ng generate component component-name
-```
+- **Frontend:** Angular 19.2.5
+- **Database:** Supabase (PostgreSQL with JSONB saves)
+- **Authentication:** Supabase Email/Password Auth
+- **Cloud Sync:** Automatic save/load to cloud or local fallback
+- **State Management:** Service-based reactive architecture (GameDataService)
+- **Deployment:** _(to be added upon hosting)_
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+---
 
-```bash
-ng generate --help
-```
+## 🎮 Gameplay Overview
 
-## Building
+- A random move — **Rock**, **Paper**, or **Scissors** — appears.
+- Manually select the **winning counter-move** to earn points.
+- Build **streaks** to boost point multipliers.
+- Unlock **automated "Snipers"** that counter moves automatically, consuming limited fuel resources.
+- Manage and replenish resources (**rocks**, **papers**, **scissors**) using **generators** and **upgrades**.
+- Progress is tracked with a robust **achievement system** saved across devices.
 
-To build the project run:
+---
 
-```bash
-ng build
-```
+## 🛠️ Core Features
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+### ☁️ Cloud Save System
+- Save progress and achievements atomically to Supabase.
+- Seamless login/logout with automatic fallback to local storage when offline.
 
-## Running unit tests
+### 🏗️ Upgrade System
+- Purchase score boosts, generation upgrades, and sniper efficiency improvements.
+- Upgrade mechanics combine exponential and linear scaling models for balance.
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+### 🔫 Automated "Snipers"
+- Rock, Paper, and Scissors snipers that auto-play correct moves.
+- Requires strategic fuel management to sustain automation.
 
-```bash
-ng test
-```
+### 🏆 Achievement System
+- Unlock milestones based on performance and progression.
+- Fully integrated into cloud saves for persistent tracking.
 
-## Running end-to-end tests
+### ⚡ Dynamic Generators
+- Passive resource generation with adjustable interval speeds and output quantities.
+- Upgrade generators for strategic scaling.
 
-For end-to-end (e2e) testing, run:
+### 🎨 Responsive UI
+- Retro pixel-art-inspired theme
+---
 
-```bash
-ng e2e
-```
+## 📚 Key Learning Outcomes
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+- Integrating **Supabase authentication and database** in a real-world Angular SPA.
+- Building a **reactive, service-driven state management system** without external libraries.
+- Creating **engaging idle game loops** through incremental upgrades.
+- Ensuring **data integrity and atomic saves** across local and cloud environments.
+- Applying **game design principles** for player retention, reward systems, and UX.
 
-## Additional Resources
+---
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## 🧠 Why This Project Matters
+
+This project demonstrates a **full-stack single-page application (SPA)** capable of:
+
+- Handling **real-time player interactions** and dynamic game state management.
+- **Saving and syncing** complex data structures efficiently with cloud services.
+- **Designing player engagement systems** (idle mechanics, achievements, upgrade paths).
+- Building a scalable, modular architecture using **modern Angular best practices**.
+---
