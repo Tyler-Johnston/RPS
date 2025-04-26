@@ -111,46 +111,60 @@ export class GameDataService {
       mult: this.mult,
       streakBonus: this.streakBonus,
       pointsPerWin: this.pointsPerWin,
+      
       scoreBonusUpgradeCost: this.scoreBonusUpgradeCost,
       scoreMultUpgradeCost: this.scoreMultUpgradeCost,
       baseScoreBonusAdditive: this.baseScoreBonusAdditive,
       sniperCost: this.sniperCost,
+
       rockSniperActive: this.rockSniperActive,
       paperSniperActive: this.paperSniperActive,
       scissorSniperActive: this.scissorSniperActive,
+
       rocks: this.rocks,
       papers: this.papers,
       scissors: this.scissors,
+
       rockEfficiencyUpgradeCost: this.rockEfficiencyUpgradeCost,
       paperEfficiencyUpgradeCost: this.paperEfficiencyUpgradeCost,
       scissorEfficiencyUpgradeCost: this.scissorEfficiencyUpgradeCost,
+
       rockGenerationAmount: this.rockGenerationAmount,
       paperGenerationAmount: this.paperGenerationAmount,
       scissorGenerationAmount: this.scissorGenerationAmount,
+
       rockGenerationUpgradeCost: this.rockGenerationUpgradeCost,
       paperGenerationUpgradeCost: this.paperGenerationUpgradeCost,
       scissorGenerationUpgradeCost: this.scissorGenerationUpgradeCost,
+
       rockGeneratorInterval: this.rockGeneratorInterval,
       paperGeneratorInterval: this.paperGeneratorInterval,
       scissorGeneratorInterval: this.scissorGeneratorInterval,
+
       rockGeneratorActive: this.rockGeneratorActive,
       paperGeneratorActive: this.paperGeneratorActive,
       scissorGeneratorActive: this.scissorGeneratorActive,
+
       rockActiveLevel: this.rockActiveLevel,
       paperActiveLevel: this.paperActiveLevel,
       scissorActiveLevel: this.scissorActiveLevel,
+
       rockIntervalUpgradeCost: this.rockIntervalUpgradeCost,
       paperIntervalUpgradeCost: this.paperIntervalUpgradeCost,
       scissorIntervalUpgradeCost: this.scissorIntervalUpgradeCost,
+
       rockActiveUpgradeCost: this.rockActiveUpgradeCost,
       paperActiveUpgradeCost: this.paperActiveUpgradeCost,
       scissorActiveUpgradeCost: this.scissorActiveUpgradeCost,
+
       rockIntervalUpgradeLevel: this.rockIntervalUpgradeLevel,
       paperIntervalUpgradeLevel: this.paperIntervalUpgradeLevel,
       scissorIntervalUpgradeLevel: this.scissorIntervalUpgradeLevel,
+
       firstRockGenUpgrade: this.firstRockGenUpgrade,
       firstPaperGenUpgrade: this.firstPaperGenUpgrade,
       firstScissorGenUpgrade: this.firstScissorGenUpgrade,
+
       baseRockEfficiencyPercentage: this.baseRockEfficiencyPercentage,
       basePaperEfficiencyPercentage: this.basePaperEfficiencyPercentage,
       baseScissorEfficiencyPercentage: this.baseScissorEfficiencyPercentage
@@ -190,12 +204,13 @@ export class GameDataService {
         console.log('No cloud save found.');
       }
     } else {
-      const localData = localStorage.getItem('rps_save');
-      if (localData) {
-        this.deserializeGameData(JSON.parse(localData));
+      const gameData = localStorage.getItem('rps_save');
+      if (gameData) {
+        this.deserializeGameData(JSON.parse(gameData));
         console.log('Loaded local save from browser.');
       } else {
         console.log('No local save found.');
+        this.achievementService.resetAchievements();
       }
     }
   }

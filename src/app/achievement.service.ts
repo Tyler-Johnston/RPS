@@ -96,6 +96,14 @@ export class AchievementService {
     }
   }
 
+  resetAchievements(): void {
+    this.achievements = this.achievements.map(a => ({
+      ...a,
+      unlocked: false
+    }));
+    this.saveAchievements();
+  }
+
   evaluateFromGameData(gameData: GameDataService): void {
     if (gameData.pointsPerWin >= 250) this.unlockAchievement('mech_ppw1');
     if (gameData.pointsPerWin >= 1000) this.unlockAchievement('mech_ppw2');
