@@ -57,6 +57,10 @@ export class AchievementService {
     return this.achievements;
   }
 
+  setAchievements(savedAchievements: Achievement[]): void {
+    this.achievements = savedAchievements;
+  }
+
   isUnlocked(id: string): boolean {
     return this.achievements.find(a => a.id === id)?.unlocked ?? false;
   }
@@ -94,14 +98,6 @@ export class AchievementService {
         unlocked: parsed.find((savedA: Achievement) => savedA.id === a.id)?.unlocked ?? a.unlocked
       }));
     }
-  }
-
-  resetAchievements(): void {
-    this.achievements = this.achievements.map(a => ({
-      ...a,
-      unlocked: false
-    }));
-    this.saveAchievements();
   }
 
   evaluateFromGameData(gameData: GameDataService): void {

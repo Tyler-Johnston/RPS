@@ -41,11 +41,11 @@ export class SupabaseService {
     return user;
   }
 
-  async saveGameData(userId: string, saveData: any, achievements: any) {
+  async saveGameData(userId: string, saveData: any) {
     const { data, error } = await this.supabase
       .from('game_saves')
       .upsert(
-        [{ user_id: userId, data: saveData, achievements: achievements }],
+        [{ user_id: userId, data: saveData }],
         { onConflict: 'user_id' }
       );
 
@@ -70,7 +70,7 @@ export class SupabaseService {
       return { data: null, error: null };
     }
 
-    return { data: data.data, achievements: data.achievements, error: null }; 
+    return { data: data.data, error: null }; 
   }
 
 }

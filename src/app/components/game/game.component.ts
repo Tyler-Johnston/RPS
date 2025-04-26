@@ -53,7 +53,6 @@ export class GameComponent {
     await this.supabaseService.signOut();
     this.isLoggedIn = false;
     await this.gameData.loadGameData(); // load from local storage now that we're logged out
-    this.achievementService.resetAchievements();
   }
 
   ngOnDestroy(): void {

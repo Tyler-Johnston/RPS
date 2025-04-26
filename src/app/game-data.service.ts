@@ -111,7 +111,7 @@ export class GameDataService {
       mult: this.mult,
       streakBonus: this.streakBonus,
       pointsPerWin: this.pointsPerWin,
-      
+
       scoreBonusUpgradeCost: this.scoreBonusUpgradeCost,
       scoreMultUpgradeCost: this.scoreMultUpgradeCost,
       baseScoreBonusAdditive: this.baseScoreBonusAdditive,
@@ -167,13 +167,20 @@ export class GameDataService {
 
       baseRockEfficiencyPercentage: this.baseRockEfficiencyPercentage,
       basePaperEfficiencyPercentage: this.basePaperEfficiencyPercentage,
-      baseScissorEfficiencyPercentage: this.baseScissorEfficiencyPercentage
+      baseScissorEfficiencyPercentage: this.baseScissorEfficiencyPercentage,
+
+      achievements: this.achievementService.getAchievements(),
     };
   }
 
   deserializeGameData(data: any): void {
     if (!data) return;
     Object.assign(this, data);
+
+    if (data.achievements) {
+      this.achievementService.setAchievements(data.achievements);
+    }
+    
   }
 
   async saveGameData(): Promise<void> {
@@ -182,13 +189,11 @@ export class GameDataService {
 
     const saveData = this.serializeGameData();
     const user = await this.supabaseService.getUser();
-    const achievements = this.achievementService.getAchievements();
 
     if (user) {
-      await this.supabaseService.saveGameData(user.id, saveData, achievements);
+      await this.supabaseService.saveGameData(user.id, saveData);
     } else {
       localStorage.setItem('rps_save', JSON.stringify(saveData));
-      localStorage.setItem('achievements', JSON.stringify(achievements));
     }
   }
 
@@ -210,7 +215,6 @@ export class GameDataService {
         console.log('Loaded local save from browser.');
       } else {
         console.log('No local save found.');
-        this.achievementService.resetAchievements();
       }
     }
   }
