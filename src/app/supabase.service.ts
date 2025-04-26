@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
-import { environment } from '../environments/environment';
+import { environment } from '../environment';
 
 @Injectable({
   providedIn: 'root'
@@ -41,36 +41,36 @@ export class SupabaseService {
     return user;
   }
 
-async saveGameData(userId: string, saveData: any) {
-  const { data, error } = await this.supabase
-    .from('game_saves')
-    .upsert(
-      [{ user_id: userId, data: saveData }],
-      { onConflict: 'user_id' }
-    );
+  async saveGameData(userId: string, saveData: any) {
+    const { data, error } = await this.supabase
+      .from('game_saves')
+      .upsert(
+        [{ user_id: userId, data: saveData }],
+        { onConflict: 'user_id' }
+      );
 
-  return { data, error };
-}
-
-
-async loadGameData(userId: string) {
-  const { data, error } = await this.supabase
-    .from('game_saves')
-    .select('data')
-    .eq('user_id', userId)
-    .maybeSingle();
-
-  if (error) {
-    console.error('Failed to load game save:', error.message);
-    return { data: null, error };
+    return { data, error };
   }
 
-  if (!data) {
-    console.log('No cloud save found.');
-    return { data: null, error: null };
-  }
 
-  return { data: data.data, error: null }; 
-}
+  async loadGameData(userId: string) {
+    const { data, error } = await this.supabase
+      .from('game_saves')
+      .select('data')
+      .eq('user_id', userId)
+      .maybeSingle();
+
+    if (error) {
+      console.error('Failed to load game save:', error.message);
+      return { data: null, error };
+    }
+
+    if (!data) {
+      console.log('No cloud save found.');
+      return { data: null, error: null };
+    }
+
+    return { data: data.data, error: null }; 
+  }
 
 }
