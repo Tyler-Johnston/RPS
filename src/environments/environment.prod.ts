@@ -3,4 +3,3 @@ export const environment = {
     supabaseUrl: (window as any)['env']['supabaseUrl'] || '',
     supabaseAnonKey: (window as any)['env']['supabaseAnonKey'] || ''
   };
-  
