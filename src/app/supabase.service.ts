@@ -41,11 +41,11 @@ export class SupabaseService {
     return user;
   }
 
-  async saveGameData(userId: string, saveData: any) {
+  async saveGameData(userId: string, saveData: any, achievements: any) {
     const { data, error } = await this.supabase
       .from('game_saves')
       .upsert(
-        [{ user_id: userId, data: saveData }],
+        [{ user_id: userId, data: saveData, achievements: achievements }],
         { onConflict: 'user_id' }
       );
 
@@ -56,7 +56,7 @@ export class SupabaseService {
   async loadGameData(userId: string) {
     const { data, error } = await this.supabase
       .from('game_saves')
-      .select('data')
+      .select('data, achievements')
       .eq('user_id', userId)
       .maybeSingle();
 
@@ -70,7 +70,7 @@ export class SupabaseService {
       return { data: null, error: null };
     }
 
-    return { data: data.data, error: null }; 
+    return { data: data.data, achievements: data.achievements, error: null }; 
   }
 
 }

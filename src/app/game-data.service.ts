@@ -168,11 +168,13 @@ export class GameDataService {
 
     const saveData = this.serializeGameData();
     const user = await this.supabaseService.getUser();
+    const achievements = this.achievementService.getAchievements();
 
     if (user) {
-      await this.supabaseService.saveGameData(user.id, saveData);
+      await this.supabaseService.saveGameData(user.id, saveData, achievements);
     } else {
       localStorage.setItem('rps_save', JSON.stringify(saveData));
+      localStorage.setItem('achievements', JSON.stringify(achievements));
     }
   }
 
