@@ -1,16 +1,12 @@
 # Rock Paper Scissors Idle Game 🎮
 
-An upgrade-driven idle game blending fast decision-making, resource management, and automation.  
+An upgrade-driven idle game blending resource management and automation.  
 Inspired by the simplicity of *Cookie Clicker* and the strategic scaling of *Balatro*, this project showcases full-stack web application development with a focus on gameplay, UI/UX, and cloud integration.
 
 Play this game at https://rps-lac.vercel.app/
 
 
-## 📸 Screenshots
-
-| Main Game Screen | Shop Screen | Achievements Screen |
-|:----------------:|:-----------:|:-------------------:|
-| ![Main Screen](images/main.png) | ![Shop Screen](images/shop1.png) | ![Achievements Screen](images/achievements1.png) |
+![Main Screen](images/main.png)
 
 ---
 
@@ -19,9 +15,7 @@ Play this game at https://rps-lac.vercel.app/
 - **Frontend:** Angular 19.2.5
 - **Database:** Supabase (PostgreSQL with JSONB saves)
 - **Authentication:** Supabase Email/Password Auth
-- **Cloud Sync:** Automatic save/load to cloud or local fallback
-- **State Management:** Service-based reactive architecture (GameDataService)
-- **Deployment:** _(to be added upon hosting)_
+- **Deployment:** Vercel
 
 ---
 
@@ -43,6 +37,9 @@ Play this game at https://rps-lac.vercel.app/
 - Seamless login/logout with automatic fallback to local storage when offline.
 
 ### 🏗️ Upgrade System
+
+![Shop Screen](images/shop1.png)
+
 - Purchase score boosts, generation upgrades, and sniper efficiency improvements.
 - Upgrade mechanics combine exponential and linear scaling models for balance.
 
@@ -53,6 +50,8 @@ Play this game at https://rps-lac.vercel.app/
 ### 🏆 Achievement System
 - Unlock milestones based on performance and progression.
 - Fully integrated into cloud saves for persistent tracking.
+
+![Achievements Screen](images/achievements1.png)
 
 ### ⚡ Dynamic Generators
 - Passive resource generation with adjustable interval speeds and output quantities.
