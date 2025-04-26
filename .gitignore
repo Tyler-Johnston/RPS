@@ -40,6 +40,3 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
-
-# the local env var with hardcoded api keys for development. don't push this
-environment.ts 
