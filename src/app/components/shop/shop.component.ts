@@ -64,6 +64,7 @@ export class ShopComponent {
         }
         this.gameData.sniperCost = Math.floor(this.gameData.sniperCost * 3);
         this.gameData.saveGameData();
+        this.gameData.handleSniperFire();
     }
 }
 

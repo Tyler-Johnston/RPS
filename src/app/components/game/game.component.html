@@ -1,5 +1,5 @@
 <div class="game-container">
-    <h2>Opponent's Move: {{ gameData.currentMove }}</h2>
+    <h2>Opponent's Move: {{ gameData.opponentMove }}</h2>
     <div class="score-display">
       <p>{{ gameData.points }}</p>
       <p>Bonus: +{{ gameData.baseScoreBonusAdditive }}</p>
@@ -13,9 +13,9 @@
     </div>
 
     <div class="controls">
-      <button (click)="makeChoice('Rock', true)">Rock</button>
-      <button (click)="makeChoice('Paper', true)">Paper</button>
-      <button (click)="makeChoice('Scissors', true)">Scissors</button>
+      <button (click)="gameData.makeChoice('Rock')">Rock</button>
+      <button (click)="gameData.makeChoice('Paper')">Paper</button>
+      <button (click)="gameData.makeChoice('Scissors')">Scissors</button>
     </div>
 
     <div *ngIf="gameData.rockSniperActive || gameData.paperSniperActive || gameData.scissorSniperActive" class="sniper-info">
@@ -32,8 +32,8 @@
     </div>
 </div>
 <div class="auth-buttons">
-  <button *ngIf="!isLoggedIn" routerLink="/login" class="auth-button">Log In</button>
-  <button *ngIf="!isLoggedIn" routerLink="/signup" class="auth-button">Sign Up</button>
+  <button *ngIf="!gameData.isLoggedIn" routerLink="/login" class="auth-button">Log In</button>
+  <button *ngIf="!gameData.isLoggedIn" routerLink="/signup" class="auth-button">Sign Up</button>
   
-  <button *ngIf="isLoggedIn" (click)="logout()" class="auth-button">Log Out</button>
+  <button *ngIf="gameData.isLoggedIn" (click)="logout()" class="auth-button">Log Out</button>
 </div>

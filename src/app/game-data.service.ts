@@ -8,7 +8,7 @@ type Move = 'Rock' | 'Paper' | 'Scissors';
   providedIn: 'root'
 })
 export class GameDataService {
-  public currentMove: Move = 'Rock';
+  public opponentMove: Move = 'Rock';
   public points: number = 0;
   public streak: number = 0;
   public scoreBonus: number = 1;
@@ -93,10 +93,127 @@ export class GameDataService {
   public paperIntervalUpgradeLevel: number = 0;
   public scissorIntervalUpgradeLevel: number = 0;
 
+  public isLoggedIn: boolean = false;
+
   constructor(
     private achievementService: AchievementService,
     private supabaseService: SupabaseService
   ) {}
+
+  startGameplayLoop(): void {
+    this.handleSniperFire();
+    this.startMissingGenerators();
+  }
+
+  startMissingGenerators(): void {
+    if (this.rockGeneratorActive && !this.rockGeneratorIntervalId) {
+      this.startSingleGenerator('rock');
+    }
+    if (this.paperGeneratorActive && !this.paperGeneratorIntervalId) {
+      this.startSingleGenerator('paper');
+    }
+    if (this.scissorGeneratorActive && !this.scissorGeneratorIntervalId) {
+      this.startSingleGenerator('scissor');
+    }
+  }
+  
+  private startSingleGenerator(resource: 'rock' | 'paper' | 'scissor'): void {
+    const gameData = this as any;
+  
+    const speed = 1000 * gameData[`${resource}GeneratorInterval`];
+    const amount = gameData[`${resource}GenerationAmount`];
+    const resourceName = `${resource}s`;
+  
+    gameData[`${resource}GeneratorIntervalId`] = setInterval(() => {
+      gameData[resourceName] += amount;
+      this.saveGameData();
+      if (this.opponentMove === this.counteredMove(resource)) {
+        this.handleSniperFire();
+      }
+    }, speed);
+  }
+  
+  private counteredMove(resource: 'rock' | 'paper' | 'scissor'): Move {
+    switch (resource) {
+      case 'rock': return 'Scissors';
+      case 'paper': return 'Rock';
+      case 'scissor': return 'Paper';
+    }
+  }
+
+  generateRandomMove(): void {
+    const moves: Move[] = ['Rock', 'Paper', 'Scissors'];
+    const randomIndex = Math.floor(Math.random() * moves.length);
+    this.opponentMove = moves[randomIndex];
+    this.saveGameData();
+    this.handleSniperFire();
+  }
+
+  handleSniperFire(): void {
+    if (this.sniperLock) return;
+
+    const rockSniperSpeed = 1000 - (this.baseRockEfficiencyPercentage * 10);
+    const paperSniperSpeed = 1000 - (this.basePaperEfficiencyPercentage * 10);
+    const scissorSniperSpeed = 1000 - (this.baseScissorEfficiencyPercentage * 10);
+
+    if (this.rockSniperActive && this.opponentMove === 'Scissors' && this.rocks > 0) {
+      this.sniperFire('Rock', rockSniperSpeed, 'rocks');
+      return;
+    }
+    if (this.paperSniperActive && this.opponentMove === 'Rock' && this.papers > 0) {
+      this.sniperFire('Paper', paperSniperSpeed, 'papers');
+      return;
+    }
+    if (this.scissorSniperActive && this.opponentMove === 'Paper' && this.scissors > 0) {
+      this.sniperFire('Scissors', scissorSniperSpeed, 'scissors');
+      return;
+    }
+  }
+
+  private sniperFire(move: Move, delay: number, resource: 'rocks' | 'papers' | 'scissors'): void {
+    if (this[resource] <= 0) {
+      this.sniperLock = false;
+      return;
+    }
+
+    this.sniperLock = true;
+
+    setTimeout(() => {
+      this[resource] -= 1;
+      this.sniperLock = false;
+      this.makeChoice(move);
+    }, delay);
+
+  }
+
+  makeChoice(playerMove: Move): void {
+    const result = this.calculateResult(playerMove, this.opponentMove);
+
+    if (result === 'You Win!') {
+      this.streak++;
+      this.streakBonus = 1 + Math.floor(this.streak / this.streakPointDivisor);
+      this.scoreBonus = this.streakBonus + this.baseScoreBonusAdditive;
+      this.points += this.scoreBonus * this.mult;
+      this.achievementService.unlockAchievement('prog_firstWin');
+    } else {
+      this.streak = 0;
+      this.streakBonus = 0;
+      this.scoreBonus = this.baseScoreBonusAdditive;
+    }
+
+    this.saveGameData();
+    this.generateRandomMove();
+  }
+
+  private calculateResult(player: Move, opponent: Move): string {
+    if (player === opponent) return 'Draw!';
+    if ((player === 'Rock' && opponent === 'Scissors') ||
+        (player === 'Paper' && opponent === 'Rock') ||
+        (player === 'Scissors' && opponent === 'Paper')) {
+      return 'You Win!';
+    }
+    return 'You Lose!';
+  }
 
   calculateUpgradeCost({ baseCost, level, exponent, linearFactor }: { baseCost: number, level: number, exponent: number, linearFactor: number }): number {
     return Math.floor(baseCost * Math.pow(level, exponent) + (level * linearFactor));
@@ -104,71 +221,56 @@ export class GameDataService {
 
   serializeGameData(): any {
     return {
-      currentMove: this.currentMove,
+      opponentMove: this.opponentMove,
       points: this.points,
       streak: this.streak,
       scoreBonus: this.scoreBonus,
       mult: this.mult,
       streakBonus: this.streakBonus,
       pointsPerWin: this.pointsPerWin,
-
       scoreBonusUpgradeCost: this.scoreBonusUpgradeCost,
       scoreMultUpgradeCost: this.scoreMultUpgradeCost,
       baseScoreBonusAdditive: this.baseScoreBonusAdditive,
       sniperCost: this.sniperCost,
-
       rockSniperActive: this.rockSniperActive,
       paperSniperActive: this.paperSniperActive,
       scissorSniperActive: this.scissorSniperActive,
-
       rocks: this.rocks,
       papers: this.papers,
       scissors: this.scissors,
-
       rockEfficiencyUpgradeCost: this.rockEfficiencyUpgradeCost,
       paperEfficiencyUpgradeCost: this.paperEfficiencyUpgradeCost,
       scissorEfficiencyUpgradeCost: this.scissorEfficiencyUpgradeCost,
-
       rockGenerationAmount: this.rockGenerationAmount,
       paperGenerationAmount: this.paperGenerationAmount,
       scissorGenerationAmount: this.scissorGenerationAmount,
-
       rockGenerationUpgradeCost: this.rockGenerationUpgradeCost,
       paperGenerationUpgradeCost: this.paperGenerationUpgradeCost,
       scissorGenerationUpgradeCost: this.scissorGenerationUpgradeCost,
-
       rockGeneratorInterval: this.rockGeneratorInterval,
       paperGeneratorInterval: this.paperGeneratorInterval,
       scissorGeneratorInterval: this.scissorGeneratorInterval,
-
       rockGeneratorActive: this.rockGeneratorActive,
       paperGeneratorActive: this.paperGeneratorActive,
       scissorGeneratorActive: this.scissorGeneratorActive,
-
       rockActiveLevel: this.rockActiveLevel,
       paperActiveLevel: this.paperActiveLevel,
       scissorActiveLevel: this.scissorActiveLevel,
-
       rockIntervalUpgradeCost: this.rockIntervalUpgradeCost,
       paperIntervalUpgradeCost: this.paperIntervalUpgradeCost,
       scissorIntervalUpgradeCost: this.scissorIntervalUpgradeCost,
-
       rockActiveUpgradeCost: this.rockActiveUpgradeCost,
       paperActiveUpgradeCost: this.paperActiveUpgradeCost,
       scissorActiveUpgradeCost: this.scissorActiveUpgradeCost,
-
       rockIntervalUpgradeLevel: this.rockIntervalUpgradeLevel,
       paperIntervalUpgradeLevel: this.paperIntervalUpgradeLevel,
       scissorIntervalUpgradeLevel: this.scissorIntervalUpgradeLevel,
-
       firstRockGenUpgrade: this.firstRockGenUpgrade,
       firstPaperGenUpgrade: this.firstPaperGenUpgrade,
       firstScissorGenUpgrade: this.firstScissorGenUpgrade,
-
       baseRockEfficiencyPercentage: this.baseRockEfficiencyPercentage,
       basePaperEfficiencyPercentage: this.basePaperEfficiencyPercentage,
       baseScissorEfficiencyPercentage: this.baseScissorEfficiencyPercentage,
-
       achievements: this.achievementService.getAchievements(),
     };
   }
@@ -176,11 +278,9 @@ export class GameDataService {
   deserializeGameData(data: any): void {
     if (!data) return;
     Object.assign(this, data);
-
     if (data.achievements) {
       this.achievementService.setAchievements(data.achievements);
     }
-    
   }
 
   async saveGameData(): Promise<void> {
@@ -205,17 +305,22 @@ export class GameDataService {
       if (data) {
         this.deserializeGameData(data);
         console.log('Loaded cloud save from Supabase.');
+        this.handleSniperFire();
+        this.startMissingGenerators();
       } else {
         console.log('No cloud save found.');
       }
     } else {
-      const gameData = localStorage.getItem('rps_save');
-      if (gameData) {
-        this.deserializeGameData(JSON.parse(gameData));
+      const data = localStorage.getItem('rps_save');
+      if (data) {
+        this.deserializeGameData(JSON.parse(data));
         console.log('Loaded local save from browser.');
+        this.handleSniperFire();
+        this.startMissingGenerators();
       } else {
         console.log('No local save found.');
       }
     }
   }
+
 }

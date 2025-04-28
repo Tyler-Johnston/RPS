@@ -37,6 +37,7 @@ export class Shop2Component {
     }
     this.gameData.generatorCost = Math.floor(this.gameData.generatorCost * 3);
     this.gameData.saveGameData();
+    this.gameData.startMissingGenerators();
   }
 
   purchaseGenerationUpgrade(type: 'rock' | 'paper' | 'scissor'): void {
