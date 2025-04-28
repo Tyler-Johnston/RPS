@@ -55,7 +55,6 @@ export class Shop2Component {
               }
               this.gameData.rockGenerationUpgradeCost = Math.floor(985 * Math.pow(this.gameData.rockGenerationAmount, 1.2));
               if (this.gameData.firstRockGenUpgrade) this.gameData.firstRockGenUpgrade = false;
-              this.gameData.saveGameData();
           }
           break;
       case 'paper':
@@ -71,7 +70,6 @@ export class Shop2Component {
                 }
                 this.gameData.paperGenerationUpgradeCost = Math.floor(985 * Math.pow(this.gameData.paperGenerationAmount, 1.2));
               if (this.gameData.firstPaperGenUpgrade) this.gameData.firstPaperGenUpgrade = false;
-              this.gameData.saveGameData();
           }
           break;
       case 'scissor':
@@ -87,11 +85,11 @@ export class Shop2Component {
                 }
                 this.gameData.scissorGenerationUpgradeCost = Math.floor(985 * Math.pow(this.gameData.scissorGenerationAmount, 1.2));
               if (this.gameData.firstScissorGenUpgrade) this.gameData.firstScissorGenUpgrade = false;
-              this.gameData.saveGameData();
           }
           break;
+      }
+    this.gameData.saveGameData();
     }
-}
 
     upgradeInterval(type: 'rock' | 'paper' | 'scissor'): void {
       switch (type) {
@@ -111,7 +109,6 @@ export class Shop2Component {
             this.gameData.rockIntervalUpgradeCost = Math.floor(
               100 * Math.pow(this.gameData.rockIntervalUpgradeLevel, 1.6)
             );
-            this.gameData.saveGameData();
           }
           break;
     
@@ -131,7 +128,6 @@ export class Shop2Component {
             this.gameData.paperIntervalUpgradeCost = Math.floor(
               100 * Math.pow(this.gameData.paperIntervalUpgradeLevel, 1.6)
             );
-            this.gameData.saveGameData();
           }
           break;
     
@@ -151,10 +147,10 @@ export class Shop2Component {
             this.gameData.scissorIntervalUpgradeCost = Math.floor(
               100 * Math.pow(this.gameData.scissorIntervalUpgradeLevel, 1.6)
             );
-            this.gameData.saveGameData();
           }
           break;
       }
+      this.gameData.saveGameData();
     }
     
 

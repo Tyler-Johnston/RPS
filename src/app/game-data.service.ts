@@ -151,7 +151,6 @@ export class GameDataService {
     const moves: Move[] = ['Rock', 'Paper', 'Scissors'];
     const randomIndex = Math.floor(Math.random() * moves.length);
     this.opponentMove = moves[randomIndex];
-    this.saveGameData();
     this.handleSniperFire();
   }
 
@@ -207,7 +206,6 @@ export class GameDataService {
       this.scoreBonus = this.baseScoreBonusAdditive;
     }
 
-    this.saveGameData();
     this.generateRandomMove();
   }
 
