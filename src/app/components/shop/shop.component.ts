@@ -12,7 +12,6 @@ import { GameDataService } from '../../game-data.service';
 })
 export class ShopComponent {
   constructor(public gameData: GameDataService) {
-    this.gameData.loadGameData();
   }
 
   purchaseScoreMultUpgrade(): void {

@@ -11,7 +11,6 @@ import { GameDataService } from '../../game-data.service';
 })
 export class Shop2Component {
   constructor(public gameData: GameDataService) {
-    this.gameData.loadGameData();
   }
 
   purchaseGenerator(type: 'rock' | 'paper' | 'scissor'): void {

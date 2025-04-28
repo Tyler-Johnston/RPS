@@ -94,6 +94,8 @@ export class GameDataService {
   public scissorIntervalUpgradeLevel: number = 0;
 
   public isLoggedIn: boolean = false;
+  public sniperIntervalId: any = null;
+  public saveIntervalId: any = null;
 
   constructor(
     private achievementService: AchievementService,
@@ -101,10 +103,25 @@ export class GameDataService {
   ) {}
 
   startGameplayLoop(): void {
-    this.handleSniperFire();
+    // re-check sniper fire every now and then. this fixes issue of the game not firing anymore when resources deplete and restock
+    if (this.sniperIntervalId) {
+      clearInterval(this.sniperIntervalId);
+    }
+    this.sniperIntervalId = setInterval(() => {
+      this.handleSniperFire();
+    }, 500);
+  
+    // Autosave every 10 seconds
+    if (this.saveIntervalId) {
+      clearInterval(this.saveIntervalId);
+    }
+    this.saveIntervalId = setInterval(() => {
+      this.saveGameData();
+    }, 5000);
+  
     this.startMissingGenerators();
   }
-
+  
   startMissingGenerators(): void {
     if (this.rockGeneratorActive && !this.rockGeneratorIntervalId) {
       this.startSingleGenerator('rock');
@@ -127,20 +144,9 @@ export class GameDataService {
     gameData[`${resource}GeneratorIntervalId`] = setInterval(() => {
       gameData[resourceName] += amount;
       this.saveGameData();
-      if (this.opponentMove === this.counteredMove(resource)) {
-        this.handleSniperFire();
-      }
     }, speed);
   }
   
-  private counteredMove(resource: 'rock' | 'paper' | 'scissor'): Move {
-    switch (resource) {
-      case 'rock': return 'Scissors';
-      case 'paper': return 'Rock';
-      case 'scissor': return 'Paper';
-    }
-  }
-
   generateRandomMove(): void {
     const moves: Move[] = ['Rock', 'Paper', 'Scissors'];
     const randomIndex = Math.floor(Math.random() * moves.length);
@@ -286,41 +292,50 @@ export class GameDataService {
   async saveGameData(): Promise<void> {
     this.pointsPerWin = (this.streakBonus + this.baseScoreBonusAdditive) * this.mult;
     this.achievementService.evaluateFromGameData(this);
-
+  
     const saveData = this.serializeGameData();
+  
+    localStorage.setItem('rps_save', JSON.stringify(saveData));
+  
     const user = await this.supabaseService.getUser();
-
     if (user) {
-      await this.supabaseService.saveGameData(user.id, saveData);
-    } else {
-      localStorage.setItem('rps_save', JSON.stringify(saveData));
+      try {
+        await this.supabaseService.saveGameData(user.id, saveData);
+      } catch (error) {
+        console.error('Cloud save failed.', error);
+      }
     }
   }
+  
 
   async loadGameData(): Promise<void> {
+    const localData = localStorage.getItem('rps_save');
+
+    if (localData) {
+      this.deserializeGameData(JSON.parse(localData));
+      console.log('Loaded local save from browser.');
+    }
+
     const user = await this.supabaseService.getUser();
 
     if (user) {
-      const { data } = await this.supabaseService.loadGameData(user.id);
-      if (data) {
-        this.deserializeGameData(data);
-        console.log('Loaded cloud save from Supabase.');
-        this.handleSniperFire();
-        this.startMissingGenerators();
-      } else {
-        console.log('No cloud save found.');
-      }
-    } else {
-      const data = localStorage.getItem('rps_save');
-      if (data) {
-        this.deserializeGameData(JSON.parse(data));
-        console.log('Loaded local save from browser.');
-        this.handleSniperFire();
-        this.startMissingGenerators();
-      } else {
-        console.log('No local save found.');
+      try {
+        const { data } = await this.supabaseService.loadGameData(user.id);
+
+        if (data) {
+          this.deserializeGameData(data);
+          console.log('Loaded cloud save from Supabase (overwriting local save).');
+          localStorage.setItem('rps_save', JSON.stringify(data));
+        } else {
+          console.log('No cloud save found. Using local data.');
+        }
+      } catch (error) {
+        console.error('Cloud load failed, using local save.', error);
       }
     }
+
+    this.handleSniperFire();
+    this.startMissingGenerators();
   }
 
 }
