@@ -26,6 +26,7 @@ export class LoginComponent {
     } else {
       this.errorMessage = '';
       this.gameData.isLoggedIn = true;
+      await this.gameData.loadGameData();
       this.router.navigate(['/']);
     }
   }

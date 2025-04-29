@@ -288,14 +288,28 @@ export class GameDataService {
     }
   }
 
+  async transferLocalSaveToCloud(): Promise<void> {
+    const localData = localStorage.getItem('rps_save');
+    const user = await this.supabaseService.getUser();
+    console.log(user);
+  
+    if (localData && user) {
+      try {
+        const parsedData = JSON.parse(localData);
+        await this.supabaseService.saveGameData(user.id, parsedData);
+        console.log('Local save transferred to cloud.');
+      } catch (error) {
+        console.error('Failed to transfer local save to cloud.', error);
+      }
+    } else {
+      console.log('No local data or user not signed in.');
+    }
+  }
+
   async saveGameData(): Promise<void> {
     this.pointsPerWin = (this.streakBonus + this.baseScoreBonusAdditive) * this.mult;
     this.achievementService.evaluateFromGameData(this);
-  
     const saveData = this.serializeGameData();
-  
-    localStorage.setItem('rps_save', JSON.stringify(saveData));
-  
     const user = await this.supabaseService.getUser();
     if (user) {
       try {
@@ -303,6 +317,10 @@ export class GameDataService {
       } catch (error) {
         console.error('Cloud save failed.', error);
       }
+    }
+    else
+    {
+      localStorage.setItem('rps_save', JSON.stringify(saveData));
     }
   }
 
