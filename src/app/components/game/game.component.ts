@@ -2,10 +2,7 @@ import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { GameDataService } from '../../game-data.service';
-import { AchievementService } from '../../achievement.service';
 import { SupabaseService } from '../../supabase.service';
-
-type Move = 'Rock' | 'Paper' | 'Scissors';
 
 @Component({
   selector: 'app-game',

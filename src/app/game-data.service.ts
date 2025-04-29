@@ -307,33 +307,26 @@ export class GameDataService {
   }
 
   async loadGameData(): Promise<void> {
-    const localData = localStorage.getItem('rps_save');
-
-    if (localData) {
-      this.deserializeGameData(JSON.parse(localData));
-      console.log('Loaded local save from browser.');
-    }
-
     const user = await this.supabaseService.getUser();
-
     if (user) {
       try {
         const { data } = await this.supabaseService.loadGameData(user.id);
-
         if (data) {
           this.deserializeGameData(data);
-          console.log('Loaded cloud save from Supabase (overwriting local save).');
-          localStorage.setItem('rps_save', JSON.stringify(data));
-        } else {
-          console.log('No cloud save found. Using local data.');
+          console.log('Loaded cloud save from Supabase');
         }
       } catch (error) {
         console.error('Cloud load failed, using local save.', error);
       }
     }
-
+    else {
+      const localData = localStorage.getItem('rps_save');
+      if (localData) {
+        this.deserializeGameData(JSON.parse(localData));
+        console.log('Loaded local save from browser.');
+      }
+    }
     this.handleSniperFire();
     this.startMissingGenerators();
   }
-
 }
