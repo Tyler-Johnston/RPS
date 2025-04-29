@@ -19,6 +19,12 @@ export class SignupComponent {
   constructor(private gameData: GameDataService, private supabaseService: SupabaseService, private router: Router) {}
 
   async onSignUp(): Promise<void> {
+    
+    if (!this.isValidEmail(this.email)) {
+      this.errorMessage = 'Please enter a valid email address.';
+      return;
+    }  
+      
     const { error } = await this.supabaseService.signUp(this.email, this.password);
 
     if (error) {
@@ -27,7 +33,6 @@ export class SignupComponent {
       this.errorMessage = '';
       this.gameData.isLoggedIn = true;
 
-      // wait for local save transfer before navigating. TODO: this doesn't work because the user needs to authenticate their email maybe? Revist
       try {
         await this.gameData.transferLocalSaveToCloud();
         console.log('Local save transferred to cloud.');
@@ -38,4 +43,10 @@ export class SignupComponent {
       this.router.navigate(['/']);
     }
   }
+
+  isValidEmail(email: string): boolean {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email);
+  }
+  
 }
