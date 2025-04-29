@@ -46,10 +46,6 @@ export class AppComponent {
     }
   }
 
-  async checkLogin(): Promise<void> {
-    const user = await this.supabaseService.getUser();
-    this.gameData.isLoggedIn = !!user;
-  }
 
   async initializeGame(): Promise<void> {
     await this.gameData.loadGameData();

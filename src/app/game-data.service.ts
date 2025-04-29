@@ -275,6 +275,7 @@ export class GameDataService {
       baseRockEfficiencyPercentage: this.baseRockEfficiencyPercentage,
       basePaperEfficiencyPercentage: this.basePaperEfficiencyPercentage,
       baseScissorEfficiencyPercentage: this.baseScissorEfficiencyPercentage,
+      isLoggedIn: this.isLoggedIn,
       achievements: this.achievementService.getAchievements(),
     };
   }

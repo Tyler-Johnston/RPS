@@ -21,6 +21,11 @@ export class GameComponent {
     private supabaseService: SupabaseService
   ) {}
 
+  async ngOnInit(): Promise<void> {
+    const user = await this.supabaseService.getUser();
+    this.gameData.isLoggedIn = !!user;
+  }
+
   async logout(): Promise<void> {
     this.gameData.saveGameData();
     await this.supabaseService.signOut();
