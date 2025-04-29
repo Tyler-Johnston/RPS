@@ -305,7 +305,6 @@ export class GameDataService {
       }
     }
   }
-  
 
   async loadGameData(): Promise<void> {
     const localData = localStorage.getItem('rps_save');

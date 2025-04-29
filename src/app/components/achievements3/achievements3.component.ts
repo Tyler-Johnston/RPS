@@ -12,22 +12,10 @@ import { AchievementService, Achievement } from '../../achievement.service';
 export class Achievements3Component {
   mechanicsAchievements: Achievement[] = [];
 
-
   constructor(public achievementService: AchievementService) {
     const all = achievementService.getAchievements();
     this.mechanicsAchievements = all.filter(a => a.id.startsWith('mech_'));
   }
 
-  getAchievements() {
-    return this.achievementService.getAchievements();
-  }
-
-  getCompletionPercent(): number {
-    return this.achievementService.getCompletionPercentage();
-  }  
-
-  isUnlocked(id: string): boolean {
-    return this.achievementService.isUnlocked(id);
-  }
 }
 

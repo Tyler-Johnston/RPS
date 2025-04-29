@@ -17,15 +17,4 @@ export class Achievements2Component {
     this.upgradeAchievements = all.filter(a => a.id.startsWith('upg_'));
   }
 
-  getAchievements() {
-    return this.achievementService.getAchievements();
-  }
-
-  getCompletionPercent(): number {
-    return this.achievementService.getCompletionPercentage();
-  }
-  
-  isUnlocked(id: string): boolean {
-    return this.achievementService.isUnlocked(id);
-  }
 }

@@ -12,21 +12,9 @@ import { AchievementService, Achievement } from '../../achievement.service';
 export class Achievements4Component {
   miscAchievements: Achievement[] = [];
 
-
   constructor(public achievementService: AchievementService) {
     const all = achievementService.getAchievements();
     this.miscAchievements = all.filter(a => a.id.startsWith('misc_'));
   }
-
-  getAchievements() {
-    return this.achievementService.getAchievements();
-  }
-
-  getCompletionPercent(): number {
-    return this.achievementService.getCompletionPercentage();
-  }
-
-  isUnlocked(id: string): boolean {
-    return this.achievementService.isUnlocked(id);
-  }
+  
 }

@@ -3,8 +3,6 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AchievementService, Achievement } from '../../achievement.service';
 
-
-
 @Component({
   selector: 'app-achievements',
   imports: [RouterModule, CommonModule],
@@ -20,15 +18,4 @@ export class AchievementsComponent {
     this.progressionAchievements = all.filter(a => a.id.startsWith('prog_'));
   }
 
-  getAchievements() {
-    return this.achievementService.getAchievements();
-  }
-
-  getCompletionPercent(): number {
-    return this.achievementService.getCompletionPercentage();
-  }
-
-  isUnlocked(id: string): boolean {
-    return this.achievementService.isUnlocked(id);
-  }
 }

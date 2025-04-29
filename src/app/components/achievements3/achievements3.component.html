@@ -7,8 +7,8 @@
         <div class="achievement-info">
           <h3>{{ a.title }}</h3>
           <p>{{ a.description }}</p>
-          <p class="status" [class.unlocked]="isUnlocked(a.id)">
-            {{ isUnlocked(a.id) ? 'Completed' : 'Locked' }}
+          <p class="status" [class.unlocked]="achievementService.isUnlocked(a.id)">
+            {{ achievementService.isUnlocked(a.id) ? 'Completed' : 'Locked' }}
           </p>
         </div>
       </div>
@@ -19,6 +19,6 @@
       <button routerLink="/" class="back-button">Back to Game</button>
       <button routerLink="/achievements4" class="next-button">-></button>
     </div>
-    <p>Total Achievements: {{ getCompletionPercent() }}% Complete</p>
+    <p>Total Achievements: {{ achievementService.getCompletionPercentage() }}% Complete</p>
   </div>
   
