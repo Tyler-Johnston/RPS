@@ -137,6 +137,7 @@ button:disabled {
         width: 90vw;
         padding: 8vw;
         transform: scale(0.75);
+        margin-top: -20%;
     }
 
     h2, p {

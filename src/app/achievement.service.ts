@@ -16,7 +16,7 @@ export class AchievementService {
     // Progression
     { id: 'prog_firstWin', title: 'First Win!', description: 'Win your first match', unlocked: false },
     { id: 'prog_points1', title: 'One Small Step', description: 'Reach 1,000 points', unlocked: false },
-    { id: 'prog_points2', title: 'Well Endowed', description: 'Reach 100,000 points', unlocked: false },
+    { id: 'prog_points2', title: 'Fanatic', description: 'Reach 100,000 points', unlocked: false },
     { id: 'prog_points3', title: 'Millionaire', description: 'Reach 1,000,000 points', unlocked: false },
     { id: 'prog_combo1', title: 'Chain Reaction', description: 'Get a 250-win streak', unlocked: false },
     { id: 'prog_combo2', title: 'Unstoppable', description: 'Get a 1,000-win streak', unlocked: false },
@@ -25,19 +25,15 @@ export class AchievementService {
     // Upgrades
     { id: 'upg_firstSniper', title: 'Automagic', description: 'Unlock Your First Sniper', unlocked: false },
     { id: 'upg_tripleSniper', title: 'Triple Threat', description: 'Unlock All Snipers', unlocked: false },
-    { id: 'upg_firstGenerator', title: 'Baby Steps', description: 'Unlock Your First Generator', unlocked: false },
     { id: 'upg_fullProduction', title: 'Full Production', description: 'Unlock All Generators', unlocked: false },
-    { id: 'upg_firstEfficiencyMax', title: 'Full Steam Ahead', description: 'Max out any Sniper\'s efficiency', unlocked: false },
     { id: 'upg_tripleEfficiencyMax', title: 'Global Warmer', description: 'Max out every Sniper\'s efficiency', unlocked: false },
-    { id: 'upg_firstFuelMax', title: 'Counterfeit Mark I', description: 'Maximize the amount of fuel you can generate for any generator', unlocked: false },
     { id: 'upg_tripleFuelMax', title: 'Overachiever', description: 'Maximize the amount of fuel you can generate for every generator', unlocked: false },
-    { id: 'upg_firstIntervalMax', title: 'Counterfeit Mark II', description: 'Reduce any generators interval to 1 second', unlocked: false },
     { id: 'upg_tripleIntervalMax', title: 'No Lifer', description: 'Reduce every generator interval to 1 second', unlocked: false },
   
     // Mechanics
-    { id: 'mech_fuelHoarder1', title: 'Gates', description: 'Store 1,000 rocks, papers, or scissors', unlocked: false },
-    { id: 'mech_fuelHoarder2', title: 'Bezos', description: 'Store 10,000 rocks, papers, or scissors', unlocked: false },
-    { id: 'mech_fuelHoarder3', title: 'Musk', description: 'Store 100,000 rocks, papers, or scissors', unlocked: false },
+    { id: 'mech_fuelHoarder1', title: 'Hopeful Capitalist', description: 'Store 1,000 rocks, papers, or scissors', unlocked: false },
+    { id: 'mech_fuelHoarder2', title: 'Status Quo Enjoyer', description: 'Store 10,000 rocks, papers, or scissors', unlocked: false },
+    { id: 'mech_fuelHoarder3', title: 'Turtle Killer', description: 'Store 100,000 rocks, papers, or scissors', unlocked: false },
     { id: 'mech_ppw1', title: 'Points-Per-Win', description: 'Achieve a PPW of 250', unlocked: false },
     { id: 'mech_ppw2', title: 'Harmonic Symphony', description: 'Achieve a PPW of 1,000', unlocked: false },
     { id: 'mech_ppw3', title: 'RPS Tycoon', description: 'Achieve a PPW of 10,000', unlocked: false },
@@ -134,7 +130,6 @@ export class AchievementService {
       gameData.paperGeneratorActive,
       gameData.scissorGeneratorActive
     ];
-    if (generatorFlags.some(v => v)) this.unlockAchievement('upg_firstGenerator');
     if (generatorFlags.every(v => v)) this.unlockAchievement('upg_fullProduction');
   
     // Efficiency unlocks
@@ -143,7 +138,6 @@ export class AchievementService {
       gameData.basePaperEfficiencyPercentage,
       gameData.baseScissorEfficiencyPercentage
     ];
-    if (efficiencyPercentages.some(e => e >= gameData.maxEfficiency)) this.unlockAchievement('upg_firstEfficiencyMax');
     if (efficiencyPercentages.every(e => e >= gameData.maxEfficiency)) this.unlockAchievement('upg_tripleEfficiencyMax');
   
     // Fuel amount unlocks
@@ -152,7 +146,6 @@ export class AchievementService {
       gameData.paperGenerationAmount,
       gameData.scissorGenerationAmount
     ];
-    if (generationAmounts.some(a => a >= gameData.maxGenerationAmount)) this.unlockAchievement('upg_firstFuelMax');
     if (generationAmounts.every(a => a >= gameData.maxGenerationAmount)) this.unlockAchievement('upg_tripleFuelMax');
 
     // Generator interval unlocks
@@ -161,7 +154,6 @@ export class AchievementService {
       gameData.paperGeneratorInterval,
       gameData.scissorGeneratorInterval
     ];
-    if (generationIntervals.some(i => i <= gameData.minIntervalLimit)) this.unlockAchievement('upg_firstIntervalMax');
     if (generationIntervals.every(i => i <= gameData.minIntervalLimit)) this.unlockAchievement('upg_tripleIntervalMax');
 
     // Completionist

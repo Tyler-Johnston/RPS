@@ -111,13 +111,13 @@ export class GameDataService {
       this.handleSniperFire();
     }, 500);
   
-    // Autosave every 10 seconds
+    // autosave
     if (this.saveIntervalId) {
       clearInterval(this.saveIntervalId);
     }
     this.saveIntervalId = setInterval(() => {
       this.saveGameData();
-    }, 5000);
+    }, 30000);
   
     this.startMissingGenerators();
   }
