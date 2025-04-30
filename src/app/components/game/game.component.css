@@ -137,7 +137,7 @@ button:disabled {
         width: 90vw;
         padding: 8vw;
         transform: scale(0.65);
-        margin-top: -30%;
+        margin-top: -45%;
     }
 
     h2, p {
@@ -164,7 +164,7 @@ button:disabled {
     .auth-buttons {
         flex-direction: column;
         gap: 10px;
-        transform: scale(0.75);
+        transform: scale(0.55);
     }
 
     .button-group {
@@ -178,7 +178,7 @@ button:disabled {
     .game-container {
         padding: 10vw;
         transform: scale(0.55);
-        margin-top: -30%;
+        margin-top: -45%;
     }
 
     .controls {
