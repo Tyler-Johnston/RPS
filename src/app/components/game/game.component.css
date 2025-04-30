@@ -2,13 +2,14 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 20px;
-    padding: 20px;
+    padding: 2vw;
     border: 4px solid #eee;
     background-color: #333;
-    width: 575px;
+    width: 90vw;
+    max-width: 650px;
     border-radius: 12px;
     box-shadow: 6px 6px #444;
+    margin: 0;
 }
 
 h2, p {
@@ -37,7 +38,8 @@ h2, p {
 .controls {
     margin: 20px 0;
     display: flex;
-    gap: 20px;
+    flex-wrap: wrap;
+    gap: 10px;
     justify-content: center;
 }
 
@@ -51,6 +53,7 @@ button {
     cursor: pointer;
     transition: transform 0.1s, box-shadow 0.1s;
     text-shadow: 1px 1px #000;
+    min-width: 120px;
 }
 
 button:hover {
@@ -86,27 +89,26 @@ button:disabled {
 }
 
 .trophy-icon {
-  width: 40px;
-  height: 40px;
-  vertical-align: middle;
+    width: 40px;
+    height: 40px;
+    vertical-align: middle;
 }
 
 .button-group {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  gap: 150px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    gap: 150px;
 }
-
 
 .auth-buttons {
     display: flex;
     justify-content: center;
     gap: 15px;
     margin-top: 20px;
-  }
-  
-  .auth-button {
+}
+
+.auth-button {
     padding: 10px 20px;
     font-size: 1.2rem;
     background: linear-gradient(145deg, #3371b9, #00967d);
@@ -116,16 +118,84 @@ button:disabled {
     cursor: pointer;
     transition: transform 0.1s, box-shadow 0.1s;
     text-shadow: 1px 1px #000;
-  }
-  
-  .auth-button:hover {
+}
+
+.auth-button:hover {
     background: linear-gradient(145deg, #bb9ccf, #005e89);
     transform: scale(1.05);
     box-shadow: 4px 4px #222;
-  }
-  
-  .auth-button:active {
+}
+
+.auth-button:active {
     background: linear-gradient(145deg, #00796b, #004d40);
     transform: scale(0.95);
-  }
-  
+}
+
+/* --- Mobile Optimization --- */
+@media (max-width: 600px) {
+    .game-container {
+        width: 90vw;
+        padding: 8vw;
+        transform: scale(0.75);
+    }
+
+    h2, p {
+        font-size: 1.2rem;
+    }
+
+    .score-display, .streak-info, .sniper-info {
+        width: 100%;
+        font-size: 1rem;
+    }
+
+    button {
+        padding: 10px 15px;
+        font-size: 1.1rem;
+        min-width: 100px;
+        
+    }
+
+    .controls {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .auth-buttons {
+        flex-direction: column;
+        gap: 10px;
+        transform: scale(0.75);
+    }
+
+    .button-group {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+
+/* For very small screens like phones in portrait mode */
+@media (max-width: 375px) {
+    .game-container {
+        padding: 10vw;
+        transform: scale(0.65);
+    }
+
+    .controls {
+        gap: 8px;
+    }
+
+    button {
+        font-size: 1rem;
+        padding: 10px 15px;
+    }
+
+    .auth-buttons {
+        flex-direction: column;
+        gap: 10px;
+        transform: scale(0.65);
+    }
+    
+
+    h2, p {
+        font-size: 1rem;
+    }
+}
