@@ -177,7 +177,7 @@ button:disabled {
 @media (max-width: 375px) {
     .game-container {
         padding: 10vw;
-        transform: scale(0.65);
+        transform: scale(0.55);
         margin-top: -20%;
     }
 
@@ -192,11 +192,9 @@ button:disabled {
 
     .auth-buttons {
         flex-direction: column;
-        /* gap: 10px; */
-        transform: scale(0.65);
+        transform: scale(0.45);
     }
     
-
     h2, p {
         font-size: 1rem;
     }
