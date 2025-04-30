@@ -18,8 +18,8 @@ export class EasterEggComponent implements OnInit {
     private achievementService: AchievementService
   ) {}
 
-  ngOnInit() {
+  async ngOnInit(): Promise<void> {
     this.achievementService.unlockAchievement('misc_secretFinder');
-    this.gameData.saveGameData();
+    await this.gameData.saveGameData();
   }
 }
