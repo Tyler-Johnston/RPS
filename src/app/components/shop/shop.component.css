@@ -148,7 +148,9 @@ button:disabled {
 /* --- Mobile Optimization --- */
 @media (max-width: 600px) {
     .shop-container {
+        width: 100%;
         transform: scale(0.47);
+        margin-left: -5%;
     }
     .shop-item {
         width: 90%;
@@ -176,6 +178,7 @@ button:disabled {
 
     button {
         font-size: 0.9rem;
+        width: 100%;
         padding: 12px 20px;
         min-width: 120px;
     }
@@ -194,7 +197,8 @@ button:disabled {
     /* For very small screens like phones in portrait mode */
     @media (max-width: 375px) {
         .shop-container {
-            width: 95%;
+            width: 100%;
+            transform: scale(0.44);
             padding: 8px;
         }
 
@@ -219,12 +223,14 @@ button:disabled {
         button {
             font-size: 0.8rem;
             padding: 10px 16px;
+            width: 100%;
             min-width: 100px;
         }
 
         .button-group {
             flex-direction: column;
             gap: 10px;
+            width: 90%;
         }
     }
 }
