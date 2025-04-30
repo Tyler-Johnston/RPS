@@ -291,7 +291,6 @@ export class GameDataService {
   async transferLocalSaveToCloud(): Promise<void> {
     const localData = localStorage.getItem('rps_save');
     const user = await this.supabaseService.getUser();
-    console.log(user);
   
     if (localData && user) {
       try {

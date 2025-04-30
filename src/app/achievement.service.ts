@@ -46,11 +46,32 @@ export class AchievementService {
     { id: 'misc_secretFinder', title: '???', description: 'Discover the hidden easter egg', unlocked: false },
     { id: 'misc_completionist', title: 'Completionist', description: 'Unlock all achievements', unlocked: false }
   ];
-  
-  
 
+  private readonly pointsThresholds = [
+    { value: 1000, id: 'prog_points1' },
+    { value: 100000, id: 'prog_points2' },
+    { value: 1000000, id: 'prog_points3' }
+  ];
+  
+  private readonly ppwThresholds = [
+    { value: 250, id: 'mech_ppw1' },
+    { value: 1000, id: 'mech_ppw2' },
+    { value: 10000, id: 'mech_ppw3' }
+  ];
+  
+  private readonly streakThresholds = [
+    { value: 250, id: 'prog_combo1' },
+    { value: 1000, id: 'prog_combo2' },
+    { value: 5000, id: 'prog_combo3' }
+  ];
+  
+  private readonly fuelStorageThresholds = [
+    { value: 1000, id: 'mech_fuelHoarder1' },
+    { value: 10000, id: 'mech_fuelHoarder2' },
+    { value: 100000, id: 'mech_fuelHoarder3' }
+  ];
+  
   constructor() {
-    this.loadAchievements();
   }
 
   getAchievements(): Achievement[] {
@@ -69,7 +90,6 @@ export class AchievementService {
     const achievement = this.achievements.find(a => a.id === id);
     if (achievement && !achievement.unlocked) {
       achievement.unlocked = true;
-      this.saveAchievements();
       console.log(`Achievement unlocked: ${achievement.title}`);
     }
   }
@@ -85,44 +105,66 @@ export class AchievementService {
     return unlocked == this.achievements.length-1;
   } 
 
-  saveAchievements(): void {
-    localStorage.setItem('achievements', JSON.stringify(this.achievements));
-  }
-
-  loadAchievements(): void {
-    const saved = localStorage.getItem('achievements');
-    if (saved) {
-      const parsed = JSON.parse(saved);
-      this.achievements = this.achievements.map(a => ({
-        ...a,
-        unlocked: parsed.find((savedA: Achievement) => savedA.id === a.id)?.unlocked ?? a.unlocked
-      }));
-    }
-  }
-
   evaluateFromGameData(gameData: GameDataService): void {
-    if (gameData.pointsPerWin >= 250) this.unlockAchievement('mech_ppw1');
-    if (gameData.pointsPerWin >= 1000) this.unlockAchievement('mech_ppw2');
-    if (gameData.pointsPerWin >= 10000) this.unlockAchievement('mech_ppw3');
-    if (gameData.points >= 1000) this.unlockAchievement('prog_points1');
-    if (gameData.points >= 10000) this.unlockAchievement('prog_points2');
-    if (gameData.points >= 1000000) this.unlockAchievement('prog_points3');
-    if (gameData.rockSniperActive || gameData.paperSniperActive || gameData.scissorSniperActive) this.unlockAchievement('upg_firstSniper');
-    if (gameData.rockSniperActive && gameData.paperSniperActive && gameData.scissorSniperActive) this.unlockAchievement('upg_tripleSniper');
-    if (gameData.rockGeneratorActive || gameData.paperGeneratorActive || gameData.scissorGeneratorActive) this.unlockAchievement('upg_firstGenerator')
-    if (gameData.rockGeneratorActive && gameData.paperGeneratorActive && gameData.scissorGeneratorActive) this.unlockAchievement('upg_fullProduction')
-    if (gameData.rocks >= 1000 || gameData.papers >= 1000 || gameData.scissors >= 1000) this.unlockAchievement("mech_fuelHoarder1")
-    if (gameData.rocks >= 10000 || gameData.papers >= 10000 || gameData.scissors >= 10000) this.unlockAchievement("mech_fuelHoarder2")
-    if (gameData.rocks >= 100000 || gameData.papers >= 100000 || gameData.scissors >= 100000) this.unlockAchievement("mech_fuelHoarder3")
-    if (gameData.streak >= 250) this.unlockAchievement("prog_combo1")
-    if (gameData.streak >= 1000) this.unlockAchievement("prog_combo2")
-    if (gameData.streak >= 5000) this.unlockAchievement("prog_combo3")
-    if (gameData.baseRockEfficiencyPercentage >= gameData.maxEfficiency || gameData.basePaperEfficiencyPercentage >= gameData.maxEfficiency || gameData.baseScissorEfficiencyPercentage >= gameData.maxEfficiency) this.unlockAchievement("upg_firstEfficiencyMax")
-    if (gameData.baseRockEfficiencyPercentage >= gameData.maxEfficiency && gameData.basePaperEfficiencyPercentage >= gameData.maxEfficiency && gameData.baseScissorEfficiencyPercentage >= gameData.maxEfficiency) this.unlockAchievement("upg_tripleEfficiencyMax")
-    if (gameData.rockGenerationAmount >= gameData.maxGenerationAmount || gameData.paperGenerationAmount >= gameData.maxGenerationAmount || gameData.scissorGenerationAmount >= gameData.maxGenerationAmount) this.unlockAchievement("upg_firstFuelMax")
-    if (gameData.rockGenerationAmount >= gameData.maxGenerationAmount && gameData.paperGenerationAmount >= gameData.maxGenerationAmount && gameData.scissorGenerationAmount >= gameData.maxGenerationAmount) this.unlockAchievement("upg_tripleFuelMax")
-    if (gameData.rockGeneratorInterval <= gameData.minIntervalLimit || gameData.paperGeneratorInterval <= gameData.minIntervalLimit || gameData.scissorGeneratorInterval <= gameData.minIntervalLimit) this.unlockAchievement("upg_firstIntervalMax")
-    if (gameData.rockGeneratorInterval <= gameData.minIntervalLimit && gameData.paperGeneratorInterval <= gameData.minIntervalLimit && gameData.scissorGeneratorInterval <= gameData.minIntervalLimit) this.unlockAchievement("upg_tripleIntervalMax")
-    if (this.checkCompletionist()) this.unlockAchievement("misc_completionist")
-  }
+    // Points
+    for (const { value, id } of this.pointsThresholds) if (gameData.points >= value) this.unlockAchievement(id);
+
+    // PPW
+    for (const { value, id } of this.ppwThresholds) if (gameData.pointsPerWin >= value) this.unlockAchievement(id);
+
+    // Streak
+    for (const { value, id } of this.streakThresholds) if (gameData.streak >= value) this.unlockAchievement(id);
+
+    // Fuel Hoarding
+    const maxFuel = Math.max(gameData.rocks, gameData.papers, gameData.scissors);
+    for (const { value, id } of this.fuelStorageThresholds) if (maxFuel >= value) this.unlockAchievement(id);
+
+    // Sniper unlocks
+    const sniperFlags = [
+      gameData.rockSniperActive,
+      gameData.paperSniperActive,
+      gameData.scissorSniperActive
+    ];
+    if (sniperFlags.some(v => v)) this.unlockAchievement('upg_firstSniper');
+    if (sniperFlags.every(v => v)) this.unlockAchievement('upg_tripleSniper');
+
+    // Generator unlocks
+    const generatorFlags = [
+      gameData.rockGeneratorActive,
+      gameData.paperGeneratorActive,
+      gameData.scissorGeneratorActive
+    ];
+    if (generatorFlags.some(v => v)) this.unlockAchievement('upg_firstGenerator');
+    if (generatorFlags.every(v => v)) this.unlockAchievement('upg_fullProduction');
+  
+    // Efficiency unlocks
+    const efficiencyPercentages = [
+      gameData.baseRockEfficiencyPercentage,
+      gameData.basePaperEfficiencyPercentage,
+      gameData.baseScissorEfficiencyPercentage
+    ];
+    if (efficiencyPercentages.some(e => e >= gameData.maxEfficiency)) this.unlockAchievement('upg_firstEfficiencyMax');
+    if (efficiencyPercentages.every(e => e >= gameData.maxEfficiency)) this.unlockAchievement('upg_tripleEfficiencyMax');
+  
+    // Fuel amount unlocks
+    const generationAmounts = [
+      gameData.rockGenerationAmount,
+      gameData.paperGenerationAmount,
+      gameData.scissorGenerationAmount
+    ];
+    if (generationAmounts.some(a => a >= gameData.maxGenerationAmount)) this.unlockAchievement('upg_firstFuelMax');
+    if (generationAmounts.every(a => a >= gameData.maxGenerationAmount)) this.unlockAchievement('upg_tripleFuelMax');
+
+    // Generator interval unlocks
+    const generationIntervals = [
+      gameData.rockGeneratorInterval,
+      gameData.paperGeneratorInterval,
+      gameData.scissorGeneratorInterval
+    ];
+    if (generationIntervals.some(i => i <= gameData.minIntervalLimit)) this.unlockAchievement('upg_firstIntervalMax');
+    if (generationIntervals.every(i => i <= gameData.minIntervalLimit)) this.unlockAchievement('upg_tripleIntervalMax');
+
+    // Completionist
+    if (this.checkCompletionist()) this.unlockAchievement('misc_completionist');
+  }  
 }
