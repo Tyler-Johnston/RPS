@@ -96,11 +96,17 @@ export class GameDataService {
   public isLoggedIn: boolean = false;
   public sniperIntervalId: any = null;
   public saveIntervalId: any = null;
+  public isMobile: boolean = false;
 
   constructor(
     private achievementService: AchievementService,
     private supabaseService: SupabaseService
   ) {}
+
+  private detectMobileDevice(): void {
+    const userAgent = navigator.userAgent || navigator.vendor || (window as any).opera;
+    this.isMobile = /iPhone|iPad|iPod|Android/i.test(userAgent);
+  }
 
   startGameplayLoop(): void {
     // re-check sniper fire every now and then. this fixes issue of the game not firing anymore when resources deplete and restock
@@ -286,6 +292,7 @@ export class GameDataService {
     if (data.achievements) {
       this.achievementService.setAchievements(data.achievements);
     }
+    
   }
 
   async transferLocalSaveToCloud(): Promise<void> {
@@ -324,6 +331,7 @@ export class GameDataService {
   }
 
   async loadGameData(): Promise<void> {
+    this.detectMobileDevice();
     const user = await this.supabaseService.getUser();
     if (user) {
       try {
@@ -345,5 +353,6 @@ export class GameDataService {
     }
     this.handleSniperFire();
     this.startMissingGenerators();
+    
   }
 }

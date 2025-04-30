@@ -30,10 +30,14 @@
         <img src="/trophy.png" alt="Trophy" class="trophy-icon" />
       </button>
     </div>
+    <div *ngIf="gameData.isMobile" class="auth-buttons">
+      <button *ngIf="!gameData.isLoggedIn" routerLink="/login" class="auth-button">Log In</button>
+      <button *ngIf="!gameData.isLoggedIn" routerLink="/signup" class="auth-button">Sign Up</button>
+      <button *ngIf="gameData.isLoggedIn" (click)="logout()" class="auth-button">Log Out</button>
+    </div>
 </div>
-<div class="auth-buttons">
+<div *ngIf="!gameData.isMobile" class="auth-buttons">
   <button *ngIf="!gameData.isLoggedIn" routerLink="/login" class="auth-button">Log In</button>
   <button *ngIf="!gameData.isLoggedIn" routerLink="/signup" class="auth-button">Sign Up</button>
-  
   <button *ngIf="gameData.isLoggedIn" (click)="logout()" class="auth-button">Log Out</button>
 </div>
