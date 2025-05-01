@@ -23,7 +23,7 @@ Play this game at https://rps-lac.vercel.app/
 
 - A random move — Rock, Paper, or Scissors — appears.
 - Manually select the winning counter-move to earn points.
-- Each win grants you the number of points equal to your PPW (Points-Per-Win). You can increase your PPW via Shop Upgrades and by maininting a higher streak.
+- Each win grants points equal to your PPW (Points Per Win). Increase your PPW by purchasing upgrades and maintaining a high win streak.
 - Unlock automated "Snipers" that counter moves automatically, consuming limited fuel resources.
 - Manage and replenish resources (rocks, papers, scissors) using generators and upgrades.
 - Progress is tracked with a robust achievement system saved across devices.
