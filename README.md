@@ -19,7 +19,7 @@ Play this game at https://rps-lac.vercel.app/
 
 ## 🎮 Gameplay Overview
 
-![Help Screen](images/help.png)
+![Help Screen](images/help.PNG)
 
 - A random move — Rock, Paper, or Scissors — appears.
 - Manually select the winning counter-move to earn points.
@@ -32,7 +32,7 @@ Play this game at https://rps-lac.vercel.app/
 
 ### 🏗️ Game Shop
 
-![Shop Screen](images/shop.png)
+![Shop Screen](images/shop.PNG)
 
 - Purchase permanent score bonuses, multipliers, automatic "snipers", and resource generators.
 - Each sniper's efficiency can be upgrades such that moves are automatically countered at a much faster rate.
@@ -42,7 +42,7 @@ Play this game at https://rps-lac.vercel.app/
 
 ### 🏆 Achievement System
 
-![Achievements Screen](images/achievements.png)
+![Achievements Screen](images/achievements.PNG)
 
 - To provide a sense of purpose, players can unlock achievements based on performance and progression.
 - Along with other key gameplay elements, achievements are initally saved locally and sent to the cloud upon account creation. This ensures one's progress is not lost.
@@ -50,7 +50,7 @@ Play this game at https://rps-lac.vercel.app/
 
 ### ☁️ Cloud Save System
 
-![Sign Up Screen](images/signup.png)
+![Sign Up Screen](images/signup.PNG)
 
 - When users choose to create an account, they their saves are automatically sent to the cloud. This allows them to play the same save file across devices.
 - Prior to an account being created, data is saved to the browser. Upon creating an account, one's local saves are transfered to their cloud save.
@@ -59,8 +59,10 @@ Play this game at https://rps-lac.vercel.app/
 
 ### 📱 Mobile Support
 
-![Mobile Game Screen](images/main-mobile.png)
-![Mobile Shop Screen](images/shop-mobile.png)
-![Mobile Achievements Screen](images/achievements-mobile.png)
+<p align="center">
+  <img src="images/main-mobile.PNG" alt="Mobile Game Screen" width="315" style="margin-right: 10px;" />
+  <img src="images/shop-mobile.PNG" alt="Mobile Shop Screen" width="315" style="margin-right: 10px;" />
+  <img src="images/achievements-mobile.PNG" alt="Mobile Achievements Screen" width="315" />
+</p>
 
 - Each game screen has mobile support, allowing anyone to play anywhere they wish.
