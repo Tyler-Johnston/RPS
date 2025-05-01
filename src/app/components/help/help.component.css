@@ -88,7 +88,7 @@ button:disabled {
       width: 95%;
       padding: 20px;
       margin: 20px auto;
-      transform: scale(0.80);
+      transform: scale(0.70);
     }
   
     .helpPage h1 {
@@ -110,7 +110,7 @@ button:disabled {
   @media (max-width: 375px) {
     .helpPage {
       padding: 16px;
-      transform: scale(0.70);
+      transform: scale(0.60);
     }
   
     .helpPage h1 {
