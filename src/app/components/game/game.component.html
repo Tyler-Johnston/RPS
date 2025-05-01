@@ -34,10 +34,12 @@
       <button *ngIf="!gameData.isLoggedIn" routerLink="/login" class="auth-button">Log In</button>
       <button *ngIf="!gameData.isLoggedIn" routerLink="/signup" class="auth-button">Sign Up</button>
       <button *ngIf="gameData.isLoggedIn" (click)="logout()" class="auth-button">Log Out</button>
+      <button routerLink="/help" class="auth-button">How To Play</button>
     </div>
 </div>
 <div *ngIf="!gameData.isMobile" class="auth-buttons">
   <button *ngIf="!gameData.isLoggedIn" routerLink="/login" class="auth-button">Log In</button>
   <button *ngIf="!gameData.isLoggedIn" routerLink="/signup" class="auth-button">Sign Up</button>
   <button *ngIf="gameData.isLoggedIn" (click)="logout()" class="auth-button">Log Out</button>
+  <button routerLink="/help" class="auth-button">How To Play</button>
 </div>

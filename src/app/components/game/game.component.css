@@ -75,9 +75,9 @@ button:disabled {
 }
 
 .shop-button {
-    margin-top: 10px;
     background: linear-gradient(145deg, #26a69a, #00897b);
     padding: 10px 20px;
+    width: 250px;
 }
 
 .shop-button:hover {
@@ -98,7 +98,6 @@ button:disabled {
     display: flex;
     justify-content: center;
     width: 100%;
-    gap: 150px;
 }
 
 .auth-buttons {
@@ -143,6 +142,10 @@ button:disabled {
         font-size: 1.2rem;
     }
 
+    .shop-button {
+        width: auto;
+    }
+
     .score-display, .streak-info, .sniper-info {
         width: 100%;
         font-size: 1rem;
@@ -178,6 +181,10 @@ button:disabled {
     .game-container {
         padding: 10vw;
         transform: scale(0.55);
+    }
+
+    .shop-button {
+        width: auto;
     }
 
     .controls {

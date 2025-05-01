@@ -1,0 +1,128 @@
+.helpPage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 30px;
+    padding: 30px;
+    background-color: #333;
+    border: 4px solid #eee;
+    border-radius: 12px;
+    width: 800px;
+    max-width: 90%;
+    box-shadow: 6px 6px #444;
+    color: #fff;
+}
+  
+.helpPage h1 {
+    font-size: 2rem;
+    margin-bottom: 25px;
+    text-shadow: 2px 2px #000;
+}
+
+.helpPage section {
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.helpPage h2 {
+    color: #fff;
+    text-shadow: 2px 2px #000;
+    margin-bottom: 10px;
+    font-size: 1.4rem;
+}
+
+.helpPage p {
+    background-color: #222;
+    padding: 15px;
+    border-radius: 8px;
+    border: 2px solid #555;
+    font-size: 1rem;
+    line-height: 1.5;
+    text-shadow: 1px 1px #000;
+    color: #ddd;
+}
+
+.back-button {
+    margin-top: 20px;
+    background: linear-gradient(145deg, #26a69a, #00897b);
+}
+
+.back-button:hover {
+    background: linear-gradient(145deg, #33b9a9, #009688);
+}
+
+.back-button:active {
+    background: linear-gradient(145deg, #00796b, #004d40);
+}
+
+button {
+    margin: 5px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    background-color: #ff5722;
+    color: #fff;
+    border: 3px solid #333;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: transform 0.1s;
+}
+
+button:hover {
+    background-color: #ff7043;
+    transform: scale(1.05);
+}
+
+button:active {
+    background-color: #e64a19;
+    transform: scale(0.95);
+}
+
+button:disabled {
+    background-color: #555;
+    color: #888;
+    cursor: not-allowed;
+}
+  
+  @media (max-width: 600px) {
+    .helpPage {
+      width: 95%;
+      padding: 20px;
+      margin: 20px auto;
+      transform: scale(0.80);
+    }
+  
+    .helpPage h1 {
+      font-size: 1.6rem;
+      text-align: center;
+    }
+  
+    .helpPage h2 {
+      font-size: 1.3rem;
+      text-align: center;
+    }
+  
+    .helpPage p {
+      font-size: 0.95rem;
+      padding: 12px;
+    }
+  }
+  
+  @media (max-width: 375px) {
+    .helpPage {
+      padding: 16px;
+      transform: scale(0.70);
+    }
+  
+    .helpPage h1 {
+      font-size: 1.3rem;
+    }
+  
+    .helpPage h2 {
+      font-size: 1.1rem;
+    }
+  
+    .helpPage p {
+      font-size: 0.85rem;
+      padding: 10px;
+    }
+  }

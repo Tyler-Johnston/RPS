@@ -6,9 +6,9 @@ import { AchievementsComponent } from './components/achievements/achievements.co
 import { Achievements2Component } from './components/achievements2/achievements2.component';
 import { Achievements3Component } from './components/achievements3/achievements3.component';
 import { Achievements4Component } from './components/achievements4/achievements4.component';
-import { EasterEggComponent } from './components/easter-egg/easter-egg.component';
 import { LoginComponent } from './components/login/login.component';
 import { SignupComponent } from './components/signup/signup.component';
+import { HelpComponent } from './components/help/help.component';
 
 export const routes: Routes = [
   { path: '', component: GameComponent },
@@ -20,5 +20,5 @@ export const routes: Routes = [
   { path: 'achievements4', component: Achievements4Component},
   { path: 'login', component: LoginComponent},
   { path: 'signup', component: SignupComponent},
-  { path: '**', component: EasterEggComponent}
+  { path: 'help', component: HelpComponent}
 ];
