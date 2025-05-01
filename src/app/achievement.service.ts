@@ -20,7 +20,7 @@ export class AchievementService {
     { id: 'prog_points3', title: 'Mistborn', description: 'Reach 1,000,000 points', unlocked: false },
     { id: 'prog_combo1', title: 'Guess Who\'s Back', description: 'Get a 250-win streak', unlocked: false },
     { id: 'prog_combo2', title: 'Endure And Survive', description: 'Get a 10,000-win streak', unlocked: false },
-    { id: 'prog_combo3', title: 'T.B Never Dies', description: 'Get a 50,000-win streak', unlocked: false },
+    { id: 'prog_combo3', title: 'T.B. Never Dies', description: 'Get a 50,000-win streak', unlocked: false },
   
     // Upgrades
     { id: 'upg_firstSniper', title: 'Baby Steps', description: 'Unlock Your First Sniper', unlocked: false },
