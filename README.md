@@ -62,7 +62,8 @@ Play this game at https://rps-lac.vercel.app/
 <p align="center">
   <img src="images/main-mobile.PNG" alt="Mobile Game Screen" width="315" style="margin-right: 10px;" />
   <img src="images/shop-mobile.PNG" alt="Mobile Shop Screen" width="315" style="margin-right: 10px;" />
-  <img src="images/achievements-mobile.PNG" alt="Mobile Achievements Screen" width="315" />
+  <img src="images/achievements-mobile.PNG" alt="Mobile Achievements Screen" width="315" style="margin-right: 10px;" />
+  <img src="images/login-mobile.png" alt="Mobile Achievements Screen" width="315" />
 </p>
 
 - Each game screen has mobile support, allowing anyone to play anywhere they wish.
