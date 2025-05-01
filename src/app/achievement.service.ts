@@ -84,17 +84,17 @@ export class AchievementService {
 
   async saveAchievement(): Promise<void> {
     const user = await this.supabaseService.getUser();
-    const saveData = this.achievements;
+    const achievementData = this.achievements;
   
     if (user) {
       try {
-        await this.supabaseService.saveGameData(user.id, {}, saveData);
+        await this.supabaseService.saveAchievements(user.id, achievementData);
         console.log('Achievements saved to the cloud.');
       } catch (error) {
         console.error('Cloud save failed.', error);
       }
     } else {
-      localStorage.setItem('achievements', JSON.stringify(saveData));
+      localStorage.setItem('achievements', JSON.stringify(achievementData));
       console.log('Achievements saved locally.');
     }
   }

@@ -41,39 +41,47 @@ export class SupabaseService {
     return user;
   }
 
-  async saveGameData(userId: string, gameData: any, achievements: any) {
+  async saveGameData(userId: string, saveData: any) {
     const { data, error } = await this.supabase
       .from('game_saves')
       .upsert(
-        [{ 
-          user_id: userId, 
-          data: gameData,
-          achievements: achievements
-        }],
+        [{ user_id: userId, data: saveData }],
         { onConflict: 'user_id' }
       );
 
     return { data, error };
   }
 
+  async saveAchievements(userId: string, achievementData: any)
+  {
+    const { data, error } = await this.supabase
+    .from('game_saves')
+    .upsert(
+      [{ user_id: userId, achievements: achievementData }],
+      { onConflict: 'user_id' }
+    );
+
+  return { data, error };
+  }
+
   async loadGameData(userId: string) {
     const { data, error } = await this.supabase
       .from('game_saves')
-      .select('data, achievements')
+      .select('data')
       .eq('user_id', userId)
       .maybeSingle();
 
     if (error) {
       console.error('Failed to load game save:', error.message);
-      return { data: null, achievements: null, error };
+      return { data: null, error };
     }
 
     if (!data) {
       console.log('No cloud save found.');
-      return { data: null, achievements: null, error: null };
+      return { data: null, error: null };
     }
 
-    return { data: data.data, achievements: data.achievements, error: null }; 
+    return { data: data.data, error: null }; 
   }
 
 }

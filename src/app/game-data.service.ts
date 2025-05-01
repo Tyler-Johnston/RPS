@@ -298,7 +298,8 @@ export class GameDataService {
       try {
         const saveData = JSON.parse(localData);
         const achievementData = this.achievementService.getAchievements();
-        await this.supabaseService.saveGameData(user.id, saveData, achievementData);
+        await this.supabaseService.saveGameData(user.id, saveData);
+        await this.supabaseService.saveAchievements(user.id, achievementData);
         console.log('Local save transferred to cloud.');
       } catch (error) {
         console.error('Failed to transfer local save to cloud.', error);
@@ -309,14 +310,17 @@ export class GameDataService {
   }
 
   async saveGameData(): Promise<void> {
+    console.log("SAVING");
     this.pointsPerWin = (this.streakBonus + this.baseScoreBonusAdditive) * this.mult;
     this.achievementService.evaluateFromGameData(this);
     const saveData = this.serializeGameData();
+    console.log(saveData);
     const achievementData = this.achievementService.getAchievements();
     const user = await this.supabaseService.getUser();
     if (user) {
       try {
-        await this.supabaseService.saveGameData(user.id, saveData, achievementData);
+        await this.supabaseService.saveGameData(user.id, saveData);
+        await this.supabaseService.saveAchievements(user.id, achievementData);
       } catch (error) {
         console.error('Cloud save failed.', error);
       }
@@ -328,6 +332,7 @@ export class GameDataService {
   }
 
   async loadGameData(): Promise<void> {
+    console.log("LOADING");
     this.detectMobileDevice();
     const user = await this.supabaseService.getUser();
     if (user) {
