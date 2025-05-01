@@ -310,11 +310,9 @@ export class GameDataService {
   }
 
   async saveGameData(): Promise<void> {
-    console.log("SAVING");
     this.pointsPerWin = (this.streakBonus + this.baseScoreBonusAdditive) * this.mult;
     this.achievementService.evaluateFromGameData(this);
     const saveData = this.serializeGameData();
-    console.log(saveData);
     const achievementData = this.achievementService.getAchievements();
     const user = await this.supabaseService.getUser();
     if (user) {
@@ -332,15 +330,19 @@ export class GameDataService {
   }
 
   async loadGameData(): Promise<void> {
-    console.log("LOADING");
     this.detectMobileDevice();
     const user = await this.supabaseService.getUser();
     if (user) {
       try {
         const { data } = await this.supabaseService.loadGameData(user.id);
+        const { achievements } = await this.supabaseService.loadAchievements(user.id);
         if (data) {
           this.deserializeGameData(data);
-          console.log('Loaded cloud save from Supabase');
+          console.log('Loaded cloud game save from Supabase');
+        }
+        if (achievements) {
+          this.achievementService.setAchievements(achievements);
+          console.log('Loaded cloud achievements from Supabase');
         }
       } catch (error) {
         console.error('Cloud load failed, using local save.', error);
@@ -348,9 +350,14 @@ export class GameDataService {
     }
     else {
       const localData = localStorage.getItem('rps_save');
+      const localAchievements = localStorage.getItem('achievements');
       if (localData) {
         this.deserializeGameData(JSON.parse(localData));
         console.log('Loaded local save from browser.');
+      }
+      if (localAchievements) {
+        this.achievementService.setAchievements(JSON.parse(localAchievements));
+        console.log('Loaded local achievements from browser.');
       }
     }
     this.handleSniperFire();

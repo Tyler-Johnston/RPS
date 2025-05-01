@@ -84,4 +84,24 @@ export class SupabaseService {
     return { data: data.data, error: null }; 
   }
 
+  async loadAchievements(userId: string) {
+    const { data, error } = await this.supabase
+      .from('game_saves')
+      .select('achievements')
+      .eq('user_id', userId)
+      .maybeSingle();
+
+    if (error) {
+      console.error('Failed to load achievements:', error.message);
+      return { data: null, error };
+    }
+
+    if (!data) {
+      console.log('No cloud save found.');
+      return { data: null, error: null };
+    }
+
+    return { achievements: data.achievements, error: null }; 
+  }
+
 }
