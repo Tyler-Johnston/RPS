@@ -281,18 +281,13 @@ export class GameDataService {
       baseRockEfficiencyPercentage: this.baseRockEfficiencyPercentage,
       basePaperEfficiencyPercentage: this.basePaperEfficiencyPercentage,
       baseScissorEfficiencyPercentage: this.baseScissorEfficiencyPercentage,
-      isLoggedIn: this.isLoggedIn,
-      achievements: this.achievementService.getAchievements(),
+      isLoggedIn: this.isLoggedIn
     };
   }
 
   deserializeGameData(data: any): void {
     if (!data) return;
     Object.assign(this, data);
-    if (data.achievements) {
-      this.achievementService.setAchievements(data.achievements);
-    }
-    
   }
 
   async transferLocalSaveToCloud(): Promise<void> {
@@ -301,8 +296,9 @@ export class GameDataService {
   
     if (localData && user) {
       try {
-        const parsedData = JSON.parse(localData);
-        await this.supabaseService.saveGameData(user.id, parsedData);
+        const saveData = JSON.parse(localData);
+        const achievementData = this.achievementService.getAchievements();
+        await this.supabaseService.saveGameData(user.id, saveData, achievementData);
         console.log('Local save transferred to cloud.');
       } catch (error) {
         console.error('Failed to transfer local save to cloud.', error);
@@ -316,10 +312,11 @@ export class GameDataService {
     this.pointsPerWin = (this.streakBonus + this.baseScoreBonusAdditive) * this.mult;
     this.achievementService.evaluateFromGameData(this);
     const saveData = this.serializeGameData();
+    const achievementData = this.achievementService.getAchievements();
     const user = await this.supabaseService.getUser();
     if (user) {
       try {
-        await this.supabaseService.saveGameData(user.id, saveData);
+        await this.supabaseService.saveGameData(user.id, saveData, achievementData);
       } catch (error) {
         console.error('Cloud save failed.', error);
       }

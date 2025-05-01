@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { GameDataService } from './game-data.service';
+import { SupabaseService } from './supabase.service';
 
 export interface Achievement {
   id: string;
@@ -66,7 +67,7 @@ export class AchievementService {
     { value: 100000, id: 'mech_fuelHoarder3' }
   ];
   
-  constructor() {
+  constructor(private supabaseService: SupabaseService) {
   }
 
   getAchievements(): Achievement[] {
@@ -81,10 +82,28 @@ export class AchievementService {
     return this.achievements.find(a => a.id === id)?.unlocked ?? false;
   }
 
+  async saveAchievement(): Promise<void> {
+    const user = await this.supabaseService.getUser();
+    const saveData = this.achievements;
+  
+    if (user) {
+      try {
+        await this.supabaseService.saveGameData(user.id, {}, saveData);
+        console.log('Achievements saved to the cloud.');
+      } catch (error) {
+        console.error('Cloud save failed.', error);
+      }
+    } else {
+      localStorage.setItem('achievements', JSON.stringify(saveData));
+      console.log('Achievements saved locally.');
+    }
+  }
+  
   unlockAchievement(id: string): void {
     const achievement = this.achievements.find(a => a.id === id);
     if (achievement && !achievement.unlocked) {
       achievement.unlocked = true;
+      this.saveAchievement();
       console.log(`Achievement unlocked: ${achievement.title}`);
     }
   }
