@@ -14,32 +14,32 @@ export interface Achievement {
 export class AchievementService {
   private achievements: Achievement[] = [
     // Progression
-    { id: 'prog_firstWin', title: 'First Win!', description: 'Win your first match', unlocked: false },
-    { id: 'prog_points1', title: 'One Small Step', description: 'Reach 1,000 points', unlocked: false },
-    { id: 'prog_points2', title: 'Fanatic', description: 'Reach 100,000 points', unlocked: false },
-    { id: 'prog_points3', title: 'Millionaire', description: 'Reach 1,000,000 points', unlocked: false },
-    { id: 'prog_combo1', title: 'Chain Reaction', description: 'Get a 250-win streak', unlocked: false },
-    { id: 'prog_combo2', title: 'Unstoppable', description: 'Get a 1,000-win streak', unlocked: false },
-    { id: 'prog_combo3', title: 'Take a Shower?', description: 'Get a 5,000-win streak', unlocked: false },
+    { id: 'prog_firstWin', title: 'Chrysalis', description: 'Win your first match', unlocked: false },
+    { id: 'prog_points1', title: 'Spaceboy\'s Mixtape', description: 'Reach 1,000 points', unlocked: false },
+    { id: 'prog_points2', title: 'Bonetrousle', description: 'Reach 100,000 points', unlocked: false },
+    { id: 'prog_points3', title: 'Mistborn', description: 'Reach 1,000,000 points', unlocked: false },
+    { id: 'prog_combo1', title: 'Guess Who\'s Back', description: 'Get a 250-win streak', unlocked: false },
+    { id: 'prog_combo2', title: 'Endure And Survive', description: 'Get a 10,000-win streak', unlocked: false },
+    { id: 'prog_combo3', title: 'T.B Never Dies', description: 'Get a 50,000-win streak', unlocked: false },
   
     // Upgrades
-    { id: 'upg_firstSniper', title: 'Automagic', description: 'Unlock Your First Sniper', unlocked: false },
-    { id: 'upg_tripleSniper', title: 'Triple Threat', description: 'Unlock All Snipers', unlocked: false },
-    { id: 'upg_fullProduction', title: 'Full Production', description: 'Unlock All Generators', unlocked: false },
-    { id: 'upg_tripleEfficiencyMax', title: 'Global Warmer', description: 'Max out every Sniper\'s efficiency', unlocked: false },
-    { id: 'upg_tripleFuelMax', title: 'Overachiever', description: 'Maximize the amount of fuel you can generate for every generator', unlocked: false },
-    { id: 'upg_tripleIntervalMax', title: 'No Lifer', description: 'Reduce every generator interval to 1 second', unlocked: false },
+    { id: 'upg_firstSniper', title: 'Baby Steps', description: 'Unlock Your First Sniper', unlocked: false },
+    { id: 'upg_tripleSniper', title: 'Jump Rope Gazer', description: 'Unlock All Snipers', unlocked: false },
+    { id: 'upg_fullProduction', title: 'Harmonic Convergence', description: 'Unlock All Generators', unlocked: false },
+    { id: 'upg_tripleEfficiencyMax', title: 'Lumon\'s Standard', description: 'Max out every Sniper\'s efficiency', unlocked: false },
+    { id: 'upg_tripleFuelMax', title: 'Join Us, Thrive', description: 'Max out every generator', unlocked: false },
+    { id: 'upg_tripleIntervalMax', title: 'Epitaph', description: 'Set every generator to 1 second', unlocked: false },
   
     // Mechanics
-    { id: 'mech_fuelHoarder1', title: 'Hopeful Capitalist', description: 'Store 1,000 rocks, papers, or scissors', unlocked: false },
-    { id: 'mech_fuelHoarder2', title: 'Status Quo Enjoyer', description: 'Store 10,000 rocks, papers, or scissors', unlocked: false },
-    { id: 'mech_fuelHoarder3', title: 'Turtle Killer', description: 'Store 100,000 rocks, papers, or scissors', unlocked: false },
-    { id: 'mech_ppw1', title: 'Points-Per-Win', description: 'Achieve a PPW of 250', unlocked: false },
-    { id: 'mech_ppw2', title: 'Harmonic Symphony', description: 'Achieve a PPW of 1,000', unlocked: false },
-    { id: 'mech_ppw3', title: 'RPS Tycoon', description: 'Achieve a PPW of 10,000', unlocked: false },
+    { id: 'mech_fuelHoarder1', title: 'Cigarette Daydreams', description: 'Store 1,000 rocks, papers, or scissors', unlocked: false },
+    { id: 'mech_fuelHoarder2', title: 'Plastic Love', description: 'Store 25,000 rocks, papers, or scissors', unlocked: false },
+    { id: 'mech_fuelHoarder3', title: 'Rainbow Connection', description: 'Store 100,000 rocks, papers, or scissors', unlocked: false },
+    { id: 'mech_ppw1', title: 'Misprint', description: 'Achieve a PPW of 250', unlocked: false },
+    { id: 'mech_ppw2', title: 'Spare Trousers', description: 'Achieve a PPW of 5,000', unlocked: false },
+    { id: 'mech_ppw3', title: 'Cavendish', description: 'Achieve a PPW of 25,000', unlocked: false },
   
     // Miscellaneous
-    { id: 'misc_completionist', title: 'Completionist', description: 'Unlock all achievements', unlocked: false }
+    { id: 'misc_completionist', title: 'Dawn of a New Day', description: 'Unlock all achievements', unlocked: false }
   ];
 
   private readonly pointsThresholds = [
@@ -50,19 +50,19 @@ export class AchievementService {
   
   private readonly ppwThresholds = [
     { value: 250, id: 'mech_ppw1' },
-    { value: 1000, id: 'mech_ppw2' },
-    { value: 10000, id: 'mech_ppw3' }
+    { value: 5000, id: 'mech_ppw2' },
+    { value: 25000, id: 'mech_ppw3' }
   ];
   
   private readonly streakThresholds = [
     { value: 250, id: 'prog_combo1' },
-    { value: 1000, id: 'prog_combo2' },
-    { value: 5000, id: 'prog_combo3' }
+    { value: 10000, id: 'prog_combo2' },
+    { value: 50000, id: 'prog_combo3' }
   ];
   
   private readonly fuelStorageThresholds = [
     { value: 1000, id: 'mech_fuelHoarder1' },
-    { value: 10000, id: 'mech_fuelHoarder2' },
+    { value: 25000, id: 'mech_fuelHoarder2' },
     { value: 100000, id: 'mech_fuelHoarder3' }
   ];
   
