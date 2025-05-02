@@ -91,8 +91,15 @@ export class GameDataService {
   public baseConversionCost: number = 300;
   public baseConversionGain: number = 100;
 
-  public pauseSniperBtnCost: number = 50000
+  public pauseSniperBtnCost: number = 50000;
   public isSniperPaused: boolean = false;
+
+  public OTCCost: number = 100000000;
+  public isOTCPurchased: boolean = false;
+  public gold: number = 0;
+  public goldIncrement: number = 1;
+  public isMidasCursePurchased: boolean = false;
+  public midasCurseCost: number = 500;
 
   constructor(
     private achievementService: AchievementService,
@@ -198,7 +205,7 @@ export class GameDataService {
     setTimeout(() => {
       this[resource] -= 1;
       this.sniperLock = false;
-      this.makeChoice(move);
+      this.makeChoice(move, false);
     }, delay);
   }
 
@@ -206,7 +213,7 @@ export class GameDataService {
     this.isSniperPaused = !this.isSniperPaused
   }
 
-  makeChoice(playerMove: Move): void {
+  makeChoice(playerMove: Move, isManualClick: boolean): void {
     const result = this.calculateResult(playerMove, this.opponentMove);
 
     if (result === 'You Win!') {
@@ -215,6 +222,7 @@ export class GameDataService {
       this.scoreBonus = this.streakBonus + this.baseScoreBonusAdditive;
       this.points += this.scoreBonus * this.mult;
       this.achievementService.unlockAchievement('prog_firstWin');
+      if (isManualClick && this.isOTCPurchased) this.gold += this.goldIncrement;
     } else {
       this.streak = 0;
       this.streakBonus = 0;
@@ -286,7 +294,11 @@ export class GameDataService {
       baseScissorEfficiencyPercentage: this.baseScissorEfficiencyPercentage,
       isLoggedIn: this.isLoggedIn,
       isPauseSniperUnlocked: this.isPauseSniperUnlocked,
-      isSniperPaused: this.isSniperPaused
+      isSniperPaused: this.isSniperPaused,
+      gold: this.gold,
+      goldIncrement: this.goldIncrement,
+      isOTCPurchased: this.isOTCPurchased,
+      isMidasCursePurchased: this.isMidasCursePurchased
     };
   }
 

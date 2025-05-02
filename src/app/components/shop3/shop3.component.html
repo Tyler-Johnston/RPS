@@ -1,0 +1,36 @@
+<div class="shop-container">
+    <h2>Shop</h2>
+    <p class="points">Points: {{ gameData.points }}</p>
+    <p class="points">Gold: {{ gameData.gold }}</p>
+
+    <div class="container">
+        <div class="shop-item">
+            <p>Overtime Contingency Protocal</p>
+            <p>Rewards every manual win with gold</p>
+            <p>Cost: {{ gameData.OTCCost }} points</p>
+            <button 
+                (click)="purchaseOtc()"
+                [disabled]="(gameData.points < gameData.OTCCost) || (gameData.isOTCPurchased)">
+                Buy
+            </button>
+        </div>
+
+        <div class="shop-item">
+            <p>Midas Curse</p>
+            <p>Let no mortal desire more than the gods' grant</p>
+            <p>Cost: {{ gameData.midasCurseCost }} gold</p>
+            <button 
+                (click)="purchaseMidasCurse()"
+                [disabled]="(gameData.gold < gameData.midasCurseCost)">
+                Buy
+            </button>
+        </div>
+
+    </div>
+
+    <!-- Navigation Buttons -->
+    <div class="button-group">
+        <button routerLink="/shop2" class="next-button"><-</button>
+        <button routerLink="/" class="back-button" (click)="gameData.saveGameData()">Back to Game</button>
+    </div>
+</div>

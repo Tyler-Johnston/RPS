@@ -110,7 +110,7 @@ export class ShopComponent {
     this.gameData.saveGameData();
   }
 
-  unlockPauseSniper(): void {
+  purchasePauseSniper(): void {
     this.gameData.isPauseSniperUnlocked = true;
     this.gameData.points -= this.gameData.pauseSniperBtnCost;
     this.gameData.saveGameData();

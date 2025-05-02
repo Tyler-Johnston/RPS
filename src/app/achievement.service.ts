@@ -21,7 +21,7 @@ export class AchievementService {
     { id: 'prog_points3', title: 'Mistborn', description: 'Reach 1,000,000 points', unlocked: false },
     { id: 'prog_combo1', title: 'Guess Who\'s Back', description: 'Get a 250-win streak', unlocked: false },
     { id: 'prog_combo2', title: 'Endure And Survive', description: 'Get a 10,000-win streak', unlocked: false },
-    { id: 'prog_combo3', title: 'T.B. Never Dies', description: 'Get a 50,000-win streak', unlocked: false },
+    { id: 'prog_combo3', title: 'Final Duet', description: 'Get a 25,000-win streak', unlocked: false },
   
     // Upgrades
     { id: 'upg_firstSniper', title: 'Baby Steps', description: 'Unlock Your First Sniper', unlocked: false },
@@ -29,7 +29,7 @@ export class AchievementService {
     { id: 'upg_fullProduction', title: 'Harmonic Convergence', description: 'Unlock All Generators', unlocked: false },
     { id: 'upg_tripleEfficiencyMax', title: 'Lumon\'s Standard', description: 'Max out every Sniper\'s efficiency', unlocked: false },
     { id: 'upg_tripleFuelMax', title: 'Join Us, Thrive', description: 'Max out every generator', unlocked: false },
-    { id: 'upg_tripleIntervalMax', title: 'Epitaph', description: 'Set every generator to 1 second', unlocked: false },
+    { id: 'upg_tripleIntervalMax', title: 'Green Hill Zone', description: 'Set every generator to 1 second', unlocked: false },
   
     // Mechanics
     { id: 'mech_fuelHoarder1', title: 'Cigarette Daydreams', description: 'Store 1,000 rocks, papers, or scissors', unlocked: false },
@@ -41,6 +41,8 @@ export class AchievementService {
   
     // Miscellaneous
     { id: 'misc_sniperPause', title: 'Star Platinum', description: 'Unlock the sniper pause button', unlocked: false },
+    { id: 'misc_manualOverhaul', title: 'Overtime Contingency', description: 'Unlock the OTC ability', unlocked: false },
+    { id: 'misc_gold1', title: 'Golden Experience', description: 'Unlock Midas Curse', unlocked: false },
     { id: 'misc_completionist', title: 'Dawn of a New Day', description: 'Unlock all achievements', unlocked: false }
   ];
 
@@ -59,7 +61,7 @@ export class AchievementService {
   private readonly streakThresholds = [
     { value: 250, id: 'prog_combo1' },
     { value: 10000, id: 'prog_combo2' },
-    { value: 50000, id: 'prog_combo3' }
+    { value: 25000, id: 'prog_combo3' }
   ];
   
   private readonly fuelStorageThresholds = [
