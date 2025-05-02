@@ -74,9 +74,9 @@ export class GameDataService {
   public firstPaperGenUpgrade: boolean = true;
   public firstScissorGenUpgrade: boolean = true;
 
-  public rockIntervalUpgradeCost: number = 100;
-  public paperIntervalUpgradeCost: number = 100;
-  public scissorIntervalUpgradeCost: number = 100;
+  public rockIntervalUpgradeCost: number = 75;
+  public paperIntervalUpgradeCost: number = 75;
+  public scissorIntervalUpgradeCost: number = 75;
 
   public rockIntervalUpgradeLevel: number = 0;
   public paperIntervalUpgradeLevel: number = 0;

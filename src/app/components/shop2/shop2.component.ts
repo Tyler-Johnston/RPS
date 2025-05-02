@@ -110,7 +110,7 @@ export class Shop2Component {
     
             this.gameData.rockIntervalUpgradeLevel++;
             this.gameData.rockIntervalUpgradeCost = Math.floor(
-              100 * Math.pow(this.gameData.rockIntervalUpgradeLevel, 1.6)
+              100 * Math.pow(this.gameData.rockIntervalUpgradeLevel, 1.1)
             );
             this.gameData.restartSingleGenerator('rock');
           }
@@ -130,7 +130,7 @@ export class Shop2Component {
     
             this.gameData.paperIntervalUpgradeLevel++;
             this.gameData.paperIntervalUpgradeCost = Math.floor(
-              100 * Math.pow(this.gameData.paperIntervalUpgradeLevel, 1.6)
+              100 * Math.pow(this.gameData.paperIntervalUpgradeLevel, 1.1)
             );
             this.gameData.restartSingleGenerator('paper');
           }
@@ -150,7 +150,7 @@ export class Shop2Component {
     
             this.gameData.scissorIntervalUpgradeLevel++;
             this.gameData.scissorIntervalUpgradeCost = Math.floor(
-              100 * Math.pow(this.gameData.scissorIntervalUpgradeLevel, 1.6)
+              100 * Math.pow(this.gameData.scissorIntervalUpgradeLevel, 1.1)
             );
             this.gameData.restartSingleGenerator('scissor');
           }
@@ -159,8 +159,7 @@ export class Shop2Component {
       this.gameData.saveGameData();
     }
 
-
-    converter(fromType: 'rock' | 'paper' | 'scissor', toType: 'rock' | 'paper' | 'scissor'): void {
+    converter(fromType: 'rock' | 'paper' | 'scissor'): void {
       switch (fromType) {
         case 'rock':
           if (this.gameData.rocks >= this.gameData.baseConversionCost) {

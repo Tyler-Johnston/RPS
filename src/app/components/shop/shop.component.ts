@@ -21,8 +21,8 @@ export class ShopComponent {
       this.gameData.scoreMultUpgradeCost = this.gameData.calculateUpgradeCost({
         baseCost: 5000,
         level: this.gameData.mult,
-        exponent: 2.75,
-        linearFactor: 1600
+        exponent: 3.45,
+        linearFactor: 2100
       });
       
       this.gameData.mult++;
@@ -91,19 +91,19 @@ export class ShopComponent {
       case 'rock':
         this.gameData.baseRockEfficiencyPercentage += this.gameData.efficiencyIncrement;
         this.gameData.rockEfficiencyUpgradeCost = Math.floor(
-          350 * Math.pow(this.gameData.baseRockEfficiencyPercentage, 2.6) + (this.gameData.baseRockEfficiencyPercentage)
+          375 * Math.pow(this.gameData.baseRockEfficiencyPercentage, 1.35) + (this.gameData.baseRockEfficiencyPercentage)
         );
         break;
       case 'paper':
         this.gameData.basePaperEfficiencyPercentage += this.gameData.efficiencyIncrement;
         this.gameData.paperEfficiencyUpgradeCost = Math.floor(
-          350 * Math.pow(this.gameData.basePaperEfficiencyPercentage, 2.6) + (this.gameData.basePaperEfficiencyPercentage)
+          375 * Math.pow(this.gameData.basePaperEfficiencyPercentage, 1.35) + (this.gameData.basePaperEfficiencyPercentage)
         );
         break;
       case 'scissor':
         this.gameData.baseScissorEfficiencyPercentage += this.gameData.efficiencyIncrement;
         this.gameData.scissorEfficiencyUpgradeCost = Math.floor(
-          350 * Math.pow(this.gameData.baseScissorEfficiencyPercentage, 2.6) + (this.gameData.baseScissorEfficiencyPercentage)
+          375 * Math.pow(this.gameData.baseScissorEfficiencyPercentage, 1.35) + (this.gameData.baseScissorEfficiencyPercentage)
         );
         break;
     }

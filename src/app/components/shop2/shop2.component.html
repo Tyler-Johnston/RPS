@@ -177,19 +177,19 @@
         <div class="shop-item">
             <p>Rock to Paper Converter</p>
             <p>Convert {{ gameData.baseConversionCost }} rocks into {{ gameData.baseConversionGain }} papers</p>
-            <button (click)="converter('rock', 'paper')" [disabled]="(gameData.rocks < gameData.baseConversionCost)">Convert</button>
+            <button (click)="converter('rock')" [disabled]="(gameData.rocks < gameData.baseConversionCost)">Convert</button>
         </div>
   
         <div class="shop-item">
             <p>Paper to Scissor Converter</p>
             <p>Convert {{ gameData.baseConversionCost }} papers into {{ gameData.baseConversionGain }} scissors</p>
-            <button (click)="converter('paper', 'scissor')" [disabled]="(gameData.papers < gameData.baseConversionCost)">Convert</button>
+            <button (click)="converter('paper')" [disabled]="(gameData.papers < gameData.baseConversionCost)">Convert</button>
         </div>
 
         <div class="shop-item">
             <p>Scissor to Rock Converter</p>
             <p>Convert {{ gameData.baseConversionCost }} scissors into {{ gameData.baseConversionGain }} rocks</p>
-            <button (click)="converter('scissor', 'rock')" [disabled]="(gameData.scissors < gameData.baseConversionCost)">Convert</button>
+            <button (click)="converter('scissor')" [disabled]="(gameData.scissors < gameData.baseConversionCost)">Convert</button>
         </div>
 
     <!-- Navigation Buttons -->
