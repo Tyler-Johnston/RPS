@@ -130,6 +130,19 @@ button:disabled {
     transform: scale(0.95);
 }
 
+.sniper-toggle-btn {
+    font-size: 1.0rem;
+    padding: 4px 8px; 
+    cursor: pointer;
+    background: linear-gradient(145deg, #284fd1, #b3cad4);
+    margin-top: 6px;
+  }
+  
+  .sniper-toggle-btn:hover {
+    background: linear-gradient(145deg, #305ffa, #d5f3ff);
+  }
+  
+
 /* --- Mobile Optimization --- */
 @media (max-width: 600px) {
     .game-container {

@@ -174,18 +174,24 @@
                 </ng-container>
             </ng-container>
         </div>
-  
-    <!-- Fuel Purchase -->
-    <div class="fuel-container">
-        <div class="fuel">
-            <p>Cost: {{ gameData.fuelCost }} points</p>
-            <div>
-                <button (click)="purchaseFuel('rock')" [disabled]="(gameData.points < gameData.fuelCost) || (!gameData.rockSniperActive)">+{{gameData.fuelAmount}} Rocks</button>
-                <button (click)="purchaseFuel('paper')" [disabled]="(gameData.points < gameData.fuelCost) || (!gameData.paperSniperActive)">+{{gameData.fuelAmount}} Papers</button>
-                <button (click)="purchaseFuel('scissor')" [disabled]="(gameData.points < gameData.fuelCost) || (!gameData.scissorSniperActive)">+{{gameData.fuelAmount}} Scissors</button>
-            </div>
+
+        <div class="shop-item">
+            <p>Rock to Paper Converter</p>
+            <p>Convert {{ gameData.baseConversionCost }} rocks into {{ gameData.baseConversionGain }} papers</p>
+            <button (click)="converter('rock', 'paper')" [disabled]="(gameData.rocks < gameData.baseConversionCost)">Buy</button>
         </div>
-    </div>
+  
+        <div class="shop-item">
+            <p>Paper to Scissor Converter</p>
+            <p>Convert {{ gameData.baseConversionCost }} papers into {{ gameData.baseConversionGain }} scissors</p>
+            <button (click)="converter('paper', 'scissor')" [disabled]="(gameData.papers < gameData.baseConversionCost)">Buy</button>
+        </div>
+
+        <div class="shop-item">
+            <p>Scissor to Rock Converter</p>
+            <p>Convert {{ gameData.baseConversionCost }} scissors into {{ gameData.baseConversionGain }} rocks</p>
+            <button (click)="converter('scissor', 'rock')" [disabled]="(gameData.scissors < gameData.baseConversionCost)">Buy</button>
+        </div>
 
     <!-- Navigation Buttons -->
     <div class="button-group">

@@ -22,6 +22,12 @@
         <p *ngIf="gameData.rockSniperActive">Rocks: {{ gameData.rocks }}</p>
         <p *ngIf="gameData.paperSniperActive">Papers: {{ gameData.papers }}</p>
         <p *ngIf="gameData.scissorSniperActive">Scissors: {{ gameData.scissors }}</p>
+
+        <div *ngIf="gameData.isPauseSniperUnlocked">
+          <button (click)="gameData.togglePauseSnipers()" class="sniper-toggle-btn">
+            {{ gameData.isSniperPaused ? 'Resume Snipers' : 'Pause Snipers' }}
+          </button>
+        </div>
     </div>
 
     <div class="button-group">

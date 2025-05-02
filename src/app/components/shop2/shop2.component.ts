@@ -174,9 +174,30 @@ export class Shop2Component {
             this.gameData.scissors += this.gameData.fuelAmount;
             break;
         }
-    
         this.gameData.saveGameData();
-        }
-    }  
+      }
+    }
 
+    converter(fromType: 'rock' | 'paper' | 'scissor', toType: 'rock' | 'paper' | 'scissor'): void {
+      switch (fromType) {
+        case 'rock':
+          if (this.gameData.rocks >= this.gameData.baseConversionCost) {
+            this.gameData.rocks -= this.gameData.baseConversionCost;
+            this.gameData.papers += this.gameData.baseConversionGain;
+          }
+          break;
+        case 'paper':
+          if (this.gameData.papers >= this.gameData.baseConversionCost) {
+            this.gameData.papers -= this.gameData.baseConversionCost;
+            this.gameData.scissors += this.gameData.baseConversionGain;
+          }
+          break;
+        case 'scissor':
+          if (this.gameData.scissors >= this.gameData.baseConversionCost) {
+            this.gameData.scissors -= this.gameData.baseConversionCost;
+            this.gameData.rocks += this.gameData.baseConversionGain;
+          }
+          break;
+      }
+    }
 }

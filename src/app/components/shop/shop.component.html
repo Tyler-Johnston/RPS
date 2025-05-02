@@ -20,6 +20,17 @@
                 Buy
             </button>
         </div>
+
+        <div class="shop-item">
+            <p>Sniper Pause Button</p>
+            <p>Toggles all active snipers</p>
+            <p>Cost: {{ gameData.pauseSniperBtnCost }} points</p>
+            <button 
+                (click)="unlockPauseSniper()" 
+                [disabled]="gameData.isPauseSniperUnlocked">
+                Buy
+            </button>
+        </div>
     </div>
 
     <div class="sniper-row">

@@ -27,8 +27,8 @@ export class GameDataService {
   public scoreMultUpgradeCost: number = 10000;
 
   public sniperCost: number = 500;
-  public fuelCost: number = 1000;
-  public fuelAmount: number = 25;
+  public fuelCost: number = 3000;
+  public fuelAmount: number = 100;
   public bonusPointIncrement: number = 100;
   public streakPointDivisor: number = 5;
 
@@ -97,6 +97,13 @@ export class GameDataService {
   public sniperIntervalId: any = null;
   public saveIntervalId: any = null;
   public isMobile: boolean = false;
+
+  public isPauseSniperUnlocked: boolean = false;
+  public baseConversionCost: number = 300;
+  public baseConversionGain: number = 100;
+
+  public pauseSniperBtnCost: number = 50000
+  public isSniperPaused: boolean = false;
 
   constructor(
     private achievementService: AchievementService,
@@ -172,7 +179,7 @@ export class GameDataService {
   }
 
   handleSniperFire(): void {
-    if (this.sniperLock) return;
+    if (this.sniperLock || this.isSniperPaused) return;
 
     const rockSniperSpeed = 1000 - (this.baseRockEfficiencyPercentage * 10);
     const paperSniperSpeed = 1000 - (this.basePaperEfficiencyPercentage * 10);
@@ -208,12 +215,17 @@ export class GameDataService {
 
   }
 
+  togglePauseSnipers(): void {
+    this.isSniperPaused = !this.isSniperPaused
+  }
+
   makeChoice(playerMove: Move): void {
     const result = this.calculateResult(playerMove, this.opponentMove);
 
     if (result === 'You Win!') {
       this.streak++;
       this.streakBonus = 1 + Math.floor(this.streak / this.streakPointDivisor);
+      this.pointsPerWin = (this.streakBonus + this.baseScoreBonusAdditive) * this.mult;
       this.scoreBonus = this.streakBonus + this.baseScoreBonusAdditive;
       this.points += this.scoreBonus * this.mult;
       this.achievementService.unlockAchievement('prog_firstWin');
@@ -292,7 +304,9 @@ export class GameDataService {
       baseRockEfficiencyPercentage: this.baseRockEfficiencyPercentage,
       basePaperEfficiencyPercentage: this.basePaperEfficiencyPercentage,
       baseScissorEfficiencyPercentage: this.baseScissorEfficiencyPercentage,
-      isLoggedIn: this.isLoggedIn
+      isLoggedIn: this.isLoggedIn,
+      isPauseSniperUnlocked: this.isPauseSniperUnlocked,
+      isSniperPaused: this.isSniperPaused
     };
   }
 

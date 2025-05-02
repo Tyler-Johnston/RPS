@@ -30,13 +30,13 @@ Play this game at https://rps-lac.vercel.app/
 
 ## 🛠️ Core Features
 
-### 🏗️ Game Shop
+### 🛒 Game Shop
 
 ![Shop Screen](images/shop.PNG)
 
 - Purchase permanent score bonuses, multipliers, automatic "snipers", and resource generators.
 - Each sniper's efficiency can be upgrades such that moves are automatically countered at a much faster rate.
-- Generators can be upgraded allowing more fuel produced per interval. Initially, this is 1 resource per 30 seconds. However, this can be maxed-out to generate 30 resources per 1 second.
+- Generators can be upgraded allowing more fuel produced per interval.
 - Upgrade costs combine exponential and linear scaling models for balance.
 
 
