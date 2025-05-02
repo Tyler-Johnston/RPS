@@ -140,7 +140,7 @@ export class GameDataService {
     }
   }
   
-  private startSingleGenerator(resource: 'rock' | 'paper' | 'scissor'): void {
+  startSingleGenerator(resource: 'rock' | 'paper' | 'scissor'): void {
     const gameData = this as any;
   
     const speed = 1000 * gameData[`${resource}GeneratorInterval`];
@@ -152,6 +152,17 @@ export class GameDataService {
       this.saveGameData();
     }, speed);
   }
+
+  restartSingleGenerator(resource: 'rock' | 'paper' | 'scissor'): void {
+    const gameData = this as any;
+    
+    const intervalIdKey = `${resource}GeneratorIntervalId`;
+    if (gameData[intervalIdKey]) {
+      clearInterval(gameData[intervalIdKey]);
+    }
+    this.startSingleGenerator(resource);
+  }
+  
   
   generateRandomMove(): void {
     const moves: Move[] = ['Rock', 'Paper', 'Scissors'];
