@@ -27,7 +27,7 @@
             <p>Cost: {{ gameData.pauseSniperBtnCost }} points</p>
             <button 
                 (click)="unlockPauseSniper()" 
-                [disabled]="gameData.isPauseSniperUnlocked">
+                [disabled]="(gameData.points < gameData.pauseSniperBtnCost) || (gameData.isPauseSniperUnlocked)">
                 Buy
             </button>
         </div>
@@ -118,7 +118,7 @@
 
     <!-- Navigation Buttons -->
     <div class="button-group">
-        <button routerLink="/" class="back-button">Back to Game</button>
+        <button routerLink="/" class="back-button" (click)="gameData.saveGameData()">Back to Game</button>
         <button routerLink="/shop2" class="next-button">-></button>
     </div>
 </div>

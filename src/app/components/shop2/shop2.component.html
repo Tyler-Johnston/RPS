@@ -119,7 +119,6 @@
             </ng-container>
         </div>
   
-
         <!-- Scissor Generator -->
         <div class="shop-item">
             <p>Scissor Generator</p>
@@ -178,24 +177,24 @@
         <div class="shop-item">
             <p>Rock to Paper Converter</p>
             <p>Convert {{ gameData.baseConversionCost }} rocks into {{ gameData.baseConversionGain }} papers</p>
-            <button (click)="converter('rock', 'paper')" [disabled]="(gameData.rocks < gameData.baseConversionCost)">Buy</button>
+            <button (click)="converter('rock', 'paper')" [disabled]="(gameData.rocks < gameData.baseConversionCost)">Convert</button>
         </div>
   
         <div class="shop-item">
             <p>Paper to Scissor Converter</p>
             <p>Convert {{ gameData.baseConversionCost }} papers into {{ gameData.baseConversionGain }} scissors</p>
-            <button (click)="converter('paper', 'scissor')" [disabled]="(gameData.papers < gameData.baseConversionCost)">Buy</button>
+            <button (click)="converter('paper', 'scissor')" [disabled]="(gameData.papers < gameData.baseConversionCost)">Convert</button>
         </div>
 
         <div class="shop-item">
             <p>Scissor to Rock Converter</p>
             <p>Convert {{ gameData.baseConversionCost }} scissors into {{ gameData.baseConversionGain }} rocks</p>
-            <button (click)="converter('scissor', 'rock')" [disabled]="(gameData.scissors < gameData.baseConversionCost)">Buy</button>
+            <button (click)="converter('scissor', 'rock')" [disabled]="(gameData.scissors < gameData.baseConversionCost)">Convert</button>
         </div>
 
     <!-- Navigation Buttons -->
     <div class="button-group">
         <button routerLink="/shop" class="next-button"><-</button>
-        <button routerLink="/" class="back-button">Back to Game</button>
+        <button routerLink="/" class="back-button" (click)="gameData.saveGameData()">Back to Game</button>
     </div>
 </div>

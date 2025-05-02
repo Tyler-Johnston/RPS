@@ -16,7 +16,6 @@ export class GameDataService {
   public streakBonus: number = 0;
   public pointsPerWin: number = 1;
 
-  public isMoveInit = false;
   public efficiencyIncrement = 10;
   public maxEfficiency = 90;
   public minIntervalLimit: number = 1;
@@ -24,7 +23,7 @@ export class GameDataService {
 
   public baseScoreBonusAdditive: number = 0;
   public scoreBonusUpgradeCost: number = 250;
-  public scoreMultUpgradeCost: number = 10000;
+  public scoreMultUpgradeCost: number = 5000;
 
   public sniperCost: number = 500;
   public bonusPointIncrement: number = 100;
@@ -35,9 +34,9 @@ export class GameDataService {
   public scissorSniperActive: boolean = false;
   public sniperLock: boolean = false;
 
-  public rocks: number = 100;
-  public papers: number = 100;
-  public scissors: number = 100;
+  public rocks: number = 25;
+  public papers: number = 25;
+  public scissors: number = 25;
 
   public baseRockEfficiencyPercentage = 0;
   public basePaperEfficiencyPercentage = 0;
@@ -75,17 +74,9 @@ export class GameDataService {
   public firstPaperGenUpgrade: boolean = true;
   public firstScissorGenUpgrade: boolean = true;
 
-  public rockIntervalUpgradeCost: number = 1000;
-  public paperIntervalUpgradeCost: number = 1000;
-  public scissorIntervalUpgradeCost: number = 1000;
-
-  public rockActiveUpgradeCost: number = 10000;
-  public paperActiveUpgradeCost: number = 10000;
-  public scissorActiveUpgradeCost: number = 10000;
-
-  public rockActiveLevel: number = 0;
-  public paperActiveLevel: number = 0;
-  public scissorActiveLevel: number = 0;
+  public rockIntervalUpgradeCost: number = 100;
+  public paperIntervalUpgradeCost: number = 100;
+  public scissorIntervalUpgradeCost: number = 100;
 
   public rockIntervalUpgradeLevel: number = 0;
   public paperIntervalUpgradeLevel: number = 0;
@@ -168,7 +159,6 @@ export class GameDataService {
     this.startSingleGenerator(resource);
   }
   
-  
   generateRandomMove(): void {
     const moves: Move[] = ['Rock', 'Paper', 'Scissors'];
     const randomIndex = Math.floor(Math.random() * moves.length);
@@ -210,7 +200,6 @@ export class GameDataService {
       this.sniperLock = false;
       this.makeChoice(move);
     }, delay);
-
   }
 
   togglePauseSnipers(): void {
@@ -223,7 +212,6 @@ export class GameDataService {
     if (result === 'You Win!') {
       this.streak++;
       this.streakBonus = 1 + Math.floor(this.streak / this.streakPointDivisor);
-      this.pointsPerWin = (this.streakBonus + this.baseScoreBonusAdditive) * this.mult;
       this.scoreBonus = this.streakBonus + this.baseScoreBonusAdditive;
       this.points += this.scoreBonus * this.mult;
       this.achievementService.unlockAchievement('prog_firstWin');
@@ -232,7 +220,7 @@ export class GameDataService {
       this.streakBonus = 0;
       this.scoreBonus = this.baseScoreBonusAdditive;
     }
-
+    this.pointsPerWin = (this.streakBonus + this.baseScoreBonusAdditive) * this.mult;
     this.generateRandomMove();
   }
 
@@ -284,15 +272,9 @@ export class GameDataService {
       rockGeneratorActive: this.rockGeneratorActive,
       paperGeneratorActive: this.paperGeneratorActive,
       scissorGeneratorActive: this.scissorGeneratorActive,
-      rockActiveLevel: this.rockActiveLevel,
-      paperActiveLevel: this.paperActiveLevel,
-      scissorActiveLevel: this.scissorActiveLevel,
       rockIntervalUpgradeCost: this.rockIntervalUpgradeCost,
       paperIntervalUpgradeCost: this.paperIntervalUpgradeCost,
       scissorIntervalUpgradeCost: this.scissorIntervalUpgradeCost,
-      rockActiveUpgradeCost: this.rockActiveUpgradeCost,
-      paperActiveUpgradeCost: this.paperActiveUpgradeCost,
-      scissorActiveUpgradeCost: this.scissorActiveUpgradeCost,
       rockIntervalUpgradeLevel: this.rockIntervalUpgradeLevel,
       paperIntervalUpgradeLevel: this.paperIntervalUpgradeLevel,
       scissorIntervalUpgradeLevel: this.scissorIntervalUpgradeLevel,
@@ -364,7 +346,7 @@ export class GameDataService {
           console.log('Loaded cloud game save from Supabase');
         }
         if (achievements) {
-          this.achievementService.mergeAchievements(achievements);
+          this.achievementService.setAchievements(achievements);
           console.log('Loaded cloud achievements from Supabase');
         }        
       } catch (error) {
@@ -379,13 +361,11 @@ export class GameDataService {
         console.log('Loaded local save from browser.');
       }
       if (localAchievements) {
-        this.achievementService.mergeAchievements(JSON.parse(localAchievements));
+        this.achievementService.setAchievements(JSON.parse(localAchievements));
         console.log('Loaded local achievements from browser.');
       }      
     }
     this.handleSniperFire();
     this.startMissingGenerators();
-    
   }
-  
 }

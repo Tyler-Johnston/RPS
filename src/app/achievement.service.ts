@@ -75,7 +75,7 @@ export class AchievementService {
     return this.achievements;
   }
 
-  mergeAchievements(savedAchievements: Achievement[]): void {
+  setAchievements(savedAchievements: Achievement[]): void {
     for (const saved of savedAchievements) {
       const match = this.achievements.find(a => a.id === saved.id);
       if (match) {
@@ -84,7 +84,6 @@ export class AchievementService {
     }
   }
   
-
   isUnlocked(id: string): boolean {
     return this.achievements.find(a => a.id === id)?.unlocked ?? false;
   }
