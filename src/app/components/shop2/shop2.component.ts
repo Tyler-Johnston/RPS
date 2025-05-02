@@ -158,25 +158,7 @@ export class Shop2Component {
       }
       this.gameData.saveGameData();
     }
-    
-    purchaseFuel(sniperType: 'rock' | 'paper' | 'scissor'): void {
-        if (this.gameData.points >= this.gameData.fuelCost) {
-        this.gameData.points -= this.gameData.fuelCost;
-    
-        switch (sniperType) {
-            case 'rock':
-            this.gameData.rocks += this.gameData.fuelAmount;
-            break;
-            case 'paper':
-            this.gameData.papers += this.gameData.fuelAmount;
-            break;
-            case 'scissor':
-            this.gameData.scissors += this.gameData.fuelAmount;
-            break;
-        }
-        this.gameData.saveGameData();
-      }
-    }
+
 
     converter(fromType: 'rock' | 'paper' | 'scissor', toType: 'rock' | 'paper' | 'scissor'): void {
       switch (fromType) {

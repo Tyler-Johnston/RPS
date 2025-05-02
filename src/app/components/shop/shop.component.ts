@@ -67,27 +67,6 @@ export class ShopComponent {
     }
   }
 
-  purchaseFuel(sniperType: 'rock' | 'paper' | 'scissor'): void {
-    if (this.gameData.points >= this.gameData.fuelCost) {
-      this.gameData.points -= this.gameData.fuelCost;
-
-      switch (sniperType) {
-        case 'rock':
-          this.gameData.rocks += this.gameData.fuelAmount;
-          break;
-        case 'paper':
-          this.gameData.papers += this.gameData.fuelAmount;
-          break;
-        case 'scissor':
-          this.gameData.scissors += this.gameData.fuelAmount;
-          break;
-      }
-      
-
-      this.gameData.saveGameData();
-    }
-  }
-
   purchaseSniperEfficiency(sniperType: 'rock' | 'paper' | 'scissor'): void {
     let efficiencyCost: number;
 

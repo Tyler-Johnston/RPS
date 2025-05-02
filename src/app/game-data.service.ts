@@ -27,8 +27,6 @@ export class GameDataService {
   public scoreMultUpgradeCost: number = 10000;
 
   public sniperCost: number = 500;
-  public fuelCost: number = 3000;
-  public fuelAmount: number = 100;
   public bonusPointIncrement: number = 100;
   public streakPointDivisor: number = 5;
 
@@ -366,9 +364,9 @@ export class GameDataService {
           console.log('Loaded cloud game save from Supabase');
         }
         if (achievements) {
-          this.achievementService.setAchievements(achievements);
+          this.achievementService.mergeAchievements(achievements);
           console.log('Loaded cloud achievements from Supabase');
-        }
+        }        
       } catch (error) {
         console.error('Cloud load failed, using local save.', error);
       }
@@ -381,12 +379,13 @@ export class GameDataService {
         console.log('Loaded local save from browser.');
       }
       if (localAchievements) {
-        this.achievementService.setAchievements(JSON.parse(localAchievements));
+        this.achievementService.mergeAchievements(JSON.parse(localAchievements));
         console.log('Loaded local achievements from browser.');
-      }
+      }      
     }
     this.handleSniperFire();
     this.startMissingGenerators();
     
   }
+  
 }
