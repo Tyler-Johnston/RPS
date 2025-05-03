@@ -16,7 +16,7 @@ export class SignupComponent {
   password: string = '';
   errorMessage: string = '';
 
-  constructor(private gameData: GameDataService, private supabaseService: SupabaseService, private router: Router) {}
+  constructor(public gameData: GameDataService, private supabaseService: SupabaseService, private router: Router) {}
 
   async onSignUp(): Promise<void> {
     

@@ -1,15 +1,27 @@
-<div class="shop-container">
+<div class="shop-container" [class.midasCurseActive]="gameData.isMidasCursePurchased">
     <h2>Shop</h2>
     <p class="points">Points: {{ gameData.points }}</p>
-    <p class="points">Gold: {{ gameData.gold }}</p>
+    <p *ngIf="gameData.isOTCPurchased" class="points">Gold: {{ gameData.gold }}</p>
 
     <div class="container">
+
+        <div class="shop-item">
+            <p>Sniper Pause Button</p>
+            <p>Pauses/Resumes all snipers</p>
+            <p>Cost: {{ gameData.pauseSniperBtnCost }} points</p>
+            <button 
+                (click)="purchasePauseSniper()" 
+                [disabled]="(gameData.points < gameData.pauseSniperBtnCost) || (gameData.isPauseSniperUnlocked)">
+                Buy
+            </button>
+        </div>
+
         <div class="shop-item">
             <p>Overtime Contingency Protocal</p>
             <p>Rewards every manual win with gold</p>
             <p>Cost: {{ gameData.OTCCost }} points</p>
             <button 
-                (click)="purchaseOtc()"
+                (click)="purchaseOTC()"
                 [disabled]="(gameData.points < gameData.OTCCost) || (gameData.isOTCPurchased)">
                 Buy
             </button>
@@ -21,7 +33,7 @@
             <p>Cost: {{ gameData.midasCurseCost }} gold</p>
             <button 
                 (click)="purchaseMidasCurse()"
-                [disabled]="(gameData.gold < gameData.midasCurseCost)">
+                [disabled]="(gameData.gold < gameData.midasCurseCost) || (gameData.isMidasCursePurchased)">
                 Buy
             </button>
         </div>

@@ -11,8 +11,13 @@
     max-width: 90%;
     box-shadow: 6px 6px #444;
     color: #fff;
+    transform: scale(0.80);
 }
-  
+
+.helpPage.midasCurseActive {
+  border-color: gold;
+}
+
 .helpPage h1 {
     font-size: 2rem;
     margin-bottom: 25px;

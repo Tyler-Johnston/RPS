@@ -36,10 +36,10 @@ export class ShopComponent {
       this.gameData.baseScoreBonusAdditive += this.gameData.bonusPointIncrement;
 
       this.gameData.scoreBonusUpgradeCost = this.gameData.calculateUpgradeCost({
-        baseCost: 250,
+        baseCost: 1000,
         level: this.gameData.baseScoreBonusAdditive / this.gameData.bonusPointIncrement,
-        exponent: 1.70,
-        linearFactor: 675
+        exponent: 3.0,
+        linearFactor: 1600
       });
 
       this.gameData.scoreBonus = this.gameData.scoreBonus + this.gameData.baseScoreBonusAdditive;
@@ -110,9 +110,19 @@ export class ShopComponent {
     this.gameData.saveGameData();
   }
 
-  purchasePauseSniper(): void {
-    this.gameData.isPauseSniperUnlocked = true;
-    this.gameData.points -= this.gameData.pauseSniperBtnCost;
-    this.gameData.saveGameData();
+  purchaseStreakPointUpgrade(): void {
+    if (this.gameData.gold >= this.gameData.streakPointUpgradeCost) {
+      this.gameData.gold -= this.gameData.streakPointUpgradeCost;
+      if (this.gameData.firstStreakPointUpgrade)
+      {
+        this.gameData.streakPoints += this.gameData.streakPointIncrement - 1;
+      }
+      else
+      {
+        this.gameData.streakPoints += this.gameData.streakPointIncrement; 
+      };
+      if (this.gameData.firstStreakPointUpgrade) this.gameData.firstStreakPointUpgrade = false;
+      this.gameData.saveGameData();
+    }
   }
 }

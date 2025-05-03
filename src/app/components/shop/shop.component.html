@@ -1,4 +1,4 @@
-<div class="shop-container">
+<div class="shop-container" [class.midasCurseActive]="gameData.isMidasCursePurchased">
     <h2>Shop</h2>
     <p class="points">Points: {{ gameData.points }}</p>
 
@@ -22,12 +22,15 @@
         </div>
 
         <div class="shop-item">
-            <p>Sniper Pause Button</p>
-            <p>Toggles all active snipers</p>
-            <p>Cost: {{ gameData.pauseSniperBtnCost }} points</p>
+            <p>Increase permanent streak bonus</p>
+            <p>+{{ gameData.streakPoints }} -> 
+                +{{ gameData.streakPoints + 
+                (gameData.firstStreakPointUpgrade ? gameData.streakPointIncrement - 1 : gameData.streakPointIncrement) }}
+            </p>
+            <p>Cost: {{ gameData.streakPointUpgradeCost }} gold</p>
             <button 
-                (click)="purchasePauseSniper()" 
-                [disabled]="(gameData.points < gameData.pauseSniperBtnCost) || (gameData.isPauseSniperUnlocked)">
+                (click)="purchaseStreakPointUpgrade()"
+                [disabled]="(gameData.gold < gameData.streakPointUpgradeCost)">
                 Buy
             </button>
         </div>

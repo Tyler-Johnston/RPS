@@ -9,6 +9,7 @@
     max-width: 650px;
     border-radius: 12px;
     box-shadow: 6px 6px #444;
+    transform: scale(0.80);
     margin: 0;
 }
 
@@ -142,6 +143,9 @@ button:disabled {
     background: linear-gradient(145deg, #305ffa, #d5f3ff);
   }
   
+  .game-container.midasCurseActive {
+    border-color: gold;
+  }
 
 /* --- Mobile Optimization --- */
 @media (max-width: 600px) {

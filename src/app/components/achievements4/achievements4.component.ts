@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { GameDataService } from '../../game-data.service';
 import { AchievementService, Achievement } from '../../achievement.service';
 
 @Component({
@@ -12,7 +13,7 @@ import { AchievementService, Achievement } from '../../achievement.service';
 export class Achievements4Component {
   miscAchievements: Achievement[] = [];
 
-  constructor(public achievementService: AchievementService) {
+  constructor(public gameData: GameDataService, public achievementService: AchievementService) {
     const all = achievementService.getAchievements();
     this.miscAchievements = all.filter(a => a.id.startsWith('misc_'));
   }

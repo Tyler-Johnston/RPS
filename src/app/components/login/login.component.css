@@ -11,6 +11,10 @@
     max-width: 90%;
     box-shadow: 6px 6px #444;
   }
+
+  .auth-container.midasCurseActive {
+    border-color: gold;
+  }
   
   h2 {
     color: #fff;

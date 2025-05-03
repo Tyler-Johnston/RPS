@@ -1,4 +1,4 @@
-<div class="auth-container">
+<div class="auth-container" [class.midasCurseActive]="gameData.isMidasCursePurchased">
     <h2>Welcome Back</h2>
   
     <form (ngSubmit)="onLogin()" #loginForm="ngForm" class="auth-form">

@@ -185,6 +185,12 @@ export class AchievementService {
     // Pause Sniper Btn
     if (gameData.isPauseSniperUnlocked) this.unlockAchievement('misc_sniperPause');
 
+    // Midas Curse Purchased
+    if (gameData.isMidasCursePurchased) this.unlockAchievement('misc_gold1');
+
+    // OTC Purchased
+    if (gameData.isOTCPurchased) this.unlockAchievement('misc_manualOverhaul');
+
     // Completionist
     if (this.checkCompletionist()) this.unlockAchievement('misc_completionist');
   }  

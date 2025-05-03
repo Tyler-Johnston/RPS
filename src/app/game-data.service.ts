@@ -22,12 +22,11 @@ export class GameDataService {
   public intervalIncrement: number = 2;
 
   public baseScoreBonusAdditive: number = 0;
-  public scoreBonusUpgradeCost: number = 250;
+  public scoreBonusUpgradeCost: number = 500;
   public scoreMultUpgradeCost: number = 5000;
 
   public sniperCost: number = 500;
-  public bonusPointIncrement: number = 100;
-  public streakPointDivisor: number = 5;
+  public bonusPointIncrement: number = 500;
 
   public rockSniperActive: boolean = false;
   public paperSniperActive: boolean = false;
@@ -100,6 +99,11 @@ export class GameDataService {
   public goldIncrement: number = 1;
   public isMidasCursePurchased: boolean = false;
   public midasCurseCost: number = 500;
+
+  public streakPointIncrement: number = 5;
+  public streakPoints: number = 1;
+  public streakPointUpgradeCost: number = 25;
+  public firstStreakPointUpgrade: boolean = true;
 
   constructor(
     private achievementService: AchievementService,
@@ -218,7 +222,7 @@ export class GameDataService {
 
     if (result === 'You Win!') {
       this.streak++;
-      this.streakBonus = 1 + Math.floor(this.streak / this.streakPointDivisor);
+      this.streakBonus += this.streakPoints;
       this.scoreBonus = this.streakBonus + this.baseScoreBonusAdditive;
       this.points += this.scoreBonus * this.mult;
       this.achievementService.unlockAchievement('prog_firstWin');
@@ -298,7 +302,10 @@ export class GameDataService {
       gold: this.gold,
       goldIncrement: this.goldIncrement,
       isOTCPurchased: this.isOTCPurchased,
-      isMidasCursePurchased: this.isMidasCursePurchased
+      isMidasCursePurchased: this.isMidasCursePurchased,
+      streakPoints: this.streakPoints,
+      firstStreakPointUpgrade: this.firstStreakPointUpgrade,
+      streakPointUpgradeCost: this.streakPointUpgradeCost
     };
   }
 

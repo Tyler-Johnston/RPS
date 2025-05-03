@@ -12,6 +12,10 @@
     transform: scale(0.75);
     box-shadow: 6px 6px #444;
   }
+
+  .achievements-container.midasCurseActive {
+    border-color: gold;
+  }
   
   .header-icon {
     width: 32px;

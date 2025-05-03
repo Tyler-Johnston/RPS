@@ -1,10 +1,14 @@
-<div class="helpPage">
+<div class="helpPage" [class.midasCurseActive]="gameData.isMidasCursePurchased">
     <section>
-      <h2>TODO</h2>
+      <h2>Streak</h2>
+      <p>As your streak grows, you earn a bigger 'Streak Bonus' which directly increases the points you earn per win (PPW).</p>
+      <p>Each consecutive win increases your 'Streak Bonus' by {{ gameData.streakPoints }}. This can be upgraded.</p>
     </section>
 
-    <section>
-    </section>
+    <!-- <section>
+      <h2></h2>
+      <p></p>
+    </section> -->
 
     <!-- Navigation Buttons -->
     <div>

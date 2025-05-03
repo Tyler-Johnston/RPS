@@ -12,7 +12,7 @@ export class Shop3Component {
   constructor(public gameData: GameDataService) {
   }
 
-  purchaseOtc(): void {
+  purchaseOTC(): void {
     this.gameData.isOTCPurchased = true;
     this.gameData.points -= this.gameData.OTCCost;
     this.gameData.saveGameData();
@@ -21,6 +21,12 @@ export class Shop3Component {
   purchaseMidasCurse(): void {
     this.gameData.isMidasCursePurchased = true;
     this.gameData.gold -= this.gameData.midasCurseCost;
+    this.gameData.saveGameData();
+  }
+
+  purchasePauseSniper(): void {
+    this.gameData.isPauseSniperUnlocked = true;
+    this.gameData.points -= this.gameData.pauseSniperBtnCost;
     this.gameData.saveGameData();
   }
 }

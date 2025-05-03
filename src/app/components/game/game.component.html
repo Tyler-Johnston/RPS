@@ -1,4 +1,4 @@
-<div class="game-container">
+<div class="game-container" [class.midasCurseActive]="gameData.isMidasCursePurchased">
     <h2>Opponent's Move: {{ gameData.opponentMove }}</h2>
     <div class="score-display">
       <p>{{ gameData.points }}</p>
@@ -35,7 +35,7 @@
 
     <div class="button-group">
       <button routerLink="/shop" class="shop-button" (click)="gameData.saveGameData()">Shop</button>
-      <button routerLink="/achievements" class="shop-button">
+      <button routerLink="/achievements" class="shop-button" (click)="gameData.saveGameData()">
         <img src="/trophy.png" alt="Trophy" class="trophy-icon" />
       </button>
     </div>

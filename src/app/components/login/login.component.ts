@@ -16,7 +16,7 @@ export class LoginComponent {
   password: string = '';
   errorMessage: string = '';
 
-  constructor(private gameData: GameDataService, private supabaseService: SupabaseService, private router: Router) {}
+  constructor(public gameData: GameDataService, private supabaseService: SupabaseService, private router: Router) {}
 
   async onLogin(): Promise<void> {
     const { error } = await this.supabaseService.signIn(this.email, this.password);

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { GameDataService } from '../../game-data.service';
 
 @Component({
   selector: 'app-help2',
@@ -10,4 +11,5 @@ import { CommonModule } from '@angular/common';
 })
 export class Help2Component {
 
+  constructor(public gameData: GameDataService) {}
 }
