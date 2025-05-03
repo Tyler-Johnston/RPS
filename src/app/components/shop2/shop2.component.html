@@ -3,9 +3,9 @@
     <p class="points">Points: {{ gameData.points }}</p>
 
     <div class="container">
-        <p *ngIf="gameData.scissorGeneratorActive && gameData.scissorGenerationAmount >= gameData.maxGenerationAmount">Rocks: {{ gameData.rocks }}</p>
-        <p *ngIf="gameData.rockGeneratorActive && gameData.rockGenerationAmount >= gameData.maxGenerationAmount">Papers: {{ gameData.papers }}</p>
-        <p *ngIf="gameData.paperGeneratorActive && gameData.paperGenerationAmount >= gameData.maxGenerationAmount">Scissors: {{ gameData.scissors }}</p>
+        <p *ngIf="gameData.scissorSniperActive">Rocks: {{ gameData.rocks }}</p>
+        <p *ngIf="gameData.rockSniperActive">Papers: {{ gameData.papers }}</p>
+        <p *ngIf="gameData.paperSniperActive">Scissors: {{ gameData.scissors }}</p>
     </div>
 
     <div class="container">

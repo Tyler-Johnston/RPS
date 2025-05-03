@@ -53,7 +53,7 @@ export class Shop2Component {
               {
                 this.gameData.rockGenerationAmount += this.gameData.generationIncrement;
               }
-              this.gameData.rockGenerationUpgradeCost = Math.floor(985 * Math.pow(this.gameData.rockGenerationAmount, 1.2));
+              this.gameData.rockGenerationUpgradeCost = Math.floor(575 * Math.pow(this.gameData.rockGenerationAmount, 1.7));
               if (this.gameData.firstRockGenUpgrade) this.gameData.firstRockGenUpgrade = false;
               this.gameData.restartSingleGenerator('rock');
           }
@@ -69,7 +69,7 @@ export class Shop2Component {
                 {
                   this.gameData.paperGenerationAmount += this.gameData.generationIncrement;
                 }
-                this.gameData.paperGenerationUpgradeCost = Math.floor(985 * Math.pow(this.gameData.paperGenerationAmount, 1.2));
+                this.gameData.paperGenerationUpgradeCost = Math.floor(575 * Math.pow(this.gameData.paperGenerationAmount, 1.7));
               if (this.gameData.firstPaperGenUpgrade) this.gameData.firstPaperGenUpgrade = false;
               this.gameData.restartSingleGenerator('paper');
           }
@@ -85,7 +85,7 @@ export class Shop2Component {
                 {
                   this.gameData.scissorGenerationAmount += this.gameData.generationIncrement;
                 }
-                this.gameData.scissorGenerationUpgradeCost = Math.floor(985 * Math.pow(this.gameData.scissorGenerationAmount, 1.2));
+                this.gameData.scissorGenerationUpgradeCost = Math.floor(575 * Math.pow(this.gameData.scissorGenerationAmount, 1.7));
               if (this.gameData.firstScissorGenUpgrade) this.gameData.firstScissorGenUpgrade = false;
               this.gameData.restartSingleGenerator('scissor');
           }
@@ -110,7 +110,7 @@ export class Shop2Component {
     
             this.gameData.rockIntervalUpgradeLevel++;
             this.gameData.rockIntervalUpgradeCost = Math.floor(
-              100 * Math.pow(this.gameData.rockIntervalUpgradeLevel, 1.1)
+              100 * Math.pow(this.gameData.rockIntervalUpgradeLevel, 1.25)
             );
             this.gameData.restartSingleGenerator('rock');
           }
@@ -130,7 +130,7 @@ export class Shop2Component {
     
             this.gameData.paperIntervalUpgradeLevel++;
             this.gameData.paperIntervalUpgradeCost = Math.floor(
-              100 * Math.pow(this.gameData.paperIntervalUpgradeLevel, 1.1)
+              100 * Math.pow(this.gameData.paperIntervalUpgradeLevel, 1.25)
             );
             this.gameData.restartSingleGenerator('paper');
           }
@@ -150,7 +150,7 @@ export class Shop2Component {
     
             this.gameData.scissorIntervalUpgradeLevel++;
             this.gameData.scissorIntervalUpgradeCost = Math.floor(
-              100 * Math.pow(this.gameData.scissorIntervalUpgradeLevel, 1.1)
+              100 * Math.pow(this.gameData.scissorIntervalUpgradeLevel, 1.25)
             );
             this.gameData.restartSingleGenerator('scissor');
           }

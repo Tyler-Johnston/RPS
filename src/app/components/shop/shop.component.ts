@@ -21,8 +21,8 @@ export class ShopComponent {
       this.gameData.scoreMultUpgradeCost = this.gameData.calculateUpgradeCost({
         baseCost: 5000,
         level: this.gameData.mult,
-        exponent: 3.45,
-        linearFactor: 2100
+        exponent: 4.0,
+        linearFactor: 3000
       });
       
       this.gameData.mult++;
@@ -61,7 +61,7 @@ export class ShopComponent {
                 this.gameData.scissorSniperActive = true;
                 break;
         }
-        this.gameData.sniperCost = Math.floor(this.gameData.sniperCost * 4);
+        this.gameData.sniperCost = Math.floor(this.gameData.sniperCost * 5);
         this.gameData.saveGameData();
         this.gameData.handleSniperFire();
     }
@@ -91,19 +91,19 @@ export class ShopComponent {
       case 'rock':
         this.gameData.baseRockEfficiencyPercentage += this.gameData.efficiencyIncrement;
         this.gameData.rockEfficiencyUpgradeCost = Math.floor(
-          375 * Math.pow(this.gameData.baseRockEfficiencyPercentage, 1.35) + (this.gameData.baseRockEfficiencyPercentage)
+          675 * Math.pow(this.gameData.baseRockEfficiencyPercentage, 1.45) + (this.gameData.baseRockEfficiencyPercentage)
         );
         break;
       case 'paper':
         this.gameData.basePaperEfficiencyPercentage += this.gameData.efficiencyIncrement;
         this.gameData.paperEfficiencyUpgradeCost = Math.floor(
-          375 * Math.pow(this.gameData.basePaperEfficiencyPercentage, 1.35) + (this.gameData.basePaperEfficiencyPercentage)
+          675 * Math.pow(this.gameData.basePaperEfficiencyPercentage, 1.45) + (this.gameData.basePaperEfficiencyPercentage)
         );
         break;
       case 'scissor':
         this.gameData.baseScissorEfficiencyPercentage += this.gameData.efficiencyIncrement;
         this.gameData.scissorEfficiencyUpgradeCost = Math.floor(
-          375 * Math.pow(this.gameData.baseScissorEfficiencyPercentage, 1.35) + (this.gameData.baseScissorEfficiencyPercentage)
+          675 * Math.pow(this.gameData.baseScissorEfficiencyPercentage, 1.45) + (this.gameData.baseScissorEfficiencyPercentage)
         );
         break;
     }

@@ -62,20 +62,20 @@ export class GameDataService {
   public paperGenerationAmount: number = 1;
   public scissorGenerationAmount: number = 1;
 
-  public rockGenerationUpgradeCost: number = 500;
-  public paperGenerationUpgradeCost: number = 500;
-  public scissorGenerationUpgradeCost: number = 500;
+  public rockGenerationUpgradeCost: number = 10000;
+  public paperGenerationUpgradeCost: number = 10000;
+  public scissorGenerationUpgradeCost: number = 10000;
 
-  public generationIncrement: number = 5;
-  public maxGenerationAmount: number = 50;
+  public generationIncrement: number = 10;
+  public maxGenerationAmount: number = 100;
 
   public firstRockGenUpgrade: boolean = true;
   public firstPaperGenUpgrade: boolean = true;
   public firstScissorGenUpgrade: boolean = true;
 
-  public rockIntervalUpgradeCost: number = 75;
-  public paperIntervalUpgradeCost: number = 75;
-  public scissorIntervalUpgradeCost: number = 75;
+  public rockIntervalUpgradeCost: number = 500;
+  public paperIntervalUpgradeCost: number = 500;
+  public scissorIntervalUpgradeCost: number = 500;
 
   public rockIntervalUpgradeLevel: number = 0;
   public paperIntervalUpgradeLevel: number = 0;
