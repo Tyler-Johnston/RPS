@@ -17,11 +17,11 @@ export class AchievementService {
     // Progression
     { id: 'prog_firstWin', title: 'Chrysalis', description: 'Win your first match', unlocked: false },
     { id: 'prog_points1', title: 'Spaceboy\'s Mixtape', description: 'Reach 1,000 points', unlocked: false },
-    { id: 'prog_points2', title: 'Bonetrousle', description: 'Reach 100,000 points', unlocked: false },
-    { id: 'prog_points3', title: 'Mistborn', description: 'Reach 1,000,000 points', unlocked: false },
+    { id: 'prog_points2', title: 'Bonetrousle', description: 'Reach 1,000,000 points', unlocked: false },
+    { id: 'prog_points3', title: 'Mistborn', description: 'Reach 1,000,000,000 points', unlocked: false },
     { id: 'prog_combo1', title: 'Guess Who\'s Back', description: 'Get a 250-win streak', unlocked: false },
     { id: 'prog_combo2', title: 'Endure And Survive', description: 'Get a 10,000-win streak', unlocked: false },
-    { id: 'prog_combo3', title: 'Final Duet', description: 'Get a 25,000-win streak', unlocked: false },
+    { id: 'prog_combo3', title: 'Final Duet', description: 'Get a 50,000-win streak', unlocked: false },
   
     // Upgrades
     { id: 'upg_firstSniper', title: 'Baby Steps', description: 'Unlock Your First Sniper', unlocked: false },
@@ -48,8 +48,8 @@ export class AchievementService {
 
   private readonly pointsThresholds = [
     { value: 1000, id: 'prog_points1' },
-    { value: 100000, id: 'prog_points2' },
-    { value: 1000000, id: 'prog_points3' }
+    { value: 1000000, id: 'prog_points2' },
+    { value: 1000000000, id: 'prog_points3' }
   ];
   
   private readonly ppwThresholds = [
@@ -61,7 +61,7 @@ export class AchievementService {
   private readonly streakThresholds = [
     { value: 250, id: 'prog_combo1' },
     { value: 10000, id: 'prog_combo2' },
-    { value: 25000, id: 'prog_combo3' }
+    { value: 50000, id: 'prog_combo3' }
   ];
   
   private readonly fuelStorageThresholds = [
